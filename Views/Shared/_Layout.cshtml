@@ -1,0 +1,103 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Visualizar</title>
+
+    <link href="estilos.css" rel="stylesheet" />
+</head>
+<body>
+    <section class="menuprinc">
+        <section class="bienvenida">
+            <img src="img/logotec.png" alt="..." />
+            <h2 class="titulo">Usuario 1</h2>
+            <h4><a href="#">configuración de la cuenta</a></h4>
+            <h2 class="menu">Menú</h2>
+        </section>
+
+        <nav class="colapsable">
+
+            <ul>
+                <li>
+                    <a href="#menu1">Administrar</a>
+                    <ul id="menu1">
+                        <li><a href="#">Unidades administrativas</a></li>
+                        <li><a href="#">Empleados</a></li>
+                        <li><a href="#">Partidas</a></li>
+                        <li><a href="#">Capítulos</a></li>
+                        <li><a href="#">Insumos</a></li>
+                        <li><a href="#">Unidades de medida</a></li>
+                        <li><a href="#">Indicadores</a></li>
+                        <li><a href="#">Capturar PIID</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#menu2">Restringir</a>
+                    <ul id="menu2">
+                        <li><a href="#">Objetivos</a></li>
+                        <li><a href="#">Partidas</a></li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#menu3">Activar</a>
+                    <ul id="menu3">
+                        <li><a href="#">Periodo de captura de requisiciones</a></li>
+                        <li><a href="#">Periodo de captura POA/PTA</a></li>
+                        <li><a href="#">Periodo de seguimiento POA/PTA</a></li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#menu4">Consultar</a>
+                    <ul id="menu4">
+                        <li><a href="#">PTA/POA programado</a></li>
+                        <li><a href="#">PTA/POA real</a></li>
+                        <li><a href="#">Quien no ha capturado POA/PTA</a></li>
+                        <li><a href="#">Requisiciones</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#menu5">Ver</a>
+                    <ul id="menu5">
+                        <li><a href="#">Gastado/programado de la partida</a></li>
+                        <li><a href="#">Insumos</a></li>
+                        <li><a href="#">Monto asignado por unidad administrativa</a></li>
+
+
+                    </ul>
+                </li>
+                <li><a href="#">Montos a autorizar</a></li>
+                <li><a href="#">Insumos por mes</a></li>
+                <li><a href="#">Catálogo de insumos</a></li>
+            </ul>
+
+        </nav>
+    </section>
+    <header>
+        <label>Bienvenido</label>
+        <div class="opc">
+            <button><img alt="..." /></button>
+            <button><img alt="..." /></button>
+        </div>
+        <div class="buscar">
+            <input type="search" />
+            <button><img  alt="..." /></button>
+        </div>
+    </header>
+
+    <main>
+        @RenderBody();
+    </main>
+</body>
+</html>

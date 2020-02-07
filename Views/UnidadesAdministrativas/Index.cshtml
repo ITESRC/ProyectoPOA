@@ -1,22 +1,31 @@
 ﻿@model IEnumerable<Unidadadministrativa>
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <h1>Unidades administrativas</h1>
+<h1>Unidades administrativas</h1>
+<table>
+    <tr>
+        <th>Clave</th>
+        <th>Nombre</th>
+        <th>Encargado</th>
+        <th>Superior</th>
+        <th></th>
+    </tr>
+
     @foreach (Unidadadministrativa unidadadministrativa in Model)
     {
-        <ul>
-            <li>@unidadadministrativa.Encargado</li>
-        </ul>
+        <tr>
+            <td>@unidadadministrativa.Clave</td>
+            <td>@unidadadministrativa.Encargado</td>
+            <td>@unidadadministrativa.Id</td>
+            <td>@unidadadministrativa.IdUnidadSuperior</td>
+
+        </tr>
     }
-</body>
-</html>
+
+
+</table>
+
