@@ -47,6 +47,10 @@ namespace ProyectoPOA.Models
 
                 entity.Property(e => e.IdUnidadSuperior).HasColumnType("int(11)");
 
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasColumnType("varchar(45)");
+
                 entity.HasOne(d => d.IdUnidadSuperiorNavigation)
                     .WithMany(p => p.InverseIdUnidadSuperiorNavigation)
                     .HasForeignKey(d => d.IdUnidadSuperior)

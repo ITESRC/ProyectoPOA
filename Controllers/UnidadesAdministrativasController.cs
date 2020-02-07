@@ -14,7 +14,7 @@ namespace ProyectoPOA.Controllers
         public IActionResult Index()
         {
              repository = new UnidadAdministrativaRepository();
-            return View(repository.GetAll());
+             return View(repository.GetUnidadesAdministrativas());
         }
         //Mostrar el formulario de Agregar
         public IActionResult Agregar()

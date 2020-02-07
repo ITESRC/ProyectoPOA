@@ -8,7 +8,6 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Visualizar</title>
 
     <link href="estilos.css" rel="stylesheet" />
 </head>
@@ -17,7 +16,7 @@
         <section class="bienvenida">
             <img src="img/logotec.png" alt="..." />
             <h2 class="titulo">Usuario 1</h2>
-            <h4><a href="#">configuración de la cuenta</a></h4>
+            <h4><a href="#">Configuración de la cuenta</a></h4>
             <h2 class="menu">Menú</h2>
         </section>
 
@@ -27,7 +26,7 @@
                 <li>
                     <a href="#menu1">Administrar</a>
                     <ul id="menu1">
-                        <li><a href="#">Unidades administrativas</a></li>
+                        <li><a asp-controller="UnidadesAdministrativas" asp-action="Index">Unidades administrativas</a></li>
                         <li><a href="#">Empleados</a></li>
                         <li><a href="#">Partidas</a></li>
                         <li><a href="#">Capítulos</a></li>
@@ -97,7 +96,7 @@
     </header>
 
     <main>
-        @RenderBody();
+        @RenderBody()
     </main>
 </body>
 </html>
