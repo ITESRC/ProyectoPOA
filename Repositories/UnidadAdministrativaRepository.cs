@@ -28,5 +28,10 @@ namespace ProyectoPOA.Repositories
         {
             return Context.Unidadadministrativa.Include(x=>x.IdUnidadSuperiorNavigation).Select(x=> new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreSuperior = x.IdUnidadSuperiorNavigation.Encargado});
         }
+        public IEnumerable<Unidadadministrativa> GetEliminados()
+        {
+            var dato = Context.Unidadadministrativa.Where(x => x.Eliminado == true);
+            return dato;
+        }
     }
 }

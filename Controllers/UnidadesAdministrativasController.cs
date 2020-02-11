@@ -36,6 +36,15 @@ namespace ProyectoPOA.Controllers
                 return View(unidad);
             }
         }
+        public IActionResult Eliminar(int id)
+        {
+            repository = new UnidadAdministrativaRepository();
+            var consulta = repository.Context.Unidadadministrativa.FirstOrDefault(x => x.Id == id);
+
+            repository.Delete(consulta);
+            return RedirectToAction("Index");
+
+        }
 
     }
 }
