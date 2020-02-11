@@ -15,7 +15,7 @@
 }
 
 html {
-    background-color: #042C5B;
+    background-color: #236b81;
     font-family: caviardreams;
 }
 * {
@@ -26,24 +26,22 @@ html {
 .menuprinc {
     color: white;
     width: 20%;
-    background-color: #042C5B;
+    background-color: #236b81;
     position: fixed;
 }
 .bienvenida {
-    background-color: #042C5B;
+    background-color: #236b81;
     width: 100%;
 }
 .bienvenida img{
-    height:125px;
+    height:130px;
     width:50%;
-    margin-left:calc(100% - 75%);
+    margin-left:25%;
     margin-top:20px;
+    min-height:130px;
+    min-width:50%;
 }
-    .bienvenida h4 {
-        text-align: center;
-        background-color: rgba(0,0,0,0.3);
-        padding: 5px;
-    }
+  
     .bienvenida .titulo {
         text-align: center;
         line-height: 20px;
@@ -71,7 +69,7 @@ html {
 }
 
 nav {
-    background-color: #042C5B;
+    background-color: #236b81;
 }
     .colapsable ul {
         list-style: none;
@@ -85,12 +83,12 @@ nav {
             -webkit-transition: inherit;
             transition: inherit;
             transition: all 0.5s;
-            border-bottom:2px solid black;
+            border-bottom:1px solid #236b81;
         }
 
 .colapsable > ul > li > a {
-    color: white;
-    background-color: rgba(0,0,0,0.3);
+    color: #236b81;
+    background-color: #fdf4af;
     display: block;
     text-decoration: none;
     line-height: 30px;
@@ -101,6 +99,7 @@ nav {
         text-decoration: none;
         display: block;
         line-height: 20px;
+       
         padding-left: 5px;
         color: white;
     }
@@ -111,7 +110,7 @@ nav {
         }
 
     .colapsable ul li ul:target {
-        height: 170px;
+        height: 195px;
     }
 
 header {
@@ -120,7 +119,7 @@ header {
     height: 110px;
     left: 20%;
     top: -19px;
-    background-color: #073B79;
+    background-color: #41a799;
 }
     header .arriba{
 
@@ -132,56 +131,27 @@ header {
     }
 
     header .arriba div{
-        width: calc(100% / 2);
+        width: 100%;
         float: left;
-        height:inherit
+        height:inherit;
+       
+            
     }
 
 
-    .arriba label{
-        line-height:120px;
-        height:130px;
-        width:100%;
-        margin-left:40px;
-        font-size:xx-large;
-        text-align:center;
-        
-     font-family:cdbold;
-     color:white;
-       
-    }
-  
-    .arriba a{
-
-       
-        height:80px;      
-        float:left;
-        width:calc(100% / 2);
-        background-image:url(images/plus.png);
-        background-repeat:no-repeat;
-        background-position:center 50px ;
-    
-       
-        
-    }
-
-
-
-
-.buscar .search {
-    border: 2px solid #7D8997;
-    border-radius: 50px;
-    width: calc(100% / 2);
-    height: 30px;
-    margin: auto;
-    margin-top:45px;
-  
-    background-image: url(images/search.png);
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: right;
-
+.arriba label {
+    line-height: 120px;
+    height: 130px;
+    width: 100%;
+    margin-left: 40px;
+    font-size: xx-large;
+    text-align: center;
+   
+    font-family: cdbold;
+    color: #fdf4af;
 }
+  
+   
 
 main {
     width: 80%;
@@ -191,6 +161,39 @@ main {
     top:90px;
    background-color:white;
 }
+    main .plus {
+        height: 80px;
+        float: left;
+        width: 60%;
+        background-image: url(images/more.png);
+        background-repeat: no-repeat;
+        background-position: 99% 22px;
+       padding:10px;
+       box-sizing:border-box;
+      
+    }
+
+
+    .buscar{
+        width:100%;
+        
+       
+    }
+
+.buscar .search {
+    border: 2px solid #7D8997;
+    border-radius: 50px;
+    width: 40%;
+    padding-left:10px;
+ 
+    height: 35px;
+    margin: auto;
+    margin-top: 20px;
+    background-image: url(images/search.png);
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: right;
+}
 
 table{
     width:80%;
@@ -198,6 +201,10 @@ table{
     margin:auto;
     background-color:white;
     margin-top:20px;
+ 
+   
+    
+  
 }
 
     table th {
@@ -206,6 +213,7 @@ table{
         height: 30px;
         line-height: 30px;
         color: #7D8997;
+       
     }
 
     table td {
@@ -213,6 +221,17 @@ table{
         height: 40px;
         line-height:30px;
     }
+  table #fila:hover{
+      background-color:rgba(0,0,0,0.2);
+  }
+  table td a{
+      display:none;
+  }
+
+    table #fila:hover a{
+        display:initial;
+    }
+
 
     table a {
         background-image: url(images/quit.png);
@@ -262,3 +281,67 @@ main .divmain {
     border-bottom: 1.5px solid #7D8997;
     background-color: #DBEBFF;
 }
+
+.container-all {
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    left: 20%;
+    top: 90px;
+  visibility:hidden;
+  opacity:0;
+  transition:all 600ms;
+}
+
+    .container-all:target {
+        background-color: rgba(0,0,0,0.8);
+        visibility:visible;
+        opacity:1;
+    }
+        .container-all:target .popup{
+            top:50%;
+            left:50%;
+            transform:rotate(0deg) translate(-50%, -50%);
+            visibility:visible;
+        }
+
+        .popup {
+            width: 50%;
+            max-height: 30%;
+            height: 800px;
+            position: absolute;
+            top: -80%;
+            left: -80%;
+            visibility:hidden;
+            transform: rotate(90deg) translate(-150%, 230%);
+            transition: all 600ms;
+            background-color: #fdf4af;
+        }
+.popup label{
+    text-align:center;
+    font-size:x-large;
+    height:100px;
+    line-height:100px;
+    color:#236b81;
+    display:block;
+}
+
+.popup .confirm{
+    height:50px;
+  
+    margin:0px 5px 0px 25px;
+    width:55%;
+    border-radius:5px;
+    background-color:#41a799;
+   color:white;
+}
+
+    .popup .cancel {
+        height: 50px;
+        margin: 0px 10px 0px 0px;
+        width: 35%;
+        border-radius: 5px;
+        background-color: #236b81;
+        color:white;
+    }
+

@@ -6,16 +6,18 @@
 <header>
     <section class="arriba">
         <div class="lbl">
-            <label>Bienvenido</label>
+            <label>Unidades </label>
         </div>
-        <div class="buscar">
-            <a asp-controller="UnidadesAdministrativas" asp-action="Agregar"></a>
-            <input class="search" type="search" placeholder="   Buscar..." />
-        </div>
+       
     </section>
 </header>
 
 <main>
+    <div class="buscar">
+        <a asp-controller="UnidadesAdministrativas" asp-action="Agregar" class="plus"></a>
+        <input class="search" type="search" placeholder="Buscar..." />
+
+    </div>
     <table>
         <tr>
             <th>Clave</th>
@@ -27,16 +29,24 @@
         </tr>
         @foreach (UnidadAdministrativasViewModel unidad in Model)
         {
-            <tr>
+            <tr id="fila">
                 <td>@unidad.Clave</td>
                 <td>@unidad.Nombre</td>
                 <td>@unidad.NombreEncargado</td>
                 <td>@unidad.NombreSuperior</td>
-                <td style="width:20px;"><a href="#">......</a></td>
+                <td class="openpopup" style="width:20px;"><a href="#pop">......</a></td>
                 <td style="width:20px;"><a class="edit" href="#">......</a></td>
             </tr>
         }
     </table>
-
+  
 </main>
+<div class="container-all" id="pop">
+    <section class="popup">
+        <label>¿Eliminar?</label>
+        <input class="confirm" type="button" value="Confirmar" />
+        <a class="cancel" href="#">cancelar</a>
+    </section>
+</div>
+
 
