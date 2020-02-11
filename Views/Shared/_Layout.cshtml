@@ -14,9 +14,9 @@
 <body>
     <section class="menuprinc">
         <section class="bienvenida">
-            <img src="img/logotec.png" alt="..." />
+            <img src="~/images/tec.png" />
             <h2 class="titulo">Usuario 1</h2>
-            <h4><a href="#">Configuración de la cuenta</a></h4>
+            <h4><a href="#">configuración de la cuenta</a></h4>
             <h2 class="menu">Menú</h2>
         </section>
 
@@ -83,20 +83,8 @@
 
         </nav>
     </section>
-    <header>
-        <label>Bienvenido</label>
-        <div class="opc">
-            <button><img alt="..." /></button>
-            <button><img alt="..." /></button>
-        </div>
-        <div class="buscar">
-            <input type="search" />
-            <button><img  alt="..." /></button>
-        </div>
-    </header>
 
-    <main>
-        @RenderBody()
-    </main>
+    @RenderBody()
+
 </body>
 </html>

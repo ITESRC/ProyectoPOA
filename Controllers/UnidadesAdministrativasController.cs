@@ -22,29 +22,20 @@ namespace ProyectoPOA.Controllers
             return View();
         }
         //Agregar todos los campos del formulario
-        public IActionResult Agregar(UnidadAdministrativasViewModel unidad)
-        {
-            repository = new UnidadAdministrativaRepository();
-            if (ModelState.IsValid)
-            {
-                repository.Context.Add(unidad);
-                repository.Save();
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View(unidad);
-            }
-        }
-        public IActionResult Eliminar(int id)
-        {
-            repository = new UnidadAdministrativaRepository();
-            var consulta = repository.Context.Unidadadministrativa.FirstOrDefault(x => x.Id == id);
-
-            repository.Delete(consulta);
-            return RedirectToAction("Index");
-
-        }
-
+        //public IActionResult Agregar(UnidadAdministrativasViewModel unidad)
+        //{
+        //    repository = new UnidadAdministrativaRepository();
+        //    if (ModelState.IsValid)
+        //    {
+        //        repository.Context.Add(unidad);
+        //        repository.Save();
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+        //        return View(unidad);
+        //    }
+        //}
+         
     }
 }

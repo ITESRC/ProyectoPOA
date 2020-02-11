@@ -3,24 +3,40 @@
     ViewData["Title"] = "Administrar Unidades Administrativas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<header>
+    <section class="arriba">
+        <div class="lbl">
+            <label>Bienvenido</label>
+        </div>
+        <div class="buscar">
+            <a asp-controller="UnidadesAdministrativas" asp-action="Agregar"></a>
+            <input class="search" type="search" placeholder="   Buscar..." />
+        </div>
+    </section>
+</header>
 
-<h1>Unidades administrativas</h1>
-<table>
-    <tr>
-        <th>Clave</th>
-        <th>Nombre</th>
-        <th>Encargado</th>
-        <th>Superior</th>
-        <th></th>
-    </tr>
-    @foreach (UnidadAdministrativasViewModel unidadadministrativa in Model)
-    {
-<tr>
-    <td>@unidadadministrativa.Clave</td>
-    <td>@unidadadministrativa.Nombre</td>
-    <td>@unidadadministrativa.NombreEncargado</td>
-    <td>@unidadadministrativa.NombreSuperior</td>
-</tr>
-    }
-</table>
+<main>
+    <table>
+        <tr>
+            <th>Clave</th>
+            <th>Nombre</th>
+            <th>Encargado</th>
+            <th>Superior</th>
+            <th style="width:40px;"></th>
+            <th style="width:40px;"></th>
+        </tr>
+        @foreach (UnidadAdministrativasViewModel unidad in Model)
+        {
+            <tr>
+                <td>@unidad.Clave</td>
+                <td>@unidad.Nombre</td>
+                <td>@unidad.NombreEncargado</td>
+                <td>@unidad.NombreSuperior</td>
+                <td style="width:20px;"><a href="#">......</a></td>
+                <td style="width:20px;"><a class="edit" href="#">......</a></td>
+            </tr>
+        }
+    </table>
+
+</main>
 
