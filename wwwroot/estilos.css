@@ -13,8 +13,9 @@
     src: url(fuentes/CaviarDreams_Bold.ttf);
     font-family:cdbold;
 }
+
 html {
-    background-color: #236b81;
+    background-color: white;
     font-family: caviardreams;
 }
 * {
@@ -23,31 +24,37 @@ html {
     box-sizing:border-box;
 }
 .menuprinc {
-    color: white;
+    color: #7D8997;
     width: 20%;
-    background-color: #236b81;
+    height: 60%;
+    background-color: #f8f9fa;
     position: fixed;
 }
+    .menuprinc .black {
+        height: 40px;
+        width: 100%;
+        background-color: #272b30;
+    }
 .bienvenida {
-    background-color: #236b81;
+    background-color: #f8f9fa;
     width: 100%;
 }
 .bienvenida img{
-    height:130px;
-    width:50%;
+    height:30px;
+    width:30px;
     margin-left:25%;
-    margin-top:20px;
+    margin-top:15px;
     min-height:130px;
     min-width:50%;
 }
-  
-    .bienvenida .titulo {
+
+    .bienvenida .user {
         text-align: center;
         line-height: 20px;
-        margin: 20px 0 0 0;
-     font-family:code;
-        padding: 10px;
-        background-color: rgba(0,0,0,0.3);
+        margin: 10px 0 0 0;
+        font-family: code;
+        padding: 5px;
+        color: #0647AF;
     }
 .bienvenida a{
     text-decoration:none;
@@ -56,22 +63,24 @@ html {
     .bienvenida a:hover {
         color: #053064;
     }
-.bienvenida .menu {
-    text-align: center;
-   padding:20px 0;
-}
+    .bienvenida .menu {
+        text-align: center;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+    }
 
 .colapsable {
     width: 100%;
     height: 100%;
-  
+
 }
 
 nav {
-    background-color: #236b81;
+    background-color: #f8f9fa;
 }
     .colapsable ul {
         list-style: none;
+        
     }
 
         .colapsable ul ul {
@@ -82,43 +91,49 @@ nav {
             -webkit-transition: inherit;
             transition: inherit;
             transition: all 0.5s;
-            border-bottom:1px solid #236b81;
+           
         }
 
 .colapsable > ul > li > a {
-    color: #236b81;
-    background-color: #fdf4af;
+    color: #7D8997;
+    background-color: #f8f9fa;
     display: block;
+    padding: 2px;
     text-decoration: none;
     line-height: 30px;
     width: 100%;
+    font-family: cdbold;
 }
+    .colapsable > ul > li > a:hover{
+        color:#0647AF;
+    }
 
     .colapsable ul ul a {
         text-decoration: none;
         display: block;
         line-height: 20px;
-       
         padding-left: 5px;
-        color: white;
+        color: #7D8997;
+        font-size:smaller;
+        font-family:cdbold;
     }
 
         .colapsable ul ul a:hover {
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.2);
             
         }
 
     .colapsable ul li ul:target {
-        height: 195px;
+        height: 177px;
     }
 
 header {
     position: relative;
     width: 80%;
-    height: 110px;
+    height: 60px;
     left: 20%;
     top: -19px;
-    background-color: #41a799;
+    background-color: #272b30;
 }
     header .arriba{
 
@@ -139,15 +154,15 @@ header {
 
 
 .arriba label {
-    line-height: 120px;
-    height: 130px;
+    line-height:80px;
+    height: 60px;
     width: 100%;
     margin-left: 40px;
-    font-size: xx-large;
+    font-size: x-large;
     text-align: center;
    
     font-family: cdbold;
-    color: #fdf4af;
+    color: #f8f9fa;
 }
   
    
@@ -157,26 +172,27 @@ main {
     height:100%;
     position: absolute;
     left:20%;
-    top:90px;
+    top:40px;
    background-color:white;
 }
     main .plus {
         height: 80px;
-        float: left;
-        width: 60%;
+       float:left;
+        width: 60px;
+        
         background-image: url(images/more.png);
         background-repeat: no-repeat;
-        background-position: 99% 22px;
+        background-position: center 22px;
        padding:10px;
+       margin:auto;
        box-sizing:border-box;
       
     }
 
 
     .buscar{
-        width:100%;
-        
-       
+        width:80%;
+        margin-left:750px;
     }
 
 .buscar .search {
@@ -251,7 +267,7 @@ table{
         color: rgba(0,0,0,0);
     }
 main .divmain {
-    background-color: #DBEBFF;
+    background-color: white;
     width: 50%;
     margin: auto;
     height: 550px;
@@ -278,7 +294,7 @@ main .divmain {
 
 .divmain input, .divmain select {
     border-bottom: 1.5px solid #7D8997;
-    background-color: #DBEBFF;
+    background-color: white;
 }
 
 .container-all {
@@ -325,22 +341,30 @@ main .divmain {
     display:block;
 }
 
-.popup .confirm{
-    height:50px;
-  
-    margin:0px 5px 0px 25px;
-    width:55%;
-    border-radius:5px;
-    background-color:#41a799;
-   color:white;
-}
+            .popup .confirm {
+                height: 50px;
+                margin: 0px 5px 0px 25px;
+                width: 55%;
+                border-radius: 5px;
+                background-color: #272b30;
+                color: white;
+            }
 
     .popup .cancel {
         height: 50px;
         margin: 0px 10px 0px 0px;
         width: 35%;
         border-radius: 5px;
-        background-color: #236b81;
+        background-color: #272b30;
         color:white;
     }
 
+    @media screen and (max-width: 500px){
+       table{
+         
+       }
+
+       .bienvenida img{
+  
+       }
+    }
