@@ -32,7 +32,11 @@ namespace ProyectoPOA.Repositories
             {
                 throw new Exception("El nombre del encargado no debe de ir vacío.");
             }
-            
+
+            if (GetAll().Any(x => x.Nombre.ToUpper() == unidad.Nombre.ToUpper() && x.Eliminado == false))
+            {
+                throw new Exception($"La unidad administrativa {unidad.Nombre} ya existe y está activa.");
+            }
         }
     }
 }
