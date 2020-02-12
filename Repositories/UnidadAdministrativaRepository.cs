@@ -5,28 +5,34 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProyectoPOA.Models;
 using ProyectoPOA.Models.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace ProyectoPOA.Repositories
 {
     public class UnidadAdministrativaRepository:Repository<Unidadadministrativa>
     {
-        //Ordenar por nombre
-        public IEnumerable<Unidadadministrativa> ByName()
-        {
-            var dato = Context.Unidadadministrativa.OrderBy(x => x.Encargado);
-            return dato;
-        }
-
-        public Unidadadministrativa BySuperior(int id)
-        {
-            // Variable para buscar el nombre del superior via id_superior enlazando a la tabla de superiores, se necesita la otra tabla
-            var dato = Context.Unidadadministrativa.FirstOrDefault(x => x.IdUnidadSuperior == id);
-            return dato;
-        }
-
         public IEnumerable<UnidadAdministrativasViewModel> GetUnidadesAdministrativas()
         {
-            return Context.Unidadadministrativa.Include(x=>x.IdUnidadSuperiorNavigation).Where(x=>x.Eliminado == false).Select(x=> new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreSuperior = x.IdUnidadSuperiorNavigation.Encargado});
+            return Context.Unidadadministrativa.Include(x=>x.IdUnidadSuperiorNavigation).Where(x=>x.Eliminado == false).Select(x=> new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreSuperior = x.IdUnidadSuperiorNavigation.Encargado}).OrderBy(x=>x.Nombre);
+        }
+
+        Regex clave = new Regex("^[0-9]{4}$");
+
+        public void ValidarUnidadAdministrativa(Unidadadministrativa unidad)
+        {
+            if (clave.IsMatch(unidad.Clave.ToString()))
+            {
+                throw new Exception("La clave es incorrecta. Debe de ser de 4 digitos.");
+            }
+            if (string.IsNullOrWhiteSpace(unidad.Nombre))
+            {
+                throw new Exception("El nombre de la unidad administrativa no debe de ir vacío.");
+            }
+            if (string.IsNullOrWhiteSpace(unidad.Encargado))
+            {
+                throw new Exception("El nombre del encargado no debe de ir vacío.");
+            }
+            
         }
     }
 }
