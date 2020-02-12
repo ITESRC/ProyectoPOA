@@ -33,7 +33,7 @@
                 <td>@unidad.Nombre</td>
                 <td>@unidad.NombreEncargado</td>
                 <td>@unidad.NombreSuperior</td>
-                <td class="openpopup" style="width:20px;"><a href="#pop">......</a></td>
+                <td class="openpopup" style="width:20px;"><a  asp-action="Eliminar" asp-controller="UnidadesAdministrativas" asp-route-id="@unidad.Id">......</a></td>
                 <td style="width:20px;"><a class="edit" href="#">......</a></td>
             </tr>
         }
