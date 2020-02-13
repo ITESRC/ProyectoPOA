@@ -48,5 +48,15 @@ namespace ProyectoPOA.Repositories
 
             return true;
         }
+
+        public void EliminarUnidad(int id)
+        {
+            var unidad = GetById(id);
+            if (unidad != null)
+            {
+                unidad.Eliminado = true;
+                Context.SaveChanges();
+            }
+        }
     }
 }
