@@ -13,8 +13,8 @@ namespace ProyectoPOA.Controllers
         UnidadAdministrativaRepository repository;
         public IActionResult Index()
         {
-             repository = new UnidadAdministrativaRepository();
-             return View(repository.GetUnidadesAdministrativas());
+            repository = new UnidadAdministrativaRepository();
+            return View(repository.GetUnidadesAdministrativas());
         }
         //Mostrar el formulario de Agregar
         public IActionResult Agregar()
@@ -22,29 +22,37 @@ namespace ProyectoPOA.Controllers
             return View();
         }
         //Agregar todos los campos del formulario
+        [HttpPost]
+        public IActionResult Agregar(UnidadAdministrativasViewModel unidad)
+        {
 
-        //public IActionResult Agregar(UnidadAdministrativasViewModel unidad)
-        //{
-        //    repository = new UnidadAdministrativaRepository();
-        //    if (ModelState.IsValid)
-        //    {
-        //        repository.Context.Add(unidad);
-        //        repository.Save();
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        return View(unidad);
-        //    }
-        //}
+            if (ModelState.IsValid)
+            {
+                repository = new UnidadAdministrativaRepository();
+                repository.Insert(unidad);
+                return RedirectToAction("Index", "UnidadesAdministrativas");
+            }
+            else
+            {
+                return View(unidad);
+            }
+        }
+        [HttpPost]
         public IActionResult Eliminar(int id)
         {
             repository = new UnidadAdministrativaRepository();
-            var consulta = repository.Context.Unidadadministrativa.FirstOrDefault(x => x.Id == id);
+            var consulta = repository.GetById(id);
 
-            repository.Delete(consulta);
-            return RedirectToAction("Index");
-
+            if (consulta != null)
+            {
+                repository.Delete(consulta);
+                return RedirectToAction("Index");
+                //Toast
+               
+            }
+            ModelState.AddModelError("", "La unidad administrativa no existe o ya ha sido eliminada.");
+            return View(consulta);
+            
         }
     }
 }

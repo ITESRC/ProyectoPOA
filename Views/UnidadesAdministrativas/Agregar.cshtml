@@ -1,4 +1,5 @@
 ﻿@inject UnidadesAdministrativasService servicio
+@model UnidadAdministrativasViewModel
 @{
     ViewData["Title"] = "Agregar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,22 +9,28 @@
 </header>
 
 <main>
-    <div class="divmain" style="margin-top:20px">
-        <label >Clave:</label>
-        <input type="number" />
-        <label>Nombre:</label>
-        <input type="text" />
-        <label>Encargado:</label> 
-        <input type="text" />
-        <label>Superior:</label>
-        <select asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
-            @*<option selected="selected">superior 1</option>
-            <option>superior 2</option>*@
+    <form method="post" asp-action="Agregar" >
+        <div class="divmain" style="margin-top:20px">
+            <label>Clave:</label>
+            <input asp-for="Clave" type="number" />
+            <label>Nombre:</label>
+            <input asp-for="Nombre" type="text" />
+            <label>Encargado:</label>
+            <input asp-for="NombreEncargado" type="text" />
+            <label>Superior:</label>
+            <select asp-for="NombreSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
+                @*<option selected="selected">superior 1</option>
+                    <option>superior 2</option>*@
 
-        </select>
-        <input style="margin-top:30px; width:350px; display:initial; margin-left:30px; background-color:#B9FFB9; color:white; border-bottom:none" class="btn" type="button" value="Añadir" />
-        <input style="margin-top:10px; width:190px; display:initial; background-color:#FFA4A4; color:white; border-bottom:none;" class="btn2" type="button" value="Cancelar" />
-
-    </div>
+            </select>
+            <div class="botones">
+                <p id="errores">
+                    @Html.ValidationSummary()
+                </p>
+                <input style="margin-top:30px; width:350px; display:initial; margin-left:30px; background-color:#B9FFB9; color:white; border-bottom:none" class="btn" type="submit" value="Añadir" id="btnAgregar" />
+                <input style="margin-top:10px; width:190px; display:initial; background-color:#FFA4A4; color:white; border-bottom:none;" class="btn2" type="button" value="Cancelar" />
+            </div>
+        </div>
+    </form>
 </main>
 
