@@ -26,7 +26,7 @@ namespace ProyectoPOA.Repositories
 
         Regex clave = new Regex("^[0-9]{4}$");
 
-        public bool ValidarUnidadAdministrativa(Unidadadministrativa unidad)
+        public bool ValidarUnidadAdministrativa(Unidadadministrativa unidad, bool editar)
         {
             if (!clave.IsMatch(unidad.Clave.ToString()))
             {
@@ -41,7 +41,7 @@ namespace ProyectoPOA.Repositories
                 throw new Exception("El nombre del encargado no debe de ir vacío.");
             }
 
-            if (GetAll().Any(x => x.Nombre.ToUpper() == unidad.Nombre.ToUpper() && x.Eliminado == false))
+            if (GetAll().Any(x => (x.Nombre.ToUpper() == unidad.Nombre.ToUpper() && x.Eliminado == false) && editar == false))
             {
                 throw new Exception($"La unidad administrativa {unidad.Nombre} ya existe y está activa.");
             }
@@ -55,7 +55,7 @@ namespace ProyectoPOA.Repositories
             if (unidad != null)
             {
                 unidad.Eliminado = true;
-                Context.SaveChanges();
+                Save();
             }
         }
     }

@@ -30,10 +30,53 @@ namespace ProyectoPOA.Controllers
                 repository = new UnidadAdministrativaRepository();
                 try
                 {
-                    if (repository.ValidarUnidadAdministrativa(unidad))
+                    if (repository.ValidarUnidadAdministrativa(unidad, false))
                     {
                         repository.Insert(unidad);
                         return new RedirectToActionResult("Index","UnidadesAdministrativas", null);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View(unidad);
+                }
+                return View(unidad);
+            }
+            else
+            {
+                return View(unidad);
+            }
+        }
+
+        public IActionResult Editar(int id)
+        {
+            repository = new UnidadAdministrativaRepository();
+            var unidad = repository.GetById(id);
+
+            if (unidad != null)
+            {
+                return View(unidad);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Unidadadministrativa unidad)
+        {
+            if (ModelState.IsValid)
+            {
+                repository = new UnidadAdministrativaRepository();
+                try
+                {
+                    if (repository.ValidarUnidadAdministrativa(unidad, true))
+                    {
+                        repository = new UnidadAdministrativaRepository();
+                        repository.Update(unidad);
+                        return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
                     }
                 }
                 catch (Exception ex)
