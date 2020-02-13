@@ -49,21 +49,14 @@ namespace ProyectoPOA.Controllers
             }
         }
 
-        [HttpPost]
         public IActionResult Eliminar(int id)
         {
             repository = new UnidadAdministrativaRepository();
             var consulta = repository.GetById(id);
-
-            if (consulta != null)
-            {
                 repository.Delete(consulta);
                 return RedirectToAction("Index");
-                //Toast
-               
-            }
-            ModelState.AddModelError("", "La unidad administrativa no existe o ya ha sido eliminada.");
-            return View(consulta);
+            //ModelState.AddModelError("", "La unidad administrativa no existe o ya ha sido eliminada.");
+            //return View(consulta);
         }
     }
 }
