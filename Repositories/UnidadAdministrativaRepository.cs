@@ -28,6 +28,7 @@ namespace ProyectoPOA.Repositories
 
         public bool ValidarUnidadAdministrativa(Unidadadministrativa unidad, bool editar)
         {
+            
             if (!clave.IsMatch(unidad.Clave.ToString()))
             {
                 throw new Exception("La clave es incorrecta. Debe de ser de 4 digitos.");
