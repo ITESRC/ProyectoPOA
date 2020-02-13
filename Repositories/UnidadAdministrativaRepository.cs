@@ -17,18 +17,18 @@ namespace ProyectoPOA.Repositories
             return Context.Unidadadministrativa.Include(x=>x.IdUnidadSuperiorNavigation).Where(x=>x.Eliminado == false).Select(x=> new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreSuperior = x.IdUnidadSuperiorNavigation.Encargado}).OrderBy(x=>x.Nombre);
         }
 
-        public void Insert(UnidadAdministrativasViewModel vm)
-        {
-            var idEncargado = Context.Unidadadministrativa.FirstOrDefault(x => x.Encargado == vm.NombreEncargado).IdUnidadSuperior;
-            Unidadadministrativa c = new Unidadadministrativa { Id = vm.Id, Clave = vm.Clave, Nombre = vm.Nombre, Encargado = vm.NombreEncargado, Eliminado = false, IdUnidadSuperior = idEncargado };
-            Insert(c);
-        }
+        //public void Insert(UnidadAdministrativasViewModel vm)
+        //{
+        //    var idEncargado = Context.Unidadadministrativa.FirstOrDefault(x => x.Encargado == vm.NombreEncargado).IdUnidadSuperior;
+        //    Unidadadministrativa c = new Unidadadministrativa { Id = vm.Id, Clave = vm.Clave, Nombre = vm.Nombre, Encargado = vm.NombreEncargado, Eliminado = false, IdUnidadSuperior = idEncargado };
+        //    Insert(c);
+        //}
 
         Regex clave = new Regex("^[0-9]{4}$");
 
-        public void ValidarUnidadAdministrativa(Unidadadministrativa unidad)
+        public bool ValidarUnidadAdministrativa(Unidadadministrativa unidad)
         {
-            if (clave.IsMatch(unidad.Clave.ToString()))
+            if (!clave.IsMatch(unidad.Clave.ToString()))
             {
                 throw new Exception("La clave es incorrecta. Debe de ser de 4 digitos.");
             }
@@ -45,6 +45,8 @@ namespace ProyectoPOA.Repositories
             {
                 throw new Exception($"La unidad administrativa {unidad.Nombre} ya existe y está activa.");
             }
+
+            return true;
         }
     }
 }

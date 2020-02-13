@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProyectoPOA.Models.ViewModels;
+using ProyectoPOA.Models;
 using ProyectoPOA.Repositories;
 
 namespace ProyectoPOA.Controllers
@@ -23,20 +23,32 @@ namespace ProyectoPOA.Controllers
         }
         //Agregar todos los campos del formulario
         [HttpPost]
-        public IActionResult Agregar(UnidadAdministrativasViewModel unidad)
+        public IActionResult Agregar(Unidadadministrativa unidad)
         {
-
             if (ModelState.IsValid)
             {
                 repository = new UnidadAdministrativaRepository();
-                repository.Insert(unidad);
-                return RedirectToAction("Index", "UnidadesAdministrativas");
+                try
+                {
+                    if (repository.ValidarUnidadAdministrativa(unidad))
+                    {
+                        repository.Insert(unidad);
+                        return new RedirectToActionResult("Index","UnidadesAdministrativas", null);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View(unidad);
+                }
+                return View(unidad);
             }
             else
             {
                 return View(unidad);
             }
         }
+
         [HttpPost]
         public IActionResult Eliminar(int id)
         {
@@ -52,7 +64,6 @@ namespace ProyectoPOA.Controllers
             }
             ModelState.AddModelError("", "La unidad administrativa no existe o ya ha sido eliminada.");
             return View(consulta);
-            
         }
     }
 }

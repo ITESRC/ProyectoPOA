@@ -1,5 +1,5 @@
 ﻿@inject UnidadesAdministrativasService servicio
-@model UnidadAdministrativasViewModel
+@model Unidadadministrativa
 @{
     ViewData["Title"] = "Agregar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,12 +16,10 @@
             <label>Nombre:</label>
             <input asp-for="Nombre" type="text" />
             <label>Encargado:</label>
-            <input asp-for="NombreEncargado" type="text" />
+            <input asp-for="Encargado" type="text" />
             <label>Superior:</label>
-            <select asp-for="NombreSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
-                @*<option selected="selected">superior 1</option>
-                    <option>superior 2</option>*@
-
+            <select asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
+                <option selected="selected" value="">-- Seleccionar superior --</option>
             </select>
             <div class="botones">
                 <p id="errores">
