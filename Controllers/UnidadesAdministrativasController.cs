@@ -16,6 +16,22 @@ namespace ProyectoPOA.Controllers
             repository = new UnidadAdministrativaRepository();
             return View(repository.GetUnidadesAdministrativas());
         }
+
+        [HttpPost]
+        public IActionResult Index(string dato)
+        {
+            ViewBag.Busqueda = dato;
+            if (!string.IsNullOrWhiteSpace(dato))
+            {
+                repository = new UnidadAdministrativaRepository();
+                return View(repository.FiltrarUnidades(dato));
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
         //Mostrar el formulario de Agregar
         public IActionResult Agregar()
         {
