@@ -17,49 +17,58 @@ namespace ProyectoPOA.Repositories
             return Context.Unidadadministrativa.Include(x => x.IdUnidadSuperiorNavigation).Where(x => x.Eliminado == false).Select(x => new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreSuperior = x.IdUnidadSuperiorNavigation.Encargado }).OrderBy(x => x.Nombre);
         }
 
-        //public void Insert(UnidadAdministrativasViewModel vm)
-        //{
-        //    var idEncargado = Context.Unidadadministrativa.FirstOrDefault(x => x.Encargado == vm.NombreEncargado).IdUnidadSuperior;
-        //    Unidadadministrativa c = new Unidadadministrativa { Id = vm.Id, Clave = vm.Clave, Nombre = vm.Nombre, Encargado = vm.NombreEncargado, Eliminado = false, IdUnidadSuperior = idEncargado };
-        //    Insert(c);
-        //}
-
-        Regex clave = new Regex(@"^[0-9]{4}$");
+        Regex clave = new Regex("^[0-9]{4}$");
         Regex nombre = new Regex(@"^[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ\s]+$");
         Regex nombreEncargado = new Regex(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$");
 
-        public bool ValidarUnidadAdministrativa(Unidadadministrativa unidad, bool editar)
+        public void ValidarUnidadAdministrativa(Unidadadministrativa unidad)
         {
+            string errores = "";
 
             if (!clave.IsMatch(unidad.Clave.ToString()))
             {
-                throw new Exception("La clave es incorrecta. Debe de ser de 4 digitos.");
+                errores = errores + "La clave es incorrecta. Debe de ser de 4 digitos.\n";
             }
             if (string.IsNullOrWhiteSpace(unidad.Nombre))
             {
-                throw new Exception("El nombre de la unidad administrativa no debe de ir vacío.");
+                errores = errores + "El nombre de la unidad administrativa no debe de ir vacío.\n";
             }
             if (string.IsNullOrWhiteSpace(unidad.Encargado))
             {
-                throw new Exception("El nombre del encargado no debe de ir vacío.");
+                errores = errores + "El nombre del encargado no debe de ir vacío.\n";
             }
 
-            if (GetAll().Any(x => (x.Nombre.ToUpper() == unidad.Nombre.ToUpper() && x.Eliminado == false) && editar == false))
+            if (GetAll().Any(x => x.Clave == unidad.Clave))
             {
-                throw new Exception($"La unidad administrativa {unidad.Nombre} ya existe y está activa.");
+                errores = errores + "La clave de la unidad administrativa ya existe.\n";
             }
 
-            if (!nombre.IsMatch(unidad.Nombre))
+            if (!string.IsNullOrWhiteSpace(unidad.Nombre))
             {
-                throw new Exception($"El nombre de la unidad administrativa no es valido.");
+                if (GetAll().Any(x => (x.Nombre.ToUpper() == unidad.Nombre.ToUpper() && x.Eliminado == false) && unidad.Id == 0))
+                {
+                    errores = errores + $"La unidad administrativa {unidad.Nombre} ya existe y está activa.\n";
+                }
+
+                if (!nombre.IsMatch(unidad.Nombre))
+                {
+                    errores = errores + "El nombre de la unidad administrativa no es valido.\n";
+                }
             }
 
-            if (!nombreEncargado.IsMatch(unidad.Encargado))
+            if (!string.IsNullOrWhiteSpace(unidad.Encargado))
             {
-                throw new Exception($"El nombre del encargado es incorrecto.\nProporcione nombre completo.");
+                if (!nombreEncargado.IsMatch(unidad.Encargado))
+                {
+                    errores = errores + $"El nombre del encargado es incorrecto.\nProporcione nombre completo.\n";
+                }
             }
 
-            return true;
+            if (!string.IsNullOrWhiteSpace(errores))
+            {
+                throw new Exception(errores);
+            }
+
         }
 
         public void EliminarUnidad(int id)

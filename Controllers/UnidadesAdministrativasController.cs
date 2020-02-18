@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoPOA.Models;
 using ProyectoPOA.Repositories;
+using System.Text;
 
 namespace ProyectoPOA.Controllers
 {
@@ -44,20 +45,18 @@ namespace ProyectoPOA.Controllers
             if (ModelState.IsValid)
             {
                 repository = new UnidadAdministrativaRepository();
+
                 try
                 {
-                    if (repository.ValidarUnidadAdministrativa(unidad, false))
-                    {
-                        repository.Insert(unidad);
-                        return new RedirectToActionResult("Index","UnidadesAdministrativas", null);
-                    }
+                    repository.ValidarUnidadAdministrativa(unidad);
+                    repository.Insert(unidad);
+                    return new RedirectToActionResult("Index","UnidadesAdministrativas", null);
                 }
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
                     return View(unidad);
                 }
-                return View(unidad);
             }
             else
             {
@@ -88,19 +87,15 @@ namespace ProyectoPOA.Controllers
                 repository = new UnidadAdministrativaRepository();
                 try
                 {
-                    if (repository.ValidarUnidadAdministrativa(unidad, true))
-                    {
-                        repository = new UnidadAdministrativaRepository();
-                        repository.Update(unidad);
-                        return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
-                    }
+                    repository.ValidarUnidadAdministrativa(unidad);
+                    repository.Update(unidad);
+                    return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
                 }
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
                     return View(unidad);
                 }
-                return View(unidad);
             }
             else
             {
