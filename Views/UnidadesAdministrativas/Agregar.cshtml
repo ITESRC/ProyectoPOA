@@ -9,10 +9,10 @@
 </header>
 
 <main>
-    <form method="post" asp-action="Agregar" >
+    <form method="post" asp-action="Agregar">
         <div class="divmain" style="margin-top:20px">
             <label>Clave:</label>
-            <input asp-for="Clave" type="number" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+            <input asp-for="Clave" type="text" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
             <label>Nombre:</label>
             <input asp-for="Nombre" type="text" />
             <label>Encargado:</label>
@@ -25,10 +25,11 @@
                 <p id="errores">
                     @Html.ValidationSummary()
                 </p>
-                <input style="margin-top:30px; width:350px; display:initial; margin-left:30px; background-color:#B9FFB9; color:white; border-bottom:none" class="btn" type="submit" value="Añadir" id="btnAgregar" />
-                <input style="margin-top:10px; width:190px; display:initial; background-color:#FFA4A4; color:white; border-bottom:none;" class="btn2" type="button" value="Cancelar" />
+                <input style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="button" value="Añadir" />
+                <input style="margin-top:10px; width:45%; display:initial; background-color:#5787c1; color:white; border-bottom:none;" class="btn2" type="button" value="Cancelar" />
             </div>
         </div>
+        <script src="abrir.js" charset="utf-8"></script>
     </form>
 </main>
 
