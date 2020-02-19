@@ -12,7 +12,13 @@ namespace ProyectoPOA.Services
         public IEnumerable<SuperiorViewModel> GetSuperiores()
         {
             UnidadAdministrativaRepository repos = new UnidadAdministrativaRepository();
-            return repos.GetAll().OrderBy(x => x.Nombre).Where(x => x.IdUnidadSuperior == null && x.Eliminado == false).Select(x => new SuperiorViewModel{Id= x.Id, Nombre = x.Encargado});
+            return repos.GetAll().OrderBy(x => x.Nombre).Where(x => x.IdUnidadSuperior == null && x.Eliminado == false).Select(x => new SuperiorViewModel{Id= x.Id, Nombre = x.Nombre});
+        }
+
+        public IEnumerable<SuperiorViewModel> GetSuperiores(int id)
+        {
+            UnidadAdministrativaRepository repos = new UnidadAdministrativaRepository();
+            return repos.GetAll().OrderBy(x => x.Nombre).Where(x => (x.IdUnidadSuperior == null && x.Eliminado == false) && x.Id != id).Select(x => new SuperiorViewModel { Id = x.Id, Nombre = x.Nombre });
         }
     }
 }

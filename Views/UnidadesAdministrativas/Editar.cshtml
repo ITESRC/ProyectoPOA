@@ -12,20 +12,21 @@
     <form method="post" asp-action="Editar">
         <div class="divmain" style="margin-top:20px">
             <label>Clave:</label>
-            <input asp-for="Clave" type="number" />
+            <input asp-for="Clave" type="text" />
             <label>Nombre:</label>
             <input asp-for="Nombre" type="text" />
             <label>Encargado:</label>
             <input asp-for="Encargado" type="text" />
             <label>Superior:</label>
-            <select asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
+            <select asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(Model.Id),"Id","Nombre"))">
                 <option selected="selected" value="">-- Seleccionar superior --</option>
             </select>
+            <input type="hidden" asp-for="Eliminado" />
             <div class="botones">
                 <p id="errores">
                     @Html.ValidationSummary()
                 </p>
-                <input style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="button" value="Añadir" />
+                <input style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="submit" value="Editar" />
                 <input style="margin-top:10px; width:45%; display:initial; background-color:#5787c1; color:white; border-bottom:none;" class="btn2" type="button" value="Cancelar" />
             </div>
         </div>

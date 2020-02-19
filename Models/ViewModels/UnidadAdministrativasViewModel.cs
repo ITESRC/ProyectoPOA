@@ -11,7 +11,7 @@ namespace ProyectoPOA.Models.ViewModels
         public int Id { get; set; }
        
        
-        public short Clave { get; set; }
+        public string Clave { get; set; }
         public string Nombre { get; set; }
         public string NombreEncargado { get; set; }
         public string NombreSuperior { get; set; }

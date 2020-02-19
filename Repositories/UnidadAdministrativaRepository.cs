@@ -25,7 +25,7 @@ namespace ProyectoPOA.Repositories
         {
             string errores = "";
 
-            if (!clave.IsMatch(unidad.Clave.ToString()))
+            if (!clave.IsMatch(unidad.Clave))
             {
                 errores = errores + "La clave es incorrecta. Debe de ser de 4 digitos.\n";
             }
@@ -40,7 +40,19 @@ namespace ProyectoPOA.Repositories
 
             if (GetAll().Any(x => x.Clave == unidad.Clave))
             {
-                errores = errores + "La clave de la unidad administrativa ya existe.\n";
+                if(unidad.Id == 0)
+                {
+                    errores = errores + "La clave de la unidad administrativa ya existe.\n";
+                }
+                else
+                {
+                    var editar = GetById(unidad.Id);
+
+                    if(editar.Clave != unidad.Clave && GetAll().Any(x => x.Clave == unidad.Clave))
+                    {
+                        errores = errores + "La clave de la unidad administrativa ya existe.\n";
+                    }
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(unidad.Nombre))
@@ -76,8 +88,15 @@ namespace ProyectoPOA.Repositories
             var unidad = GetById(id);
             if (unidad != null)
             {
-                unidad.Eliminado = true;
-                Save();
+                if(GetAll().Any(x=>x.IdUnidadSuperior == unidad.Id))
+                {
+                    //error
+                }
+                else
+                {
+                    unidad.Eliminado = true;
+                    Save();
+                }
             }
         }
 

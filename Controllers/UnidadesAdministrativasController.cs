@@ -80,26 +80,32 @@ namespace ProyectoPOA.Controllers
         }
 
         [HttpPost]
-        public IActionResult Editar(Unidadadministrativa unidad)
+        public IActionResult Editar(Unidadadministrativa vm)
         {
             if (ModelState.IsValid)
             {
                 repository = new UnidadAdministrativaRepository();
                 try
                 {
-                    repository.ValidarUnidadAdministrativa(unidad);
-                    repository.Update(unidad);
+                    repository.ValidarUnidadAdministrativa(vm);
+                    //repository = new UnidadAdministrativaRepository();
+                    var varEntidad = repository.GetById(vm.Id);
+                    varEntidad.Nombre = vm.Nombre;
+                    varEntidad.Clave = vm.Clave;
+                    varEntidad.Encargado = vm.Encargado;
+                    varEntidad.IdUnidadSuperior = vm.IdUnidadSuperior;
+                    repository.Update(varEntidad);
                     return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
                 }
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
-                    return View(unidad);
+                    return View(vm);
                 }
             }
             else
             {
-                return View(unidad);
+                return View(vm);
             }
         }
 

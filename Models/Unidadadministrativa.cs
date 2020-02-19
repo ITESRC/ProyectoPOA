@@ -11,10 +11,10 @@ namespace ProyectoPOA.Models
         }
 
         public int Id { get; set; }
-        public short Clave { get; set; }
+        public string Clave { get; set; }
         public string Nombre { get; set; }
         public string Encargado { get; set; }
-        public bool Eliminado { get; set; }
+        public bool? Eliminado { get; set; }
         public int? IdUnidadSuperior { get; set; }
 
         public Unidadadministrativa IdUnidadSuperiorNavigation { get; set; }
