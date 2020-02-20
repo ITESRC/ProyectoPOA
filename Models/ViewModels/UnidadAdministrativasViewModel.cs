@@ -14,6 +14,8 @@ namespace ProyectoPOA.Models.ViewModels
         public string Clave { get; set; }
         public string Nombre { get; set; }
         public string NombreEncargado { get; set; }
-        public string NombreSuperior { get; set; }
+        public string NombreUnidadSuperior { get; set; }
+
+        public bool Eliminar { get; set; }
     }
 }

@@ -14,7 +14,16 @@ namespace ProyectoPOA.Repositories
 
         public IEnumerable<UnidadAdministrativasViewModel> GetUnidadesAdministrativas()
         {
-            return Context.Unidadadministrativa.Include(x => x.IdUnidadSuperiorNavigation).Where(x => x.Eliminado == false).Select(x => new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreSuperior = x.IdUnidadSuperiorNavigation.Encargado }).OrderBy(x => x.Nombre);
+            List<UnidadAdministrativasViewModel> unidades = Context.Unidadadministrativa.Include(x => x.IdUnidadSuperiorNavigation).Where(x => x.Eliminado == false).Select(x => new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreUnidadSuperior = x.IdUnidadSuperiorNavigation.Nombre, Eliminar = true}).OrderBy(x => x.Nombre).ToList();
+            foreach (var u in unidades)
+            {
+                if (GetAll().Any(x => x.IdUnidadSuperior == u.Id))
+                {
+                    var unidad = unidades.Where(x => x.Id == u.Id).FirstOrDefault();
+                    unidad.Eliminar = false;
+                }
+            }
+            return unidades;
         }
 
         Regex clave = new Regex("^[0-9]{4}$");
@@ -57,9 +66,23 @@ namespace ProyectoPOA.Repositories
 
             if (!string.IsNullOrWhiteSpace(unidad.Nombre))
             {
-                if (GetAll().Any(x => (x.Nombre.ToUpper() == unidad.Nombre.ToUpper() && x.Eliminado == false) && unidad.Id == 0))
+
+                if (GetAll().Any(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false)))
                 {
-                    errores = errores + $"La unidad administrativa {unidad.Nombre} ya existe y está activa.\n";
+                    
+                    if (unidad.Id == 0)
+                    {
+                        errores = errores + $"La unidad administrativa {unidad.Nombre} ya existe y está activa.\n";
+                    }
+                    else
+                    {
+                        var editar = GetById(unidad.Id);
+
+                        if (editar.Nombre != unidad.Nombre && GetAll().Any(x => x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false))
+                        {
+                            errores = errores + $"La unidad administrativa {unidad.Nombre} ya existe.\n";
+                        }
+                    }
                 }
 
                 if (!nombre.IsMatch(unidad.Nombre))
@@ -90,7 +113,7 @@ namespace ProyectoPOA.Repositories
             {
                 if(GetAll().Any(x=>x.IdUnidadSuperior == unidad.Id))
                 {
-                    //error
+                    throw new Exception($"La unidad adminstrativa {unidad.Nombre} no se puede eliminar.");
                 }
                 else
                 {
@@ -98,13 +121,17 @@ namespace ProyectoPOA.Repositories
                     Save();
                 }
             }
+            else
+            {
+                throw new Exception("La unidad adminstrativa no existe.");
+            }
         }
 
         public IEnumerable<UnidadAdministrativasViewModel> FiltrarUnidades(string datos)
         {
             if (!string.IsNullOrWhiteSpace(datos))
             {
-                return Context.Unidadadministrativa.Include(x => x.IdUnidadSuperiorNavigation).Where(x => x.Eliminado == false && (x.Clave.ToString().Contains(datos) || x.Nombre.ToUpper().Contains(datos.ToUpper()) || x.Encargado.ToUpper().Contains(datos.ToUpper()))).Select(x => new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreSuperior = x.IdUnidadSuperiorNavigation.Encargado }).OrderBy(x => x.Nombre);
+                return Context.Unidadadministrativa.Include(x => x.IdUnidadSuperiorNavigation).Where(x => x.Eliminado == false && (x.Clave.ToString().Contains(datos) || x.Nombre.ToUpper().Contains(datos.ToUpper()) || x.Encargado.ToUpper().Contains(datos.ToUpper()))).Select(x => new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreUnidadSuperior = x.IdUnidadSuperiorNavigation.Encargado }).OrderBy(x => x.Nombre);
             }
             else
             {

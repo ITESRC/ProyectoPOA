@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProyectoPOA.Models;
 using ProyectoPOA.Repositories;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ProyectoPOA.Controllers
 {
@@ -13,6 +14,7 @@ namespace ProyectoPOA.Controllers
     {
         UnidadAdministrativaRepository repository;
         public IActionResult Index()
+       
         {
             repository = new UnidadAdministrativaRepository();
             return View(repository.GetUnidadesAdministrativas());
@@ -42,6 +44,7 @@ namespace ProyectoPOA.Controllers
         [HttpPost]
         public IActionResult Agregar(Unidadadministrativa unidad)
         {
+            string x = Regex.Replace(unidad.Nombre,@"\s",string.Empty);
             if (ModelState.IsValid)
             {
                 repository = new UnidadAdministrativaRepository();
@@ -88,7 +91,6 @@ namespace ProyectoPOA.Controllers
                 try
                 {
                     repository.ValidarUnidadAdministrativa(vm);
-                    //repository = new UnidadAdministrativaRepository();
                     var varEntidad = repository.GetById(vm.Id);
                     varEntidad.Nombre = vm.Nombre;
                     varEntidad.Clave = vm.Clave;
@@ -111,9 +113,16 @@ namespace ProyectoPOA.Controllers
 
         public IActionResult Eliminar(int id)
         {
-            repository = new UnidadAdministrativaRepository();
-            repository.EliminarUnidad(id);
-            return RedirectToAction("Index");
+            try
+            {
+                repository = new UnidadAdministrativaRepository();
+                repository.EliminarUnidad(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
         }
     }
 }

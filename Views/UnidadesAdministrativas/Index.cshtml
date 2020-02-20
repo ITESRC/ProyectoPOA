@@ -35,9 +35,9 @@
         <td>@unidad.Clave</td>
         <td>@unidad.Nombre</td>
         <td>@unidad.NombreEncargado</td>
-        <td>@unidad.NombreSuperior</td>
+        <td>@unidad.NombreUnidadSuperior</td>
         @*<td class="openpopup" style="width:20px;"><a asp-action="Eliminar" asp-controller="UnidadesAdministrativas" asp-route-id="@unidad.Id">......</a></td>*@
-        <td class="openpopup" style="width:20px;"><a onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})" href="#pop">......</a></td>
+        <td class="openpopup" style="width:20px;"><a onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre', Eliminar:'@unidad.Eliminar'})" href="#pop">......</a></td>
         @*<td class="openpopup" style="width:20px;"><a href="#pop">......</a></td>*@
         <td style="width:20px;"><a class="edit" asp-action="Editar" asp-route-id="@unidad.Id">......</a></td>
     </tr>
@@ -56,21 +56,50 @@
     <section class="popup">
         <p id="unidad"></p>
         <button id="btnAceptar" type="submit">Aceptar</button>
-        <a class="cancel" href="#">Cancelar</a>
+        <a id="btnCancelar" class="cancel" href="#">Cancelar</a>
     </section>
 </div>
 
 <script>
+    //let modal = document.getElementById('pop')
+    //let unidadModal = document.getElementById('unidad')
+    //let btnAceptar = document.getElementById('btnAceptar')
+
+    //function verModal(unidad) {
+    //    unidadModal.innerText = `¿Estás seguro de eliminar a la unidad ${unidad.Nombre}?`
+
+    //    btnAceptar.onclick = function () {
+    //        window.location.href = `UnidadesAdministrativas/Eliminar/${unidad.Id}`
+    //    }
+    //}
+
+    //////////////////////////////////////////////////////
+
+
     let modal = document.getElementById('pop')
     let unidadModal = document.getElementById('unidad')
     let btnAceptar = document.getElementById('btnAceptar')
+    let btnCancelar = document.getElementById('btnCancelar')
 
     function verModal(unidad) {
-        unidadModal.innerText = `¿Estás seguro de eliminar a la unidad ${unidad.Nombre}?`
-
-        btnAceptar.onclick = function () {
+        console.log(unidad);
+        if (unidad.Eliminar == 'False') {
+            unidadModal.innerText = `No se puede eliminar la unidad ${unidad.Nombre}`
+            btnCancelar.style.display = 'none'
+            btnAceptar.style.display = 'block'
+            btnAceptar.onclick = function () {
+            window.location.href = `#`
+        }
+        }
+        else {
+            unidadModal.innerText = `¿Estás seguro de eliminar a la unidad ${unidad.Nombre}?`
+            btnCancelar.style.display = 'initial'
+            btnAceptar.style.display = 'block'
+            btnAceptar.onclick = function () {
             window.location.href = `UnidadesAdministrativas/Eliminar/${unidad.Id}`
         }
+        }
+        
     }
 </script>
 
