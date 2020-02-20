@@ -44,7 +44,6 @@ namespace ProyectoPOA.Controllers
         [HttpPost]
         public IActionResult Agregar(Unidadadministrativa unidad)
         {
-            string x = Regex.Replace(unidad.Nombre,@"\s",string.Empty);
             if (ModelState.IsValid)
             {
                 repository = new UnidadAdministrativaRepository();
