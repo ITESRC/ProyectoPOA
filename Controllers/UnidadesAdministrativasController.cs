@@ -42,27 +42,35 @@ namespace ProyectoPOA.Controllers
         }
         //Agregar todos los campos del formulario
         [HttpPost]
-        public IActionResult Agregar(Unidadadministrativa unidad)
+        public IActionResult Agregar(Unidadadministrativa vm)
         {
             if (ModelState.IsValid)
             {
                 repository = new UnidadAdministrativaRepository();
+                List<string> errores = repository.Validar(vm);
 
-                try
+                if (errores != null)
                 {
-                    repository.ValidarUnidadAdministrativa(unidad);
-                    repository.Insert(unidad);
-                    return new RedirectToActionResult("Index","UnidadesAdministrativas", null);
+                    for (int i = 0; i < errores.Count; i++)
+                    {
+                        ModelState.AddModelError(i.ToString(), errores[i]);
+                    }
+                    return View(vm);
                 }
-                catch (Exception ex)
+                else
                 {
-                    ModelState.AddModelError("", ex.Message);
-                    return View(unidad);
+                    var varEntidad = repository.GetById(vm.Id);
+                    varEntidad.Nombre = vm.Nombre;
+                    varEntidad.Clave = vm.Clave;
+                    varEntidad.Encargado = vm.Encargado;
+                    varEntidad.IdUnidadSuperior = vm.IdUnidadSuperior;
+                    repository.Insert(varEntidad);
+                    return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
                 }
             }
             else
             {
-                return View(unidad);
+                return View(vm);
             }
         }
 
@@ -87,9 +95,18 @@ namespace ProyectoPOA.Controllers
             if (ModelState.IsValid)
             {
                 repository = new UnidadAdministrativaRepository();
-                try
+                List<string> errores = repository.Validar(vm);
+
+                if(errores != null)
                 {
-                    repository.ValidarUnidadAdministrativa(vm);
+                    for (int i = 0; i < errores.Count; i++)
+                    {
+                        ModelState.AddModelError(i.ToString(), errores[i]);
+                    }
+                    return View(vm);
+                }
+                else
+                {
                     var varEntidad = repository.GetById(vm.Id);
                     varEntidad.Nombre = vm.Nombre;
                     varEntidad.Clave = vm.Clave;
@@ -97,11 +114,6 @@ namespace ProyectoPOA.Controllers
                     varEntidad.IdUnidadSuperior = vm.IdUnidadSuperior;
                     repository.Update(varEntidad);
                     return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                    return View(vm);
                 }
             }
             else
