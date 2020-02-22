@@ -7,6 +7,8 @@ using ProyectoPOA.Models;
 using ProyectoPOA.Repositories;
 using System.Text;
 using System.Text.RegularExpressions;
+using ProyectoPOA.Helpers;
+using ProyectoPOA.Helpers.OptionEnum;
 
 namespace ProyectoPOA.Controllers
 {
@@ -14,10 +16,14 @@ namespace ProyectoPOA.Controllers
     {
         UnidadAdministrativaRepository repository;
         public IActionResult Index()
-       
+
         {
+
+            ViewBag.Message = mensaje;
+
             repository = new UnidadAdministrativaRepository();
-            return View(repository.GetUnidadesAdministrativas());
+            var most = repository.GetUnidadesAdministrativas();
+            return View(most);
         }
 
         [HttpPost]
@@ -40,6 +46,7 @@ namespace ProyectoPOA.Controllers
         {
             return View();
         }
+        public static dynamic mensaje;
         //Agregar todos los campos del formulario
         [HttpPost]
         public IActionResult Agregar(Unidadadministrativa vm)
@@ -60,11 +67,15 @@ namespace ProyectoPOA.Controllers
                 else
                 {
                     repository.Insert(vm);
+                    ViewBag.Message = Notification.Show("Se ha agregado correctamente", "Aviso", position: Position.TopRight, type: ToastType.Success);
+                    mensaje = ViewBag.Message;
                     return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
                 }
             }
             else
             {
+                ViewBag.Message = Notification.Show("No se pudo agregar el elemento", "Aviso", position: Position.TopRight, type: ToastType.Error);
+                mensaje = ViewBag.Message;
                 return View(vm);
             }
         }
@@ -92,7 +103,7 @@ namespace ProyectoPOA.Controllers
                 repository = new UnidadAdministrativaRepository();
                 List<string> errores = repository.Validar(vm);
 
-                if(errores != null)
+                if (errores != null)
                 {
                     for (int i = 0; i < errores.Count; i++)
                     {
@@ -108,11 +119,15 @@ namespace ProyectoPOA.Controllers
                     varEntidad.Encargado = vm.Encargado;
                     varEntidad.IdUnidadSuperior = vm.IdUnidadSuperior;
                     repository.Update(varEntidad);
+                    ViewBag.Message = Notification.Show("Se ha editado correctamente","Aviso", position: Position.TopRight, type: ToastType.Success);
+                    mensaje = ViewBag.Message;
                     return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
                 }
             }
             else
             {
+                ViewBag.Message = Notification.Show("No se pudo editar el elemento", "Error", position: Position.TopRight, type: ToastType.Error);
+                mensaje = ViewBag.Message;
                 return View(vm);
             }
         }
@@ -123,10 +138,15 @@ namespace ProyectoPOA.Controllers
             {
                 repository = new UnidadAdministrativaRepository();
                 repository.EliminarUnidad(id);
+
+                ViewBag.Message = Notification.Show("Se ha eliminado correctamente","Aviso", position: Position.TopRight, type: ToastType.Success);
+                mensaje = ViewBag.Message;
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
+                ViewBag.Message = Notification.Show("No se ha podido eliminar", "Error", position: Position.TopRight, type: ToastType.Error);
+                mensaje = ViewBag.Message;
                 return BadRequest(ex.Message);
             }
         }

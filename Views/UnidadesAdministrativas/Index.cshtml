@@ -4,12 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var busqueda = ViewBag.Busqueda;
 }
+<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 <header>
     <section class="arriba">
         <div class="lbl">
             <label>Unidades </label>
         </div>
-       
+
     </section>
 </header>
 
@@ -17,7 +20,7 @@
     <div class="buscar">
         <a asp-controller="UnidadesAdministrativas" asp-action="Agregar" class="plus"></a>
         <form asp-action="Index" method="post">
-            <input class="search" type="search" placeholder="Buscar..." name="dato" value="@busqueda"/>
+            <input class="search" type="search" placeholder="Buscar..." name="dato" value="@busqueda" />
         </form>
     </div>
     <table>
@@ -31,23 +34,25 @@
         </tr>
         @foreach (Unidadadministrativa unidad in Model)
         {
-    <tr id="fila">
-        <td>@unidad.Clave.ToString("0000")</td>
-        <td>@unidad.Nombre</td>
-        <td>@unidad.Encargado</td>
-        @if(unidad.IdUnidadSuperiorNavigation != null)
-        {
-            <td>@unidad.IdUnidadSuperiorNavigation.Nombre</td>
-        }
-        else
-        {
-            <td></td>
-        }
-        <td class="openpopup" style="width:20px;"><a onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})" href="#pop">......</a></td>
-        <td style="width:20px;"><a class="edit" asp-action="Editar" asp-route-id="@unidad.Id">......</a></td>
-    </tr>
+            <tr id="fila">
+                <td>@unidad.Clave.ToString("0000")</td>
+                <td>@unidad.Nombre</td>
+                <td>@unidad.Encargado</td>
+                @if (unidad.IdUnidadSuperiorNavigation != null)
+                {
+                    <td>@unidad.IdUnidadSuperiorNavigation.Nombre</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                <td class="openpopup" style="width:20px;"><a onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})" href="#pop">......</a></td>
+                <td style="width:20px;"><a class="edit" asp-action="Editar" asp-route-id="@unidad.Id">......</a></td>
+            </tr>
         }
     </table>
+   
+    @Html.Raw(ViewBag.Message)
 </main>
 
 <div class="container-all" id="pop">
