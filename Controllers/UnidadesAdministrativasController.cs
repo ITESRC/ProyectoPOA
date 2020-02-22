@@ -23,9 +23,9 @@ namespace ProyectoPOA.Controllers
         [HttpPost]
         public IActionResult Index(string dato)
         {
-            ViewBag.Busqueda = dato;
             if (!string.IsNullOrWhiteSpace(dato))
             {
+                ViewBag.Busqueda = dato;
                 repository = new UnidadAdministrativaRepository();
                 return View(repository.FiltrarUnidades(dato));
             }
@@ -59,12 +59,7 @@ namespace ProyectoPOA.Controllers
                 }
                 else
                 {
-                    var varEntidad = repository.GetById(vm.Id);
-                    varEntidad.Nombre = vm.Nombre;
-                    varEntidad.Clave = vm.Clave;
-                    varEntidad.Encargado = vm.Encargado;
-                    varEntidad.IdUnidadSuperior = vm.IdUnidadSuperior;
-                    repository.Insert(varEntidad);
+                    repository.Insert(vm);
                     return new RedirectToActionResult("Index", "UnidadesAdministrativas", null);
                 }
             }
@@ -132,7 +127,7 @@ namespace ProyectoPOA.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
     }

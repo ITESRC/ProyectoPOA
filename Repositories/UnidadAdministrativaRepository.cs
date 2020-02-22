@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProyectoPOA.Models;
-using ProyectoPOA.Models.ViewModels;
 using System.Text.RegularExpressions;
 
 namespace ProyectoPOA.Repositories
@@ -12,101 +11,14 @@ namespace ProyectoPOA.Repositories
     public class UnidadAdministrativaRepository : Repository<Unidadadministrativa>
     {
 
-        public IEnumerable<UnidadAdministrativasViewModel> GetUnidadesAdministrativas()
+        public IEnumerable<Unidadadministrativa> GetUnidadesAdministrativas()
         {
-            List<UnidadAdministrativasViewModel> unidades = Context.Unidadadministrativa.Include(x => x.IdUnidadSuperiorNavigation).Where(x => x.Eliminado == false).Select(x => new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreUnidadSuperior = x.IdUnidadSuperiorNavigation.Nombre, Eliminar = true}).OrderBy(x => x.Nombre).ToList();
-            foreach (var u in unidades)
-            {
-                if (GetAll().Any(x => x.IdUnidadSuperior == u.Id))
-                {
-                    var unidad = unidades.Where(x => x.Id == u.Id).FirstOrDefault();
-                    unidad.Eliminar = false;
-                }
-            }
-            return unidades;
+            return Context.Unidadadministrativa.Include(x=>x.IdUnidadSuperiorNavigation);
         }
 
         Regex clave = new Regex("^[0-9]{4}$");
         Regex nombre = new Regex(@"^[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ\s]+$");
         Regex nombreEncargado = new Regex(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\.]?[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$");
-
-        public void ValidarUnidadAdministrativa(Unidadadministrativa unidad)
-        {
-            string errores = "";
-
-            if (!clave.IsMatch(unidad.Clave))
-            {
-                errores = errores + "La clave es incorrecta. Debe de ser de 4 digitos.\n";
-            }
-            if (string.IsNullOrWhiteSpace(unidad.Nombre))
-            {
-                errores = errores + "El nombre de la unidad administrativa no debe de ir vacío.\n";
-            }
-            if (string.IsNullOrWhiteSpace(unidad.Encargado))
-            {
-                errores = errores + "El nombre del encargado no debe de ir vacío.\n";
-            }
-
-            if (GetAll().Any(x => x.Clave == unidad.Clave))
-            {
-                if (unidad.Id == 0)
-                {
-                    errores = errores + "La clave de la unidad administrativa ya existe.\n";
-                }
-                else
-                {
-                    var editar = GetById(unidad.Id);
-
-                    if (editar.Clave != unidad.Clave && GetAll().Any(x => x.Clave == unidad.Clave))
-                    {
-                        errores = errores + "La clave de la unidad administrativa ya existe.\n";
-                    }
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(unidad.Nombre))
-            {
-
-                if (GetAll().Any(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false)))
-                {
-
-                    if (unidad.Id == 0)
-                    {
-                        errores = errores + $"La unidad administrativa {unidad.Nombre} ya existe y está activa.\n";
-                    }
-                    else
-                    {
-                        var editar = GetById(unidad.Id);
-
-                        if (editar.Nombre != unidad.Nombre && GetAll().Any(x => x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false))
-                        {
-                            errores = errores + $"La unidad administrativa {unidad.Nombre} ya existe.\n";
-                        }
-                    }
-                }
-
-                if (!nombre.IsMatch(unidad.Nombre))
-                {
-                    errores = errores + "El nombre de la unidad administrativa no es valido.\n";
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(unidad.Encargado))
-            {
-                if (!nombreEncargado.IsMatch(unidad.Encargado))
-                {
-                    errores = errores + $"El nombre del encargado es incorrecto.\nProporcione nombre completo.\n";
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(errores))
-            {
-                throw new Exception(errores);
-            }
-
-
-
-        }
 
         public void EliminarUnidad(int id)
         {
@@ -129,11 +41,11 @@ namespace ProyectoPOA.Repositories
             }
         }
 
-        public IEnumerable<UnidadAdministrativasViewModel> FiltrarUnidades(string datos)
+        public IEnumerable<Unidadadministrativa> FiltrarUnidades(string datos)
         {
             if (!string.IsNullOrWhiteSpace(datos))
             {
-                return Context.Unidadadministrativa.Include(x => x.IdUnidadSuperiorNavigation).Where(x => x.Eliminado == false && (x.Clave.ToString().Contains(datos) || x.Nombre.ToUpper().Contains(datos.ToUpper()) || x.Encargado.ToUpper().Contains(datos.ToUpper()))).Select(x => new UnidadAdministrativasViewModel { Id = x.Id, Clave = x.Clave, Nombre = x.Nombre, NombreEncargado = x.Encargado, NombreUnidadSuperior = x.IdUnidadSuperiorNavigation.Encargado }).OrderBy(x => x.Nombre);
+                return Context.Unidadadministrativa.Where(x => x.Eliminado == false && (x.Clave.ToString().Contains(datos) || x.Nombre.ToUpper().Contains(datos.ToUpper()) || x.Encargado.ToUpper().Contains(datos.ToUpper()))).OrderBy(x => x.Nombre).Include(x=>x.IdUnidadSuperiorNavigation);
             }
             else
             {
@@ -142,72 +54,131 @@ namespace ProyectoPOA.Repositories
         }
 
 
+        //public List<string> Validar(Unidadadministrativa unidad)
+        //{
+        //    List<string> errores = new List<string>();
+
+        //    if (!clave.IsMatch(unidad.Clave.ToString("0000")))
+        //    {
+        //        errores.Add("La clave es incorrecta.Debe de ser de 4 digitos.");
+        //    }
+        //    if (string.IsNullOrWhiteSpace(unidad.Nombre))
+        //    {
+        //        errores.Add("El nombre de la unidad administrativa no debe de ir vacío.");
+        //    }
+        //    if (string.IsNullOrWhiteSpace(unidad.Encargado))
+        //    {
+        //        errores.Add("El nombre del encargado no debe de ir vacío.");
+        //    }
+
+        //    if (GetAll().Any(x => x.Clave == unidad.Clave))
+        //    {
+        //        if (unidad.Id == 0)
+        //        {
+        //            errores.Add("La clave de la unidad administrativa ya existe.");
+        //        }
+        //        else
+        //        {
+        //            var editar = GetById(unidad.Id);
+
+        //            if (editar.Clave != unidad.Clave && GetAll().Any(x => x.Clave == unidad.Clave))
+        //            {
+        //                errores.Add("La clave de la unidad administrativa ya existe.");
+        //            }
+        //        }
+        //    }
+
+        //    if (!string.IsNullOrWhiteSpace(unidad.Nombre))
+        //    {
+
+        //        if (GetAll().Any(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false)))
+        //        {
+
+        //            if (unidad.Id == 0)
+        //            {
+        //                errores.Add("La clave de la unidad administrativa ya existe.");
+        //            }
+        //            else
+        //            {
+        //                var editar = GetById(unidad.Id);
+
+        //                if (editar.Nombre != unidad.Nombre && GetAll().Any(x => x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false))
+        //                {
+        //                    errores.Add("La unidad administrativa {unidad.Nombre} ya existe.");
+        //                }
+        //            }
+        //        }
+
+        //        if (!nombre.IsMatch(unidad.Nombre))
+        //        {
+        //            errores.Add("El nombre de la unidad administrativa no es valido.");
+        //        }
+        //    }
+
+        //    if (!string.IsNullOrWhiteSpace(unidad.Encargado))
+        //    {
+        //        if (!nombreEncargado.IsMatch(unidad.Encargado))
+        //        {
+        //            errores.Add("El nombre del encargado es incorrecto.\nProporcione nombre completo.");
+        //        }
+        //    }
+
+        //    if (errores.Count > 0)
+        //    {
+        //        return errores;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+
+        //}
+
         public List<string> Validar(Unidadadministrativa unidad)
         {
             List<string> errores = new List<string>();
 
-            if (!clave.IsMatch(unidad.Clave))
+            if (!clave.IsMatch(unidad.Clave.ToString("0000")))
             {
-                errores.Add("La clave es incorrecta.Debe de ser de 4 digitos.");
+                errores.Add("La clave es incorrecta. Debe de ser de 4 digitos.");
             }
             if (string.IsNullOrWhiteSpace(unidad.Nombre))
             {
-                errores.Add("El nombre de la unidad administrativa no debe de ir vacío.");
+                errores.Add("El nombre de la unidad administrativa está vacío.");
             }
-            if (string.IsNullOrWhiteSpace(unidad.Encargado))
-            {
-                errores.Add("El nombre del encargado no debe de ir vacío.");
-            }
-
-            if (GetAll().Any(x => x.Clave == unidad.Clave))
-            {
-                if (unidad.Id == 0)
-                {
-                    errores.Add("La clave de la unidad administrativa ya existe.");
-                }
-                else
-                {
-                    var editar = GetById(unidad.Id);
-
-                    if (editar.Clave != unidad.Clave && GetAll().Any(x => x.Clave == unidad.Clave))
-                    {
-                        errores.Add("La clave de la unidad administrativa ya existe.");
-                    }
-                }
-            }
-
             if (!string.IsNullOrWhiteSpace(unidad.Nombre))
             {
-
-                if (GetAll().Any(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false)))
-                {
-
-                    if (unidad.Id == 0)
-                    {
-                        errores.Add("La clave de la unidad administrativa ya existe.");
-                    }
-                    else
-                    {
-                        var editar = GetById(unidad.Id);
-
-                        if (editar.Nombre != unidad.Nombre && GetAll().Any(x => x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false))
-                        {
-                            errores.Add("La unidad administrativa {unidad.Nombre} ya existe.");
-                        }
-                    }
-                }
-
                 if (!nombre.IsMatch(unidad.Nombre))
                 {
                     errores.Add("El nombre de la unidad administrativa no es valido.");
                 }
+
+                var unidadAdmin = Context.Unidadadministrativa.Where(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false) && x.Id != unidad.Id).FirstOrDefault();
+
+                if (unidadAdmin!=null)
+                {
+                    errores.Add($"El nombre de la unidad administrativa {unidad.Nombre} ya existe.");
+                }
             }
+
+            if (string.IsNullOrWhiteSpace(unidad.Encargado))
+            {
+                errores.Add("El nombre del encargado está vacio.");
+            }
+
+            var ua = Context.Unidadadministrativa.FirstOrDefault(x => x.Clave == unidad.Clave && x.Eliminado == false && x.Id != unidad.Id) ;
+
+            if (ua != null)
+            {
+                errores.Add("La clave de la unidad administrativa ya existe.");
+            }
+
 
             if (!string.IsNullOrWhiteSpace(unidad.Encargado))
             {
                 if (!nombreEncargado.IsMatch(unidad.Encargado))
                 {
-                    errores.Add("El nombre del encargado es incorrecto.\nProporcione nombre completo.");
+                    errores.Add("El nombre del encargado es incorrecto. Proporcione nombre completo.");
                 }
             }
 

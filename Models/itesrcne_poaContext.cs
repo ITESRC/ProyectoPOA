@@ -21,8 +21,8 @@ namespace ProyectoPOA.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=204.93.216.11;port=3306;database=itesrcne_poa;uid=itesrcne_poa;password=proyectopoa20");
+// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseMySql("server=localhost;port=3306;database=itesrcne_poa;uid=root;password=root");
             }
         }
 
@@ -37,9 +37,7 @@ namespace ProyectoPOA.Models
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
-                entity.Property(e => e.Clave)
-                    .IsRequired()
-                    .HasColumnType("char(4)");
+                entity.Property(e => e.Clave).HasColumnType("int(4)");
 
                 entity.Property(e => e.Eliminado)
                     .IsRequired()
