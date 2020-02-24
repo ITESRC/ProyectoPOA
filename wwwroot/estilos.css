@@ -3,6 +3,7 @@
     box-sizing: border-box;
     text-decoration: none;
     padding: 0;
+    list-style:none;
 }
 body
 {
@@ -393,6 +394,13 @@ table {
         text-decoration: none;
         padding:5px 5px 8px 5px;
     }
+
+.validation-summary-errors{
+    margin: auto;
+    color: red;
+  width:90%;
+    
+}
 
 main .divmain {
     background-color: #f7f7f7;

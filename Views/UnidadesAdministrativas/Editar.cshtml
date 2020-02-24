@@ -10,7 +10,7 @@
 
 <main>
     <form method="post" asp-action="Editar">
-        <div class="divmain" style="margin-top:20px">
+        <div class="divmain">
             <label>Clave:</label>
             <input asp-for="Clave" type="number" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
             <label>Nombre:</label>

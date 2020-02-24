@@ -148,7 +148,6 @@ namespace ProyectoPOA.Controllers
                 ViewBag.Message = Notification.Show("No se ha podido eliminar", "Error", position: Position.TopRight, type: ToastType.Error);
                 mensaje = ViewBag.Message;
                 return RedirectToAction("Index");
-
             }
         }
     }
