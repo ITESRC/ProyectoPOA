@@ -13,7 +13,7 @@ namespace ProyectoPOA.Repositories
 
         public IEnumerable<Unidadadministrativa> GetUnidadesAdministrativas()
         {
-            return Context.Unidadadministrativa.Include(x=>x.IdUnidadSuperiorNavigation);
+            return Context.Unidadadministrativa.Where(x=>x.Eliminado==false).Include(x=>x.IdUnidadSuperiorNavigation);
         }
 
         Regex clave = new Regex("^[0-9]{4}$");
