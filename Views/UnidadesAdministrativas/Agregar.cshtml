@@ -25,7 +25,7 @@
                 <p id="errores">
                     @Html.ValidationSummary()
                 </p>
-                <input style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="submit" value="Añadir" />
+                <input style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="submit" value="Añadir" onclick="deshabilitar()"/>
                 <input style="margin-top:10px; width:45%; display:initial; background-color:#5787c1; color:white; border-bottom:none;" class="btn2" onclick="Back()" type="button" value="Cancelar" />
             </div>
         </div>
@@ -36,6 +36,9 @@
             function Back() {
                 window.history.back()
             }
+                function deshabilitar() {
+        document.getElementById("Button").disabled = true;
+    }
         </script>
 
        
