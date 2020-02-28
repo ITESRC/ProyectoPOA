@@ -14,83 +14,80 @@
 
 </head>
 <body>
-    <div id="sidebar" class="active">
-        <div class="azul">
-            <span class="icon">&#9776;</span>
-        </div>
-        <nav class="slidebar">
-
-            <nav class="iconosbar">
-
-                <a href="#menu1"></a> <!--ADMINISTRAR-->
-                <a href="#menu2"></a> <!--RESTRINGIR-->
-                <a href="#menu3"></a><!--ACTIVAR-->
-                <a href="#menu4"></a><!--CONSULTAR-->
-                <a href="#menu5"></a><!--VER-->
-                <a href="#menu6"></a><!--Montos a autorizar-->
-                <a href="#menu7"></a><!--INSUMOS POR MES-->
-                <a href="#menu8"></a><!--Catálogo de insumos-->
-                <a href="#" class="logout"></a>
-            </nav>
-            <div class="colapsable">
-
-
-                <nav id="menu1">
-
-                    <a asp-action="Index" asp-controller="UnidadesAdministrativas">Unidades administrativas</a>
-                    <a href="#">Empleados</a>
-                    <a href="#">Partidas</a>
-                    <a href="#">Capítulos</a>
-                    <a href="#">Insumos</a>
-                    <a href="#">Unidades de medida</a>
-                    <a href="#">Indicadores</a>
-                    <a href="#">Capturar PIID</a>
-
-                </nav>
-
-
-                <nav id="menu2">
-
-                    <a href="#">Objetivos</a>
-                    <a href="#">Partidas</a>
-
-
-                </nav>
-
-                <nav id="menu3">
-
-                    <a href="#">Periodo de captura de requisiciones</a>
-                    <a href="#">Periodo de captura POA/PTA</a>
-                    <a href="#">Periodo de seguimiento POA/PTA</a>
-
-                </nav>
-
-                <nav id="menu4">
-
-                    <a href="#">PTA/POA programado</a>
-                    <a href="#">PTA/POA real</a>
-                    <a href="#">Quien no ha capturado POA/PTA</a>
-                    <a href="#">Requisiciones</a>
-
-                </nav>
-
-                <nav id="menu5">
-
-                    <a href="#">Gastado/programado de la partida</a>
-                    <a href="#">Insumos</a>
-                    <a href="#">Monto asignado por unidad administrativa</a>
-
-
-
-                </nav>
-
-
-            </div>
-        </nav>
-    </div>
+   
     <header>
+
+        <div class="lbl ">
+            <label>Unidades administrativas</label>
+            <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
+        </div>
+
+
+
     </header>
 
-   @RenderBody()
+    @RenderBody()
+
+    <footer>
+        <div class="wrapper">
+            <nav>
+                <ul class="menu-area">
+
+
+                    <li>
+                        <a href="#menu1"  class="icon hint--right" aria-label="Administrar"></a>
+                        <ul>
+                            <li> <a asp-action="Index" asp-controller="UnidadesAdministrativas">Unidades administrativas</a></li>
+                            <li> <a href="#">Empleados</a></li>
+                            <li> <a href="#">Partidas</a></li>
+                            <li><a href="#">Capítulos</a></li>
+                            <li> <a href="#">Insumos</a></li>
+                            <li><a href="#">Unidades de medida</a></li>
+                            <li><a href="#">Indicadores</a></li>
+                            <li><a href="#">Capturar PIID</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#menu2"  class="icon1 hint--right" aria-label="Restringir"></a>
+                        <ul>
+
+                            <li><a href="#">Objetivos</a></li>
+                            <li><a href="#">Partidas</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#menu3"  class="icon2 hint--right" aria-label="Activar"></a>
+                        <ul>
+                            <li> <a href="#">Periodo de captura de requisiciones</a></li>
+                            <li> <a href="#">Periodo de captura POA/PTA</a></li>
+                            <li><a href="#">Periodo de seguimiento POA/PTA</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#menu4"  class="icon3 hint--right" aria-label="Consultar"></a>
+                        <ul>
+                            <li><a href="#">PTA/POA programado</a></li>
+                            <li><a href="#">PTA/POA real</a></li>
+                            <li> <a href="#">Quien no ha capturado POA/PTA</a></li>
+                            <li><a href="#">Requisiciones</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#menu5"  class="icon4 hint--right" aria-label="Ver"></a>
+                        <ul>
+                            <li> <a href="#">Gastado/programado de la partida</a></li>
+                            <li><a href="#">Insumos</a></li>
+                            <li> <a href="#">Monto asignado por unidad administrativa</a></li>
+                        </ul>
+                    </li>
+                    <li> <a href="#menu6"  class="icon5 hint--right" aria-label="Montos a autorizar"></a></li>
+                    <li>  <a href="#menu7"  class="icon6 hint--right" aria-label="Insumos por mes"></a></li>
+                    <li>  <a href="#menu8" class="icon7 hint--right" aria-label="Catálogo de insumos"></a></li>
+                </ul>
+
+            </nav>
+        </div>
+
+    </footer>
 </body>
 </html>

@@ -6,8 +6,15 @@
     <link href="~/estilos.css" rel="stylesheet" />
 }
 <header>
-</header>
 
+    <div class="lbl ">
+        <label>Unidades administrativas</label>
+        <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
+    </div>
+
+
+
+</header>
 <main>
     <form method="post" asp-action="Editar">
         <div class="divmain">
@@ -23,7 +30,7 @@
             </select>
             <input type="hidden" asp-for="Eliminado" />
             <div class="botones">
-                <p id="errores">
+                <p class="ex" id="errores">
                     @Html.ValidationSummary()
                 </p>
                 <input style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="submit" value="Editar" />

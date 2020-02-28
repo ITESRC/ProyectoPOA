@@ -7,22 +7,20 @@
 <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-<header>
-    <section class="arriba">
-        <div class="lbl">
-            <label>Unidades </label>
-        </div>
 
-    </section>
+<header>
+
+    <div class="lbl ">
+        <label>Unidades administrativas</label>
+        <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
+    </div>
+
+
+
 </header>
 
 <main>
-    <div class="buscar">
-        <a asp-controller="UnidadesAdministrativas" asp-action="Agregar" class="plus"></a>
-        <form asp-action="Index" method="post">
-            <input class="search" type="search" placeholder="Buscar..." name="dato" value="@busqueda" />
-        </form>
-    </div>
+
     <table>
         <tr>
             <th>Clave</th>
@@ -30,7 +28,7 @@
             <th>Encargado</th>
             <th>Superior</th>
             <th style="width:40px;"></th>
-            <th style="width:40px;"></th>
+            <th style="width:40px;"><a class="plus hint--top" aria-label="Añadir nuevo" href="#">.....</a></th>
         </tr>
         @foreach (Unidadadministrativa unidad in Model)
         {
@@ -51,7 +49,7 @@
             </tr>
         }
     </table>
-   
+
     @Html.Raw(ViewBag.Message)
 </main>
 
