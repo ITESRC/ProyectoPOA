@@ -56,7 +56,9 @@ namespace ProyectoPOA.Repositories
         public List<string> Validar(Unidadadministrativa unidad)
         {
             List<string> errores = new List<string>();
-
+            Regex clave = new Regex("^[0-9]{4}$");
+            Regex nombre = new Regex(@"^[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ\s]+$");
+            Regex nombreEncargado = new Regex(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\.]?[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$");
             if (!clave.IsMatch(unidad.Clave.ToString("0000")))
             {
                 errores.Add("La clave es incorrecta. Debe de ser de 4 digitos.");
