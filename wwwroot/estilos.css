@@ -8,27 +8,25 @@
     src: url(fuentes/aliensandcows.ttf);
 }
 
-html{
-    margin:0px;
-    padding:0px;
-    font-family:comforta;
-
-}
-body
-{
-
+html {
+    margin: 0px;
+    padding: 0px;
+    font-family: comforta;
 }
 
+body {
+}
+/*#457abb*/
 header {
-  width:100%;
-    background-color: #457abb;
-    height:7%;
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:1;
-   
+    width: 100%;
+    background-color: transparent;
+    height: 7%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
+
     header a {
         background-image: url(images/logout2.png);
         background-repeat: no-repeat;
@@ -36,20 +34,19 @@ header {
         z-index: 1;
         width: 40px;
         height: 40px;
-    
+        margin-top: -45px;
         display: block;
         float: right;
-        margin-left: 96%;
-        /*margin-top: -3%;*/
+        clear: left;
         color: rgba(0,0,0,0);
     }
 
     header div {
         width: 100%;
-        height: 7%;
-     
+        height: 100%;
+        background-color: #457abb;
     }
-    
+
         header div label {
             display: block;
             line-height: 50px;
@@ -58,19 +55,20 @@ header {
             font-family: comforta;
             font-size: x-large;
             color: #f7f7f7;
-           
             float: left;
             clear: left;
             width: 50%;
         }
+
 main {
     background: white;
     width: 90%;
     max-width: 1500px;
-    margin: 20px auto;
+    margin: 50px auto;
     box-shadow: 0 0 10px rgba(0,0,0,.1);
-    margin-top:5%;
+    margin-top: 70px;
 }
+
 table {
     width: 80%;
     border-collapse: collapse;
@@ -113,10 +111,10 @@ table {
     table th a {
         background-image: url(images/more.png);
         background-repeat: no-repeat;
-        background-size:contain;
-        background-position:center;
-    
+        background-size: contain;
+        background-position: center;
     }
+
     table a {
         background-image: url(images/quit.png);
         background-repeat: no-repeat;
@@ -142,7 +140,7 @@ footer {
     position: fixed;
     left: 0;
     top: 7%;
-    width: 50px;
+    width: 55px;
     height: 100%;
     z-index: 0;
 }
@@ -167,7 +165,7 @@ footer {
 
         .container-all:target .popup {
             box-shadow: 0 0 10px rgba(0,0,0,.1);
-           z-index:1;
+            z-index: 1;
             /*transform: rotate(0deg) translate(-50%, -50%);*/
             visibility: visible;
         }
@@ -179,7 +177,7 @@ footer {
     position: absolute;
     /*top: -80%;
     left: -80%;*/
-    z-index:-1;
+    z-index: -1;
     top: 30%;
     left: 25%;
     visibility: hidden;
@@ -199,14 +197,14 @@ footer {
 
     .popup div {
         margin: auto;
-        width: 50%;
+        width: 100%;
         display: block;
     }
 
     .popup .confirm {
         height: 30px;
         margin: 0px 5px 0px 100px;
-        width: 30%;
+        width: calc(100% / 2);
         border-radius: 5px;
         background-color: #457abb;
         color: white;
@@ -217,103 +215,102 @@ footer {
         border-radius: 5px;
         background-color: #5787c1;
         color: white;
+        width: calc(100% / 2);
         text-decoration: none;
         padding: 5px 5px 8px 5px;
     }
-  
-    .menu-area{
-        list-style:none;
-        margin-top:-5px;
-        padding:0;
-        
-    
-        
+
+.menu-area {
+    list-style: none;
+    margin-top: -5px;
+    padding: 0;
+}
+
+    .menu-area > li > a {
+        margin: auto;
+        margin-top: 10px;
+        width: 65%;
+        height: 38px;
+        display: block;
+        border-radius: 50%;
+        background-size: 25px;
+        background-color: #d6d6d6;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url(images/gear.png);
     }
-        .menu-area > li > a {
-            margin: auto;
-            margin-top: 10px;
-            width: 65%;
-            height: 38px;
-            display: block;
-            border-radius: 50%;
-            background-size: 25px;
-            background-color: #d6d6d6;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-image: url(images/gear.png);
-        }
 
+    .menu-area > li > .icon1 {
+        background-image: url(images/password.png)
+    }
 
-        .menu-area > li > .icon1 {
-            background-image: url(images/password.png)
-        }
+    .menu-area > li > .icon2 {
+        background-image: url(images/activity.png)
+    }
 
-        .menu-area > li > .icon2 {
-            background-image: url(images/activity.png)
-        }
+    .menu-area > li > .icon3 {
+        background-image: url(images/quiz.png)
+    }
 
-        .menu-area > li > .icon3 {
-            background-image: url(images/quiz.png)
-        }
+    .menu-area > li > .icon4 {
+        background-image: url(images/look.png)
+    }
 
-        .menu-area > li > .icon4 {
-            background-image: url(images/look.png)
-        }
+    .menu-area > li > .icon5 {
+        background-image: url(images/cost.png)
+    }
 
-        .menu-area > li > .icon5 {
-            background-image: url(images/cost.png)
-        }
+    .menu-area > li > .icon6 {
+        background-image: url(images/product.png)
+    }
 
-        .menu-area > li > .icon6 {
-            background-image: url(images/product.png)
-        }
-
-        .menu-area > li > .icon7 {
-            background-image: url(images/catalogo.png)
-        }
-
-
+    .menu-area > li > .icon7 {
+        background-image: url(images/catalogo.png)
+    }
 
 
     .menu-area > li > a:hover {
         background-color: #cccccc;
     }
-       .menu-area li:hover>ul, .menu-area > li > li:hover > ul {
-            display: block;
-            opacity: 1;
-            visibility: visible;
-            width:16%;
-        }
 
 
-        .menu-area li ul {
-            background-color: #f7f7f7;
-            list-style: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s;
-            left: 50px;
-            top: 7%;
-            position: fixed;
-            height: 100%;
-            width: 0%;
+    .menu-area li:hover > ul, .menu-area > li > li:hover > ul {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        width: 200px;
+    }
+
+
+    .menu-area li ul {
+        background-color: #f7f7f7;
+        list-style: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s;
+        left: 50px;
+        top: 7%;
+        position: fixed;
+        height: 100%;
+        width: 0%;
+        margin: 0;
+        padding: 0;
+        z-index: -1;
+    }
+
+        .menu-area li ul li > a {
+            text-decoration: none;
             margin: 0;
-            padding: 0;
-            z-index: -1;
+            padding: 5px 0;
+            box-sizing: border-box;
+            padding-left: 5px;
+            color: #636363;
+            display: block;
         }
 
-            .menu-area li ul li > a {
-                text-decoration: none;
-                margin: 0;
-                padding: 5px 0;
-                box-sizing: border-box;
-                padding-left: 5px;
-                color: #636363;
-                display:block;
+            .menu-area li ul li > a:hover {
+                color: #457abb;
             }
-        .menu-area li ul li > a:hover {
-            color: #457abb;
-        }
 
 main .divmain {
     background-color: #f7f7f7;
@@ -321,8 +318,7 @@ main .divmain {
     margin: auto;
     height: 600px;
     max-height: 600px;
-
-  box-sizing:border-box;
+    box-sizing: border-box;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 2px;
 }
@@ -334,22 +330,23 @@ main .divmain {
     width: 90%;
     box-sizing: border-box;
     border: none;
-  
     font-size: small;
     line-height: 25px;
     margin-bottom: 10px;
     height: 25px;
     margin: auto;
-
     color: #7D8997;
 }
 
-
+.divmain .ex {
+    color: red;
+    padding: 10px 0;
+    text-transform: uppercase;
+}
 
 .divmain input, .divmain select {
     border-bottom: 1.5px solid #7D8997;
     background-color: #f7f7f7;
-
 }
 
 main .divmain {
@@ -358,10 +355,8 @@ main .divmain {
     margin: auto;
     height: 550px;
     max-height: 550px;
-  border:1px solid rgba(0,0,0,0.1);
-  border-radius:2px;
-  
- 
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 2px;
 }
 
 
@@ -371,78 +366,81 @@ main .divmain {
     width: 90%;
     box-sizing: border-box;
     border: none;
-  
+    text-transform: uppercase;
     font-size: small;
     line-height: 25px;
     margin-bottom: 10px;
     height: 25px;
     margin: auto;
-   
-        color: #7D8997;
+    font-family: sans-serif;
+    color: #7D8997;
 }
 
 .divmain input, .divmain select {
     border-bottom: 1.5px solid #7D8997;
     background-color: #f7f7f7;
- 
+    font-family: sans-serif;
 }
 
-.validation-summary-errors {
-    color: red;
-    padding: 10px 0;
-    text-transform: uppercase;
-    list-style:none;
-}
+@media only screen and (max-width:700px) {
 
-@media screen and (max-width: 700px){
-
-    table{
-        font-size:smaller;
+    table {
+        font-size: smaller;
     }
 
     main {
-       
+        background: white;
         width: 90%;
+        max-width: 1500px;
+        /*box-shadow: 0 0 10px rgba(0,0,0,.1);*/
+        margin-top: 5%;
+    }
 
-      
-        margin-top: 10%;
+    main {
+        width: 90%;
+        margin-left: 50px;
+        margin: 0px 50px;
+        margin-top: 60px;
     }
 
     header a {
-        
-     width:35px;
-     height:35px;
-      
         margin-left: 90%;
     }
 
-   
+    header div {
+    }
+
         header div label {
-          
-            font-size:large;
-         
+            font-size: large;
         }
 
-    footer {
-        
-        top: 7%;
-        width: 50px;
-        height: 100%;
-        z-index: 0;
+    .popup label {
+        font-size: medium;
+        height: 50px;
+        line-height: 50px;
     }
 
 
-    .container-all {
-        width: 100%;
-        height: 100%;
-     
+    .popup .confirm {
+        height: 26px;
+        margin: 0px 5px 0px 20px;
+        font-family: comforta;
+        border-radius: 5px;
+        background-color: #457abb;
+        color: white;
+        border: 0;
     }
 
-    .menu-area li:hover > ul, .menu-area > li > li:hover > ul {
-       
-        width: 200px;
+    .popup .cancel {
+        border-radius: 5px;
+        background-color: #5787c1;
+        color: white;
+        text-decoration: none;
+        padding: 5px;
     }
 
-
+    .popup {
+        max-height: 120px;
+        height: 800px;
+    }
 }
-
