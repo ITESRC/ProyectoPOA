@@ -11,7 +11,7 @@ namespace ProyectoPOA.Models
         }
 
         public int Id { get; set; }
-        public int Clave { get; set; }
+        public short Clave { get; set; }
         public string Nombre { get; set; }
         public string Encargado { get; set; }
         public bool? Eliminado { get; set; }
