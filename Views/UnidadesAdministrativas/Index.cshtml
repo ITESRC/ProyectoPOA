@@ -20,15 +20,20 @@
 </header>
 
 <main>
+    <div class="fabs">
+        <a href="#pop" class="material-icons fab-button openpopup hint--left" aria-label="Añadir nuevo" asp-action="Agregar">add</a>
+        <a href="#" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+        <a href="#" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>
 
+    </div>
     <table>
         <tr>
             <th>Clave</th>
             <th>Nombre</th>
             <th>Encargado</th>
             <th>Superior</th>
-            <th style="width:40px;"></th>
-            <th style="width:40px;"><a class="plus hint--top" aria-label="Añadir nuevo" asp-action="Agregar">.....</a></th>
+            @*<th style="width:40px;"></th>
+            <th style="width:40px;"><a class="plus hint--top" aria-label="Añadir nuevo" asp-action="Agregar">.....</a></th>*@
         </tr>
         @foreach (Unidadadministrativa unidad in Model)
         {
@@ -44,8 +49,8 @@
                 {
                     <td></td>
                 }
-                <td class="openpopup" style="width:20px;"><a onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})" href="#pop">......</a></td>
-                <td style="width:20px;"><a class="edit" asp-action="Editar" asp-route-id="@unidad.Id">......</a></td>
+                @*<td class="openpopup" style="width:20px;"><a onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})" href="#pop">......</a></td>
+                <td style="width:20px;"><a class="edit" asp-action="Editar" asp-route-id="@unidad.Id">......</a></td>*@
             </tr>
         }
     </table>
