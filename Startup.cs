@@ -29,7 +29,7 @@ namespace ProyectoPOA
             //{
                 app.UseDatabaseErrorPage();
                 app.UseDeveloperExceptionPage();
-            //}
+            //}  
             Environment = env;
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
