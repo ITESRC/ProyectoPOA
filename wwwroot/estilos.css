@@ -3,10 +3,6 @@
     src: url(fuentes/Champagne&LimousinesBold.ttf);
 }
 
-@font-face {
-    font-family: aliensandcows;
-    src: url(fuentes/aliensandcows.ttf);
-}
 
 html {
     margin: 0px;
@@ -34,11 +30,14 @@ header {
         z-index: 1;
         width: 40px;
         height: 40px;
+        margin-right:5px;
         margin-top: -45px;
         display: block;
         float: right;
         clear: left;
         color: rgba(0,0,0,0);
+        border-radius:50%;
+        background-color:#5787c1;
     }
 
     header div {
@@ -65,17 +64,46 @@ main {
     width: 90%;
     max-width: 1500px;
     margin: 50px auto;
-    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    /*box-shadow: 0 0 10px rgba(0,0,0,.1);*/
     margin-top: 70px;
+    margin-left:100px;
+}
+    main .fabs {
+        position: fixed;
+        right: 5px;
+        bottom: 50px;
+        height:150px;
+        width:50px;
+    }
+    main .fab-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #457abb;
+        color: #f7f7f7;
+        text-decoration: none;
+        text-align: center;
+        line-height: 40px;
+        justify-content: center;
+        font-size: 30px;
+        display: block;
+        margin: 5px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.25);
+        transition: background 0.25s;
+    }
+
+.fab-button:active{
+    background-color:#5787c1;
 }
 
 table {
-    width: 80%;
+    width: 100%;
     border-collapse: collapse;
     margin: auto;
     background-color: white;
     margin-top: 20px;
 }
+
 
     table th {
         border-bottom: 2px solid #7D8997;
@@ -92,7 +120,7 @@ table {
     }
 
     table #fila:hover {
-        background-color: rgba(0,0,0,0.2);
+        background-color: rgba(69, 122, 186, 0.31);
     }
 
     table td a {
@@ -295,7 +323,7 @@ footer {
         width: 0%;
         margin: 0;
         padding: 0;
-        z-index: -1;
+        
     }
 
         .menu-area li ul li > a {
@@ -306,6 +334,10 @@ footer {
             padding-left: 5px;
             color: #636363;
             display: block;
+          width:200px;
+          height:50px;
+          
+     
         }
 
             .menu-area li ul li > a:hover {
@@ -366,20 +398,20 @@ main .divmain {
     width: 90%;
     box-sizing: border-box;
     border: none;
-    text-transform: uppercase;
-    font-size: small;
+  
+    font-size: medium;
     line-height: 25px;
     margin-bottom: 10px;
     height: 25px;
     margin: auto;
-    font-family: sans-serif;
+
     color: #7D8997;
 }
 
 .divmain input, .divmain select {
     border-bottom: 1.5px solid #7D8997;
     background-color: #f7f7f7;
-    font-family: sans-serif;
+   
 }
 
 @media only screen and (max-width:700px) {
