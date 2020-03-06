@@ -26,21 +26,6 @@ namespace ProyectoPOA.Controllers
             return View(most);
         }
 
-        [HttpPost]
-        public IActionResult Index(string dato)
-        {
-            if (!string.IsNullOrWhiteSpace(dato))
-            {
-                ViewBag.Busqueda = dato;
-                repository = new UnidadAdministrativaRepository();
-                return View(repository.FiltrarUnidades(dato));
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-        }
-
         //Mostrar el formulario de Agregar
         public IActionResult Agregar()
         {
