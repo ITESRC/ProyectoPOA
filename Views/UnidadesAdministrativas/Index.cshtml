@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Administrar Unidades Administrativas";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var busqueda = ViewBag.Busqueda;
 }
 <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -21,7 +20,7 @@
 
 <main>
     <div class="fabs">
-        <a href="#pop" class="material-icons fab-button openpopup hint--left" aria-label="Añadir nuevo" asp-action="Agregar">add</a>
+        <a href="~/UnidadesAdministrativas/Agregar" class="material-icons fab-button openpopup hint--left" aria-label="Añadir nuevo">add</a>
         <a href="#" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
         <a href="#" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>
 

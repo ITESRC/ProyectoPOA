@@ -16,11 +16,9 @@ namespace ProyectoPOA.Controllers
     {
         UnidadAdministrativaRepository repository;
         public IActionResult Index()
-
         {
-
             ViewBag.Message = mensaje;
-
+            mensaje = null;
             repository = new UnidadAdministrativaRepository();
             var most = repository.GetUnidadesAdministrativas();
             return View(most);
@@ -34,6 +32,7 @@ namespace ProyectoPOA.Controllers
         public static dynamic mensaje;
         //Agregar todos los campos del formulario
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Agregar(Unidadadministrativa vm)
         {
             if (ModelState.IsValid)
@@ -81,6 +80,7 @@ namespace ProyectoPOA.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Editar(Unidadadministrativa vm)
         {
             if (ModelState.IsValid)
@@ -130,7 +130,7 @@ namespace ProyectoPOA.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Message = Notification.Show("No se ha podido eliminar", "Error", position: Position.TopRight, type: ToastType.Error);
+                ViewBag.Message = Notification.Show(ex.Message, "Error", position: Position.TopRight, type: ToastType.Error);
                 mensaje = ViewBag.Message;
                 return RedirectToAction("Index");
             }

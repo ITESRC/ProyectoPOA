@@ -6,14 +6,10 @@
     <link href="~/estilos.css" rel="stylesheet" />
 }
 <header>
-
     <div class="lbl ">
         <label>Unidades administrativas</label>
         <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
     </div>
-
-
-
 </header>
 
 <main>
@@ -26,24 +22,22 @@
             <label>Encargado:</label>
             <input required asp-for="Encargado" type="text" />
             <label>Superior:</label>
-            <select required asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
+            <select asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
                 <option selected="selected" value="">-- Seleccionar superior --</option>
             </select>
+            @Html.AntiForgeryToken()
             <div class="botones">
-                <p>
+                <p id="errores">
                     @Html.ValidationSummary()
                 </p>
                 <input id="btnAgregar" style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="submit" value="Añadir" onclick="deshabilitar()" />
-                <input style="margin-top:10px; width:45%; display:initial; background-color:#5787c1; color:white; border-bottom:none;" class="btn2" onclick="Back()" type="button" value="Cancelar" />
+                <a href="~/UnidadesAdministrativas">
+                    <input style="margin-top:10px; width:45%; display:initial; background-color:#5787c1; color:white; border-bottom:none;" class="btn2" type="button" value="Cancelar" />
+                </a>
             </div>
         </div>
-        <script src="abrir.js" charset="utf-8"></script>
-
 
         <script>
-            function Back() {
-                window.history.back()
-            }
             function deshabilitar() {
                 document.getElementById("btnAgregar").disabled = false;
             }

@@ -16,10 +16,6 @@ namespace ProyectoPOA.Repositories
             return Context.Unidadadministrativa.Where(x=>x.Eliminado==false).Include(x=>x.IdUnidadSuperiorNavigation);
         }
 
-        Regex clave = new Regex("^[0-9]{4}$");
-        Regex nombre = new Regex(@"^[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ\s]+$");
-        Regex nombreEncargado = new Regex(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\.]?[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$");
-
         public void EliminarUnidad(int id)
         {
             var unidad = GetById(id);
@@ -38,18 +34,6 @@ namespace ProyectoPOA.Repositories
             else
             {
                 throw new Exception("La unidad adminstrativa no existe.");
-            }
-        }
-
-        public IEnumerable<Unidadadministrativa> FiltrarUnidades(string datos)
-        {
-            if (!string.IsNullOrWhiteSpace(datos))
-            {
-                return Context.Unidadadministrativa.Where(x => x.Eliminado == false && (x.Clave.ToString().Contains(datos) || x.Nombre.ToUpper().Contains(datos.ToUpper()) || x.Encargado.ToUpper().Contains(datos.ToUpper()))).OrderBy(x => x.Nombre).Include(x=>x.IdUnidadSuperiorNavigation);
-            }
-            else
-            {
-                return GetUnidadesAdministrativas();
             }
         }
 
