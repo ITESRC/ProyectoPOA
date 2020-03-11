@@ -97,5 +97,11 @@ namespace ProyectoPOA.Repositories
             }
 
         }
+
+
+        public Unidadadministrativa EditarUnidadById(int id)
+        {
+            return Context.Unidadadministrativa.Where(x => x.Id == id && x.Eliminado == false).FirstOrDefault();
+        }
     }
 }

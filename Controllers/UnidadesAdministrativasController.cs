@@ -67,7 +67,7 @@ namespace ProyectoPOA.Controllers
         public IActionResult Editar(int id)
         {
             repository = new UnidadAdministrativaRepository();
-            var unidad = repository.GetById(id);
+            var unidad = repository.EditarUnidadById(id);
 
             if (unidad != null)
             {
