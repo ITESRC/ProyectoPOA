@@ -21,12 +21,11 @@
 <main>
     <div class="fabs">
         <a href="~/UnidadesAdministrativas/Agregar" class="material-icons fab-button openpopup hint--left" aria-label="Añadir nuevo">add</a>
-        <a href="#" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-        <a href="#" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>
-
+        <a onclick="EditarUnidad()" href="#" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+        <a href="#pop" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>
     </div>
-    <table>
-        <tr>
+    <table id="table">
+        <tr >
             <th>Clave</th>
             <th>Nombre</th>
             <th>Encargado</th>
@@ -36,7 +35,7 @@
         </tr>
         @foreach (Unidadadministrativa unidad in Model)
         {
-            <tr id="fila">
+            <tr id="fila" onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})">
                 <td>@unidad.Clave.ToString("0000")</td>
                 <td>@unidad.Nombre</td>
                 <td>@unidad.Encargado</td>
@@ -61,13 +60,13 @@
     <section class="popup">
         <label id="unidad"></label>
         <div>
-            <button class="confirm" id="btnAceptar" type="submit">Aceptar</button>
+            <button onclick="EliminarUnidad()" class="confirm" id="btnAceptar" type="submit">Aceptar</button>
             <a id="btnCancelar" class="cancel" href="#">Cancelar</a>
         </div>
     </section>
 </div>
 
-<script>
+@*<script>
     let modal = document.getElementById('pop')
     let unidadModal = document.getElementById('unidad')
     let btnAceptar = document.getElementById('btnAceptar')
@@ -79,6 +78,50 @@
             window.location.href = `UnidadesAdministrativas/Eliminar/${unidad.Id}`
         }
     }
+</script>*@
+
+<script>
+    let btnEditar = document.getElementById('btnEditar');
+    let btnEliminar = document.getElementById('btnEliminar');
+
+    document.querySelector('table').addEventListener('click', function (e) {
+
+        var closestCell = e.target.closest('tr');
+        activeCell = e.currentTarget.querySelector('tr.selected');
+        closestCell.classList.add('selected');
+        btnEliminar.style = "display:block";
+        btnEditar.style = "display:block";
+        if (activeCell) {
+            activeCell.classList.remove('selected');
+            t = activeCell = e.currentTarget.querySelector('tr.selected');
+            if (!t) {
+                btnEliminar.style = "display:none";
+                btnEditar.style = "display:none";
+            }
+        }
+    })
+
+    let unidadModal = document.getElementById('unidad')
+    let btnAceptar = document.getElementById('btnAceptar')
+
+    var NombreUnidad = "";
+    var IdUnidad = 0;
+
+    function verModal(unidad) {
+        NombreUnidad = unidad.Nombre;
+        IdUnidad = unidad.Id;
+        unidadModal.innerText = `¿Estás seguro de eliminar a la unidad ${NombreUnidad}?`
+    }
+
+    function EliminarUnidad() {
+            window.location.href = `UnidadesAdministrativas/Eliminar/${IdUnidad}`
+    }
+
+    function EditarUnidad() {
+        window.location.href = `UnidadesAdministrativas/Editar/${IdUnidad}`
+    }
+    
+
 </script>
 
 

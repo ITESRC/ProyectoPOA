@@ -21,7 +21,7 @@ namespace ProyectoPOA.Repositories
             var unidad = GetById(id);
             if (unidad != null)
             {
-                if(GetAll().Any(x=>x.IdUnidadSuperior == unidad.Id))
+                if(GetAll().Any(x=>x.IdUnidadSuperior == unidad.Id && x.Eliminado == false))
                 {
                     throw new Exception($"La unidad adminstrativa {unidad.Nombre} no se puede eliminar.");
                 }
