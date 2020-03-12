@@ -13,7 +13,7 @@ namespace ProyectoPOA.Repositories
 
         public IEnumerable<Unidadadministrativa> GetUnidadesAdministrativas()
         {
-            return Context.Unidadadministrativa.Where(x=>x.Eliminado==false).Include(x=>x.IdUnidadSuperiorNavigation);
+            return Context.Unidadadministrativa.Where(x=>x.Eliminado==false).Include(x=>x.IdUnidadSuperiorNavigation).OrderBy(x=>x.Nombre);
         }
 
         public void EliminarUnidad(int id)
