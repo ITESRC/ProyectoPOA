@@ -58,12 +58,14 @@ namespace ProyectoPOA.Repositories
                 {
                     errores.Add("El nombre de la unidad administrativa no es valido.");
                 }
-
-                var unidadAdmin = Context.Unidadadministrativa.Where(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false) && x.Id != unidad.Id).FirstOrDefault();
-
-                if (unidadAdmin!=null)
+                else
                 {
-                    errores.Add($"El nombre de la unidad administrativa {unidad.Nombre} ya existe.");
+                    var unidadAdmin = Context.Unidadadministrativa.Where(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false) && x.Id != unidad.Id).FirstOrDefault();
+
+                    if (unidadAdmin != null)
+                    {
+                        errores.Add($"El nombre de la unidad administrativa {unidad.Nombre} ya existe.");
+                    }
                 }
             }
 
@@ -77,12 +79,14 @@ namespace ProyectoPOA.Repositories
                 {
                     errores.Add("El nombre del encargado es incorrecto. Proporcione nombre completo.");
                 }
-
-                var encargado = Context.Unidadadministrativa.FirstOrDefault(x => x.Encargado.Trim().ToUpper() == unidad.Encargado.Trim().ToUpper() && x.Eliminado == false && x.Id != unidad.Id);
-
-                if(encargado != null)
+                else
                 {
-                    errores.Add("El encargado proporcionado ya está a cargo de otra Unidad Administrativa.");
+                    var encargado = Context.Unidadadministrativa.FirstOrDefault(x => x.Encargado.Trim().ToUpper() == unidad.Encargado.Trim().ToUpper() && x.Eliminado == false && x.Id != unidad.Id);
+
+                    if (encargado != null)
+                    {
+                        errores.Add("El encargado proporcionado ya está a cargo de otra Unidad Administrativa.");
+                    }
                 }
             }
 
