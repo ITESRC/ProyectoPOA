@@ -43,6 +43,7 @@ namespace ProyectoPOA.Repositories
             Regex clave = new Regex("^[0-9]{4}$");
             Regex nombre = new Regex(@"^[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ\s]+$");
             Regex nombreEncargado = new Regex(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\.]?[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$");
+
             if (!clave.IsMatch(unidad.Clave.ToString("0000")))
             {
                 errores.Add("La clave es incorrecta. Debe de ser de 4 digitos.");
@@ -51,7 +52,7 @@ namespace ProyectoPOA.Repositories
             {
                 errores.Add("El nombre de la unidad administrativa está vacío.");
             }
-            if (!string.IsNullOrWhiteSpace(unidad.Nombre))
+            else
             {
                 if (!nombre.IsMatch(unidad.Nombre))
                 {
@@ -70,6 +71,20 @@ namespace ProyectoPOA.Repositories
             {
                 errores.Add("El nombre del encargado está vacio.");
             }
+            else
+            {
+                if (!nombreEncargado.IsMatch(unidad.Encargado))
+                {
+                    errores.Add("El nombre del encargado es incorrecto. Proporcione nombre completo.");
+                }
+
+                var encargado = Context.Unidadadministrativa.FirstOrDefault(x => x.Encargado.Trim().ToUpper() == unidad.Encargado.Trim().ToUpper() && x.Eliminado == false && x.Id != unidad.Id);
+
+                if(encargado != null)
+                {
+                    errores.Add("El encargado proporcionado ya está a cargo de otra Unidad Administrativa.");
+                }
+            }
 
             var ua = Context.Unidadadministrativa.FirstOrDefault(x => x.Clave == unidad.Clave && x.Eliminado == false && x.Id != unidad.Id) ;
 
@@ -78,14 +93,6 @@ namespace ProyectoPOA.Repositories
                 errores.Add("La clave de la unidad administrativa ya existe.");
             }
 
-
-            if (!string.IsNullOrWhiteSpace(unidad.Encargado))
-            {
-                if (!nombreEncargado.IsMatch(unidad.Encargado))
-                {
-                    errores.Add("El nombre del encargado es incorrecto. Proporcione nombre completo.");
-                }
-            }
 
             if (errores.Count > 0)
             {
