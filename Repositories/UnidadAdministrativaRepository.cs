@@ -41,8 +41,8 @@ namespace ProyectoPOA.Repositories
         {
             List<string> errores = new List<string>();
             Regex clave = new Regex("^[0-9]{4}$");
-            Regex nombre = new Regex(@"^[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ\s]+$");
-            Regex nombreEncargado = new Regex(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\.]?[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$");
+            Regex nombre = new Regex(@"^([A-ZÜÁÉÍÓÚ][a-züáéíóú]+\s?)+$");
+            Regex nombreEncargado = new Regex(@"^([A-ZÜÁÉÍÓÚ][a-züáéíóú\.]+\s?){2,}?$");
 
             if (!clave.IsMatch(unidad.Clave.ToString("0000")))
             {
@@ -54,9 +54,9 @@ namespace ProyectoPOA.Repositories
             }
             else
             {
-                if (!nombre.IsMatch(unidad.Nombre))
+                if (!nombre.IsMatch(unidad.Nombre) || unidad.Nombre.Trim().Length>60)
                 {
-                    errores.Add("El nombre de la unidad administrativa no es valido.");
+                    errores.Add("El nombre de la unidad administrativa no es válido (Máximo de 60 caracteres, no utilice caracteres especiales, respete mayúsculas y minúsculas).");
                 }
                 else
                 {
@@ -75,9 +75,9 @@ namespace ProyectoPOA.Repositories
             }
             else
             {
-                if (!nombreEncargado.IsMatch(unidad.Encargado))
+                if (!nombreEncargado.IsMatch(unidad.Encargado) || unidad.Encargado.Trim().Length>60)
                 {
-                    errores.Add("El nombre del encargado es incorrecto. Proporcione nombre completo.");
+                    errores.Add("El nombre del encargado no es válido (Máximo de 60 caracteres, respete mayúsculas y minúsculas, proporcione al menos un nombre y un apellido).");
                 }
                 else
                 {
