@@ -12,7 +12,7 @@ html {
 
 body {
 }
-/*#457abb*/
+
 header {
     width: 100%;
     background-color: transparent;
@@ -21,6 +21,7 @@ header {
     top: 0;
     left: 0;
     z-index: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
     header a {
@@ -44,6 +45,7 @@ header {
         width: 100%;
         height: 100%;
         background-color: #457abb;
+        box-shadow: 0 0 10px rgba(0,0,0,.45);
     }
 
         header div label {
@@ -75,26 +77,23 @@ main {
         height:150px;
         width:50px;
     }
-    main .fab-button {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #457abb;
-        color: #f7f7f7;
-        text-decoration: none;
-        text-align: center;
-        line-height: 40px;
-        justify-content: center;
-        font-size: 30px;
-        display: none;
-        margin: 5px;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.25);
-        transition: background 0.25s;
-    }
-
-        main .fab-button:nth-child(1) {
-            display: block;
-        }
+main .fab-button{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background-color:#457abb;
+    color:#f7f7f7;
+    text-decoration:none;
+    text-align:center;
+    line-height:40px;
+    justify-content:center;
+    font-size:30px;
+    display:block;
+    margin:5px;
+    box-shadow:2px 2px 5px rgba(0,0,0,0.45);
+  
+   transition:background 0.25s;
+}
 
 .fab-button:active{
     background-color:#5787c1;
@@ -122,6 +121,16 @@ table {
         height: 40px;
         line-height: 30px;
     }
+    table tr {
+        background-color:white;
+    }
+        table tr:nth-child(even) {
+            background-color: rgba(224, 241, 255, 0.45);
+        }
+
+        table tr:nth-child(odd) {
+            background-color: white;
+        }
 
     table #fila:hover {
         background-color: rgba(69, 122, 186, 0.31);
@@ -135,37 +144,16 @@ table {
         display: initial;
     }
 
-    table nav {
-        height: 50px;
-        width: 50px;
+    .tablaObj ol{
+        list-style:none;
     }
 
-    table th a {
-        background-image: url(images/more.png);
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-    }
+.tablaObj table {
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
 
-    table a {
-        background-image: url(images/quit.png);
-        background-repeat: no-repeat;
-        text-decoration: none;
-        height: 40px;
-        line-height: 40px;
-        font-size: x-large;
-        color: rgba(0,0,0,0);
-    }
 
-    table .edit {
-        background-image: url(images/edit.png);
-        background-repeat: no-repeat;
-        text-decoration: none;
-        height: 40px;
-        line-height: 40px;
-        font-size: x-large;
-        color: rgba(0,0,0,0);
-    }
+  
 
 footer {
     background-color: #e1e1e1;
@@ -181,24 +169,24 @@ footer {
 .container-all {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0%;
     visibility: hidden;
     opacity: 0;
     transition: all 600ms;
+   z-index:1;
 }
 
     .container-all:target {
-        /*background-color: rgba(0,0,0,0.6);*/
+        background-color: rgba(0,0,0,0.6);
         visibility: visible;
         opacity: 1;
     }
 
         .container-all:target .popup {
             box-shadow: 0 0 10px rgba(0,0,0,.1);
-            z-index: 1;
-            /*transform: rotate(0deg) translate(-50%, -50%);*/
+            z-index: 1;  
             visibility: visible;
         }
 
@@ -206,14 +194,11 @@ footer {
     width: 50%;
     max-height: 30%;
     height: 800px;
-    position: absolute;
-    /*top: -80%;
-    left: -80%;*/
+    position: absolute; 
     z-index: -1;
     top: 30%;
     left: 25%;
     visibility: hidden;
-    /*transform: rotate(90deg) translate(-150%, 230%);*/
     transition: all 600ms;
     background-color: white;
 }
@@ -350,7 +335,7 @@ footer {
 
 main .divmain {
     background-color: #f7f7f7;
-    width: 50%;
+
     margin: auto;
     height: 600px;
     max-height: 600px;
@@ -358,7 +343,18 @@ main .divmain {
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 2px;
 }
-
+main .fabsMain {
+    position: fixed;
+    right: 5px;
+    bottom: 40px;
+    height: 95px;
+    width: 50px;
+}
+.divmain h2{
+    margin:0;
+    padding:5px;
+    text-align:center;
+}
 
 
 .divmain input, .divmain label, .divmain select {
@@ -385,16 +381,25 @@ main .divmain {
     background-color: #f7f7f7;
 }
 
-main .divmain {
-    background-color: #f7f7f7;
-    width: 50%;
-    margin: auto;
-    height: 550px;
-    max-height: 550px;
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 2px;
+.divmain .btnañadir {
+    margin-top: 30px;
+    width: 45%;
+    display: initial;
+    margin-left: 5%;
+    background-color: #457abb;
+    color: white;
+    border-bottom: none;
 }
 
+.divmain .btncancelar {
+    margin-top: 10px;
+    width: 45%;
+    display: initial;
+    background-color: #5787c1;
+    color: white;
+    border-bottom: none;
+
+}
 
 
 .divmain input, .divmain label, .divmain select {
@@ -479,8 +484,4 @@ main .divmain {
         max-height: 120px;
         height: 800px;
     }
-}
-
-.selected {
-    background-color: rgba(69, 122, 186, 0.31);
 }

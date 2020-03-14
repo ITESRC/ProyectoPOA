@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewData["Title"] = "AdministrarPIID";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<main>
+    <div class="fabs">
+
+        <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+        <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+        <a href="#popadd" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
+    </div>
+
+    <div class="subfabAdd">
+        <a href="#">Añadir objetivo</a>
+        <a href="#">Añadir estrategia</a>
+    </div>
+
+    <div class="tablaObj">
+        <ol>
+            <li>
+                <table>
+                    <tr id="fila">
+                        <th>Objetivo 1</th>
+                    </tr>
+                    <tr id="fila">
+                        <td>Estrategia 1</td>
+
+                    </tr>
+                    <tr id="fila">
+                        <td>Estrategia 2</td>
+                    </tr>
+                    <tr id="fila">
+                        <td>Estrategia 3</td>
+                    </tr>
+                </table>
+            </li>
+
+
+        </ol>
+    </div>
+
+
+
+</main>
+
+<div class="container-all" id="popdelete">
+    <section class="popup">
+        <label>¿Eliminar?</label>
+        <div>
+            <input class="confirm" type="button" value="Confirmar" />
+            <a class="cancel" href="#">cancelar</a>
+        </div>
+    </section>
+</div>
+
+<div class="container-all" id="popadd">
+    <section class="popup">
+        <label>Agregar</label>
+        <label>Objetivo:</label>
+        <input type="text" />
+        <div>
+
+            <input class="confirm" type="button" value="Confirmar" />
+            <a class="cancel" href="#">cancelar</a>
+        </div>
+    </section>
+</div>
+
+<div class="container-all" id="popedit">
+    <section class="popup">
+        <label>Editar</label>
+        <label>Objetivo:</label>
+        <select>
+            <option>
+                objetivo 1
+            </option>
+            <option>
+                objetivo 2
+            </option>
+        </select>
+        <div>
+            <input class="confirm" type="button" value="Confirmar" />
+            <a class="cancel" href="#">cancelar</a>
+        </div>
+    </section>
+</div>
