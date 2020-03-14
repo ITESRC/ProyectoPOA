@@ -3,19 +3,11 @@
     ViewData["Title"] = "Administrar Unidades Administrativas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-
 <header>
-
     <div class="lbl ">
         <label>Unidades administrativas</label>
         <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
     </div>
-
-
-
 </header>
 
 <main>
@@ -25,13 +17,13 @@
         <a href="#pop" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>
     </div>
     <table id="table">
-        <tr >
+        <tr>
             <th>Clave</th>
             <th>Nombre</th>
             <th>Encargado</th>
             <th>Superior</th>
             @*<th style="width:40px;"></th>
-            <th style="width:40px;"><a class="plus hint--top" aria-label="Añadir nuevo" asp-action="Agregar">.....</a></th>*@
+                <th style="width:40px;"><a class="plus hint--top" aria-label="Añadir nuevo" asp-action="Agregar">.....</a></th>*@
         </tr>
         @foreach (Unidadadministrativa unidad in Model)
         {
@@ -48,14 +40,12 @@
                     <td></td>
                 }
                 @*<td class="openpopup" style="width:20px;"><a onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})" href="#pop">......</a></td>
-                <td style="width:20px;"><a class="edit" asp-action="Editar" asp-route-id="@unidad.Id">......</a></td>*@
+                    <td style="width:20px;"><a class="edit" asp-action="Editar" asp-route-id="@unidad.Id">......</a></td>*@
             </tr>
         }
     </table>
-
     @Html.Raw(ViewBag.Message)
 </main>
-
 <div class="container-all" id="pop">
     <section class="popup">
         <label id="unidad"></label>
@@ -65,63 +55,4 @@
         </div>
     </section>
 </div>
-
-@*<script>
-    let modal = document.getElementById('pop')
-    let unidadModal = document.getElementById('unidad')
-    let btnAceptar = document.getElementById('btnAceptar')
-
-    function verModal(unidad) {
-        unidadModal.innerText = `¿Estás seguro de eliminar a la unidad ${unidad.Nombre}?`
-
-        btnAceptar.onclick = function () {
-            window.location.href = `UnidadesAdministrativas/Eliminar/${unidad.Id}`
-        }
-    }
-</script>*@
-
-<script>
-    let btnEditar = document.getElementById('btnEditar');
-    let btnEliminar = document.getElementById('btnEliminar');
-
-    document.querySelector('table').addEventListener('click', function (e) {
-
-        var closestCell = e.target.closest('tr');
-        activeCell = e.currentTarget.querySelector('tr.selected');
-        closestCell.classList.add('selected');
-        btnEliminar.style = "display:block";
-        btnEditar.style = "display:block";
-        if (activeCell) {
-            activeCell.classList.remove('selected');
-            t = activeCell = e.currentTarget.querySelector('tr.selected');
-            if (!t) {
-                btnEliminar.style = "display:none";
-                btnEditar.style = "display:none";
-            }
-        }
-    })
-
-    let unidadModal = document.getElementById('unidad')
-    let btnAceptar = document.getElementById('btnAceptar')
-
-    var NombreUnidad = "";
-    var IdUnidad = 0;
-
-    function verModal(unidad) {
-        NombreUnidad = unidad.Nombre;
-        IdUnidad = unidad.Id;
-        unidadModal.innerText = `¿Estás seguro de eliminar a la unidad ${NombreUnidad}?`
-    }
-
-    function EliminarUnidad() {
-            window.location.href = `UnidadesAdministrativas/Eliminar/${IdUnidad}`
-    }
-
-    function EditarUnidad() {
-        window.location.href = `UnidadesAdministrativas/Editar/${IdUnidad}`
-    }
-    
-
-</script>
-
-
+<script src="~/funciones.js"></script>

@@ -50,6 +50,8 @@ namespace ProyectoPOA.Controllers
                 }
                 else
                 {
+                    vm.Nombre = vm.Nombre.Trim();
+                    vm.Encargado = vm.Encargado.Trim();
                     repository.Insert(vm);
                     ViewBag.Message = Notification.Show("Se ha agregado correctamente", "Aviso", position: Position.TopRight, type: ToastType.Success);
                     mensaje = ViewBag.Message;
@@ -67,7 +69,7 @@ namespace ProyectoPOA.Controllers
         public IActionResult Editar(int id)
         {
             repository = new UnidadAdministrativaRepository();
-            var unidad = repository.GetById(id);
+            var unidad = repository.EditarUnidadById(id);
 
             if (unidad != null)
             {

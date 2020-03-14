@@ -12,7 +12,7 @@
     </div>
 </header>
 <main>
-    <form method="post" asp-action="Editar">
+    <form method="post" asp-action="Editar" onsubmit="return Enviar();">
         <div class="divmain">
             <label>Clave:</label>
             <input required asp-for="Clave" type="number" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
@@ -36,6 +36,5 @@
                 </a>
             </div>
         </div>
-
     </form>
 </main>

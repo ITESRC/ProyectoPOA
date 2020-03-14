@@ -8,6 +8,8 @@ namespace ProyectoPOA.Models
         public Unidadadministrativa()
         {
             InverseIdUnidadSuperiorNavigation = new HashSet<Unidadadministrativa>();
+            Uaestrategia = new HashSet<Uaestrategia>();
+            Uapartidas = new HashSet<Uapartidas>();
         }
 
         public int Id { get; set; }
@@ -19,5 +21,7 @@ namespace ProyectoPOA.Models
 
         public Unidadadministrativa IdUnidadSuperiorNavigation { get; set; }
         public ICollection<Unidadadministrativa> InverseIdUnidadSuperiorNavigation { get; set; }
+        public ICollection<Uaestrategia> Uaestrategia { get; set; }
+        public ICollection<Uapartidas> Uapartidas { get; set; }
     }
 }

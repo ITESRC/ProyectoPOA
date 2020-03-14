@@ -13,7 +13,7 @@ namespace ProyectoPOA.Repositories
 
         public IEnumerable<Unidadadministrativa> GetUnidadesAdministrativas()
         {
-            return Context.Unidadadministrativa.Where(x=>x.Eliminado==false).Include(x=>x.IdUnidadSuperiorNavigation);
+            return Context.Unidadadministrativa.Where(x=>x.Eliminado==false).Include(x=>x.IdUnidadSuperiorNavigation).OrderBy(x=>x.Nombre);
         }
 
         public void EliminarUnidad(int id)
@@ -41,8 +41,9 @@ namespace ProyectoPOA.Repositories
         {
             List<string> errores = new List<string>();
             Regex clave = new Regex("^[0-9]{4}$");
-            Regex nombre = new Regex(@"^[A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ\s]+$");
-            Regex nombreEncargado = new Regex(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\.]?[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$");
+            Regex nombre = new Regex(@"^([A-ZÜÁÉÍÓÚ][a-züáéíóú]+\s?)+$");
+            Regex nombreEncargado = new Regex(@"^([A-ZÜÁÉÍÓÚ][a-züáéíóú\.]+\s?){2,}?$");
+
             if (!clave.IsMatch(unidad.Clave.ToString("0000")))
             {
                 errores.Add("La clave es incorrecta. Debe de ser de 4 digitos.");
@@ -51,24 +52,42 @@ namespace ProyectoPOA.Repositories
             {
                 errores.Add("El nombre de la unidad administrativa está vacío.");
             }
-            if (!string.IsNullOrWhiteSpace(unidad.Nombre))
+            else
             {
-                if (!nombre.IsMatch(unidad.Nombre))
+                if (!nombre.IsMatch(unidad.Nombre) || unidad.Nombre.Trim().Length>60)
                 {
-                    errores.Add("El nombre de la unidad administrativa no es valido.");
+                    errores.Add("El nombre de la unidad administrativa no es válido (Máximo de 60 caracteres, no utilice caracteres especiales, respete mayúsculas y minúsculas).");
                 }
-
-                var unidadAdmin = Context.Unidadadministrativa.Where(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false) && x.Id != unidad.Id).FirstOrDefault();
-
-                if (unidadAdmin!=null)
+                else
                 {
-                    errores.Add($"El nombre de la unidad administrativa {unidad.Nombre} ya existe.");
+                    var unidadAdmin = Context.Unidadadministrativa.Where(x => (x.Nombre.Trim().ToUpper() == unidad.Nombre.Trim().ToUpper() && x.Eliminado == false) && x.Id != unidad.Id).FirstOrDefault();
+
+                    if (unidadAdmin != null)
+                    {
+                        errores.Add($"El nombre de la unidad administrativa {unidad.Nombre} ya existe.");
+                    }
                 }
             }
 
             if (string.IsNullOrWhiteSpace(unidad.Encargado))
             {
                 errores.Add("El nombre del encargado está vacio.");
+            }
+            else
+            {
+                if (!nombreEncargado.IsMatch(unidad.Encargado) || unidad.Encargado.Trim().Length>60)
+                {
+                    errores.Add("El nombre del encargado no es válido (Máximo de 60 caracteres, respete mayúsculas y minúsculas, proporcione al menos un nombre y un apellido).");
+                }
+                else
+                {
+                    var encargado = Context.Unidadadministrativa.FirstOrDefault(x => x.Encargado.Trim().ToUpper() == unidad.Encargado.Trim().ToUpper() && x.Eliminado == false && x.Id != unidad.Id);
+
+                    if (encargado != null)
+                    {
+                        errores.Add("El encargado proporcionado ya está a cargo de otra Unidad Administrativa.");
+                    }
+                }
             }
 
             var ua = Context.Unidadadministrativa.FirstOrDefault(x => x.Clave == unidad.Clave && x.Eliminado == false && x.Id != unidad.Id) ;
@@ -79,14 +98,6 @@ namespace ProyectoPOA.Repositories
             }
 
 
-            if (!string.IsNullOrWhiteSpace(unidad.Encargado))
-            {
-                if (!nombreEncargado.IsMatch(unidad.Encargado))
-                {
-                    errores.Add("El nombre del encargado es incorrecto. Proporcione nombre completo.");
-                }
-            }
-
             if (errores.Count > 0)
             {
                 return errores;
@@ -96,6 +107,12 @@ namespace ProyectoPOA.Repositories
                 return null;
             }
 
+        }
+
+
+        public Unidadadministrativa EditarUnidadById(int id)
+        {
+            return Context.Unidadadministrativa.Where(x => x.Id == id && x.Eliminado == false).FirstOrDefault();
         }
     }
 }
