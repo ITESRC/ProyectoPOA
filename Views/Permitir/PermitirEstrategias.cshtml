@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewData["Title"] = "PermitirEstrategias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="fabsMain">
+        <a href="#popadd" class="material-icons fab-button  hint--left" aria-label="Agregar">add</a>
+        <a href="#popeliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">remove</a>
+    </div>
+
+    <h3>Unidad administrativa:</h3>
+    <select>
+        <option>Sistemas computacionales</option>
+        <option>Industrial</option>
+    </select>
+    <div class="divaccordion">
+        <button class="accordion">Objetivo 1</button>
+        <div class="panel">
+            <ol>
+                <li>Estrategia</li>
+                <li>Estrategia</li>
+                <li>Estrategia</li>
+            </ol>
+        </div>
+        <button class="accordion">Objetivo 2</button>
+        <div class="panel">
+            <ol>
+                <li>Estrategia</li>
+                <li>Estrategia</li>
+                <li>Estrategia</li>
+            </ol>
+        </div>
+        <button class="accordion">Objetivo 3</button>
+        <div class="panel">
+            <ol>
+                <li>Estrategia</li>
+                <li>Estrategia</li>
+                <li>Estrategia</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="divSeleccionados">
+        <h3>Estrategias seleccionadas</h3>
+        <dl>
+            <dt>Objetivo 1</dt>
+            <dd>Estrategia</dd>
+            <dd>Estrategia</dd>
+            <dt>Objetivo 2</dt>
+            <dd>Estrategia</dd>
+            <dd>Estrategia</dd>
+        </dl>
+    </div>
+
+
+</main>
+
+
+<div class="container-all" id="popadd">
+    <section class="popup">
+        <h3>Añadir estrategias</h3>
+
+        <dl>
+            <dt>Objetivo 1</dt>
+            <dd><input type="checkbox" />Estrategia</dd>
+            <dd><input type="checkbox" />Estrategia</dd>
+
+            <dt>Objetivo 2</dt>
+            <dd><input type="checkbox" />Estrategia</dd>
+            <dd><input type="checkbox" />Estrategia</dd>
+
+            <dt>Objetivo 3</dt>
+            <dd><input type="checkbox" />Estrategia</dd>
+            <dd><input type="checkbox" />Estrategia</dd>
+
+        </dl>
+
+
+        <div>
+            <button class="confirm">Añadir</button>
+            <button class="confirm">Cancelar</button>
+
+        </div>
+    </section>
+</div>
+
+<div class="container-all" id="popeliminar">
+    <section class="popup">
+        <h3>Eliminar estrategias</h3>
+
+        <dl>
+            <dt>Objetivo 1</dt>
+            <dd><input type="checkbox" />Estrategia</dd>
+            <dd><input type="checkbox" />Estrategia</dd>
+
+            <dt>Objetivo 2</dt>
+            <dd><input type="checkbox" />Estrategia</dd>
+            <dd><input type="checkbox" />Estrategia</dd>
+
+            <dt>Objetivo 3</dt>
+            <dd><input type="checkbox" />Estrategia</dd>
+            <dd><input type="checkbox" />Estrategia</dd>
+
+        </dl>
+
+
+        <div>
+            <button class="confirm">Añadir</button>
+            <button class="confirm">Cancelar</button>
+
+        </div>
+    </section>
+</div>
