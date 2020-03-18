@@ -183,8 +183,6 @@ main .fab-button{
     width: calc(100% / 2);
     float: right;
     margin-top:-125px;
-
-
 }
 
 .divSeleccionados h3{
@@ -234,6 +232,10 @@ table {
         table tr:nth-child(odd) {
             background-color: white;
         }
+
+    table .selected:nth-child(even), table .selected:nth-child(odd) {
+        background-color: rgba(69, 122, 186, 0.31)
+    }
 
     table #fila:hover {
         background-color: rgba(69, 122, 186, 0.31);
@@ -322,12 +324,13 @@ footer {
     top: 0px;
     left: 0%;
     visibility: hidden;
-    opacity: 0;
+    opacity: 1;
     transition: all 600ms;
-   z-index:1;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.6);
 }
 
-    .container-all:target {
+    /*.container-all:target {
         background-color: rgba(0,0,0,0.6);
         visibility: visible;
         opacity: 1;
@@ -337,19 +340,20 @@ footer {
             box-shadow: 0 0 10px rgba(0,0,0,.1);
             z-index: 1;  
             visibility: visible;
-        }
+        }*/
 
 .popup {
     width: 50%;
     max-height: 30%;
     height: 800px;
-    position: absolute; 
-    z-index: -1;
+    position: absolute;
+    z-index: 1;
     top: 30%;
     left: 25%;
     visibility: hidden;
     transition: all 600ms;
     background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
 .popupestrategias {

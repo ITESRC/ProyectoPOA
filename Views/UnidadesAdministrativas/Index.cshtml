@@ -3,6 +3,7 @@
     ViewData["Title"] = "Administrar Unidades Administrativas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <header>
     <div class="lbl ">
         <label>Unidades administrativas</label>
@@ -15,7 +16,7 @@
         <div class="options">
             @*cambiar a botones*@
             <button onclick="EditarUnidad()" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar" >edit</button>
-            <button id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar" >delete</button>
+            <button onclick="MostrarPopUp()" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar" >delete</button>
             @*<a onclick="EditarUnidad()" href="#" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
             <a href="#pop" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>*@
         </div>
@@ -23,7 +24,7 @@
         <a href="~/UnidadesAdministrativas/Agregar" class="material-icons fab-button openpopup hint--left" aria-label="Añadir nuevo">add</a>
     </div>
     <table id="table">
-        <tr>
+        <tr class="Head">
             <th>Clave</th>
             <th>Nombre</th>
             <th>Encargado</th>
@@ -52,12 +53,12 @@
     @Html.Raw(ViewBag.Message)
 </main>
 <div class="container-all" id="pop" > @*id="pop"*@
-    <section class="popup">
+    <section class="popup" id="message">
         <form>
             <label id="unidad"></label>
             <div>
-                <a href="#" class="confirm" id="btnCancelar" value="Cancelar"></a>
-                <button onclick="EliminarUnidad()" class="cancel" id="btnAceptar" type="submit">Añadir</button>
+                <button onclick="EsconderPopUp()" type="button" class="confirm" id="btnCancelar">Cancelar</button>
+                <button class="cancel" id="btnAceptar" type="submit">Añadir</button>
 
                 @*<button onclick="EliminarUnidad()" class="confirm" id="btnAceptar" type="submit">Aceptar</button>
                 <a id="btnCancelar" class="cancel" href="#">Cancelar</a>*@
@@ -66,3 +67,16 @@
     </section>
 </div>
 <script src="~/funciones.js"></script>
+
+<script>
+    let popUp = document.getElementById('pop');
+    let message = document.getElementById('message');
+    function MostrarPopUp() {
+        popUp.style.visibility = "visible";
+        message.style.visibility = "visible";
+    }
+    function EsconderPopUp(){
+        popUp.style.visibility = "hidden";
+        message.style.visibility = "hidden";
+    }
+</script>

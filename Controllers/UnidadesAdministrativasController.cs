@@ -119,6 +119,7 @@ namespace ProyectoPOA.Controllers
             }
         }
 
+        [HttpPost]
         public IActionResult Eliminar(int id)
         {
             try

@@ -6,9 +6,11 @@ document.querySelector('table').addEventListener('click', function (e) {
 
     var closestCell = e.target.closest('tr');
     activeCell = e.currentTarget.querySelector('tr.selected');
-    closestCell.classList.add('selected');
-    btnEliminar.style = "display:block";
-    btnEditar.style = "display:block";
+
+    if (!closestCell.classList.contains("Head")) {
+        closestCell.classList.add('selected');
+        btnEliminar.style = "display:block";
+        btnEditar.style = "display:block";
     if (activeCell) {
         activeCell.classList.remove('selected');
         t = activeCell = e.currentTarget.querySelector('tr.selected');
@@ -17,6 +19,8 @@ document.querySelector('table').addEventListener('click', function (e) {
             btnEditar.style = "display:none";
         }
     }
+    }
+
 })
 
 let unidadModal = document.getElementById('unidad')
