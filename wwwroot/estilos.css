@@ -81,12 +81,15 @@ main .fab-button{
     width:40px;
     height:40px;
     border-radius:50%;
+    border:none;
     background-color:#457abb;
     color:#f7f7f7;
     text-decoration:none;
-    text-align:center;
+  text-align:center;
+  justify-content:center;
+   
     line-height:40px;
-    justify-content:center;
+    
     font-size:30px;
     display:block;
     margin:5px;
@@ -98,6 +101,106 @@ main .fab-button{
 .fab-button:active{
     background-color:#5787c1;
 }
+
+.divSelectUnidades{
+    width:100%;
+    margin-bottom:50px;
+}
+.h3Unidades {
+    padding: 5px;
+    margin: 0;
+    width: calc(100% / 2);
+    color: #7D8997;
+    font-size: 20px;
+}
+
+.selectUnidades {
+    width: calc(100% / 2);
+    display: block;
+    float: right;
+    line-height: 20px;
+    font-size: 20px;
+    color: #7D8997;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #7D8997;
+}
+
+.divaccordion {
+    width: calc(100% / 2);
+ 
+    clear:right;
+}
+
+.accordion{
+    background-color:#457abb;
+    color:#f7f7f7;
+    cursor:pointer;
+    padding:10px;
+    width:100%;
+    text-align:left;
+    border:none;
+    border-bottom:1px solid #f7f7f7;
+    transition:0.5s;
+    font-size:large;
+    outline:none;
+}
+
+.panel{
+    padding:10px;
+    background-color:#f7f7f7;
+  
+    overflow:hidden;
+
+}
+
+.panel ol li{
+    list-style:none;
+    font-size:15px;
+    color:#41556C;
+}
+
+.active, .accordion:hover{
+    background-color:#5787c1;
+}
+
+.accordion:after{
+    content:'\02795';
+    font-size:10px;
+    line-height:20px;
+    float:right;
+    color:#f7f7f7;
+    margin-left:5px;
+}
+
+.active:after{
+    content:'\2796';
+    
+}
+
+.divSeleccionados {
+    width: calc(100% / 2);
+    float: right;
+    margin-top:-125px;
+
+
+}
+
+.divSeleccionados h3{
+    padding:0;
+    margin:0;
+    margin-left:10px;
+    color:#7D8997;
+    border-bottom:2px solid #7D8997;
+    font-size:20px;
+}
+
+.divSeleccionados dl{
+    margin-left:10px;
+    color:#7D8997;
+}
+
 
 table {
     width: 100%;
@@ -144,16 +247,62 @@ table {
         display: initial;
     }
 
-    .tablaObj ol{
+
+
+    .divtablaObj ol, .divtablaObj li{
         list-style:none;
     }
 
-.tablaObj table {
-    box-shadow: 0 0 10px rgba(0,0,0,.1);
+
+.tablaObj {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+    background-color: white;
+    margin-top: 20px;
+
 }
 
 
+    .tablaObj th {
+        border-bottom: 2px solid #41556C;
+        font-size:large;
+        height: 30px;
+        text-align:initial;
+        line-height: 30px;
+        color: #41556C;
+       padding-left:5px;
+       
+    }
+   
+    .tablaObj td {
+        color: #7D8997;
+        height: 40px;
+        padding-left: 5px;
+        text-align: initial;
+        line-height: 30px;
+    }
+
+    .tablaObj tr {
+        background-color: white;
+      
+    }
+
+        .tablaObj tr:nth-child(even) {
+            background-color: rgba(224, 241, 255, 0.45);
+        }
+
+        .tablaObj tr:nth-child(odd) {
+            background-color: white;
+        }
+
+    .tablaObj #filaEst:hover, .tablaObj #thObj:hover {
+        background-color: rgba(69, 122, 186, 0.31);
+        cursor: pointer;
+    }
+
   
+ 
 
 footer {
     background-color: #e1e1e1;
@@ -203,38 +352,116 @@ footer {
     background-color: white;
 }
 
-    .popup label {
-        text-align: center;
-        font-size: x-large;
-        height: 100px;
-        line-height: 100px;
-        color: #236b81;
-        display: block;
-    }
+.popupestrategias {
+    width: 50%;
+    overflow-y:scroll;
+    height: 80%;
+    position: absolute;
+    z-index: -1;
+    top: 50px;
+    left: 25%;
+    visibility: hidden;
+    transition: all 600ms;
+    background-color: white;
+ 
+}
+
+
+.container-all:target .popupestrategias {
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    z-index: 1;
+    visibility: visible;
+}
+.popupestrategias div {
+    margin: auto;
+    width: 230px;
+    position:fixed;
+    bottom:100px;
+    right:410px;
+    display: block;
+}
+
+.popupestrategias h3 {
+    margin-left: 20px;
+    margin-top: 20px;
+    color: #41556C;
+}
+
+.popupestrategias dl {
+    color: #7D8997;
+    margin-left: 20px;
+}
+
+.popupestrategias .confirm {
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+    background-color: #457abb;
+    float: right;
+    color: white;
+    border: 0;
+}
+.popupestrategias .cancel {
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+    background-color: #457abb;
+    color: white;
+    border: 0;
+}
+
+.popup label {
+    text-align: center;
+    font-size: x-large;
+    height: 50px;
+   
+    line-height: 50px;
+    color: #236b81;
+    display: block;
+}
 
     .popup div {
         margin: auto;
-        width: 100%;
+        width: 230px;
         display: block;
     }
 
-    .popup .confirm {
-        height: 30px;
-        margin: 0px 5px 0px 100px;
-        width: calc(100% / 2);
-        border-radius: 5px;
-        background-color: #457abb;
+    .popup h1{
+        font-size:large;
+       color:#7D8997;
+    margin-left:20px;
+    }
+    .popup select, .popup .agregarObj{
+        margin-left:20px;
+        margin-bottom:10px;
+        background-color:transparent;
+        border:none;
+        color:#7D8997;
+        font-size:medium;
+        border-bottom:2px solid #7D8997;
+    }
+.popup .confirm {
+    height: 30px;
+    /*margin: 0px 5px 0px 100px;*/
+    width: 100px;
+    border-radius: 5px;
+    background-color: #457abb;
+    float: right;
+
+      
         color: white;
         border: 0;
     }
 
     .popup .cancel {
+        height: 30px;
+        /*margin: 0px 5px 0px 100px;*/
+        width:100px;
         border-radius: 5px;
-        background-color: #5787c1;
+       
+        background-color: #457abb;
         color: white;
-        width: calc(100% / 2);
-        text-decoration: none;
-        padding: 5px 5px 8px 5px;
+        border: 0;
     }
 
 .menu-area {
@@ -335,7 +562,6 @@ footer {
 
 main .divmain {
     background-color: #f7f7f7;
-
     margin: auto;
     height: 600px;
     max-height: 600px;
@@ -347,13 +573,14 @@ main .fabsMain {
     position: fixed;
     right: 5px;
     bottom: 40px;
-    height: 95px;
+    height: 100px;
     width: 50px;
 }
-.divmain h2{
-    margin:0;
-    padding:5px;
-    text-align:center;
+.divmain h2 {
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    color: #7D8997;
 }
 
 

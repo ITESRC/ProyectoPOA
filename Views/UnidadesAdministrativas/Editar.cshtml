@@ -14,6 +14,7 @@
 <main>
     <form method="post" asp-action="Editar" onsubmit="return Enviar();">
         <div class="divmain">
+            <h2>Añadir unidad administrativa</h2>
             <label>Clave:</label>
             <input required asp-for="Clave" type="number" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
             <label>Nombre:</label>
@@ -30,11 +31,17 @@
                 <p class="ex" id="errores">
                     @Html.ValidationSummary()
                 </p>
-                <input style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="submit" value="Editar" />
+                @*<input style="margin-top:30px; width:45%; display:initial; margin-left:5%; background-color:#457abb; color:white; border-bottom:none" class="btn" type="submit" value="Editar" />
                 <a href="~/UnidadesAdministrativas">
                     <input style="margin-top:10px; width:45%; display:initial; background-color:#5787c1; color:white; border-bottom:none;" class="btn2" type="button" value="Cancelar" />
-                </a>
+                </a>*@
             </div>
         </div>
+        <div class="fabsMain">
+            < href="#" class="material-icons fab-button  hint--left" aria-label="Guardar">save</>
+            <a href="~/UnidadesAdministrativas" class="material-icons fab-button hint--left" aria-label="Cancelar">cancel</a>
+        </div>
     </form>
+
+   
 </main>

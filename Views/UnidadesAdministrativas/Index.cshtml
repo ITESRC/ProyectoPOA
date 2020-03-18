@@ -12,9 +12,15 @@
 
 <main>
     <div class="fabs">
+        <div class="options">
+            @*cambiar a botones*@
+            <button onclick="EditarUnidad()" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar" >edit</button>
+            <button id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar" >delete</button>
+            @*<a onclick="EditarUnidad()" href="#" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+            <a href="#pop" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>*@
+        </div>
+
         <a href="~/UnidadesAdministrativas/Agregar" class="material-icons fab-button openpopup hint--left" aria-label="Añadir nuevo">add</a>
-        <a onclick="EditarUnidad()" href="#" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-        <a href="#pop" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>
     </div>
     <table id="table">
         <tr>
@@ -22,8 +28,7 @@
             <th>Nombre</th>
             <th>Encargado</th>
             <th>Superior</th>
-            @*<th style="width:40px;"></th>
-                <th style="width:40px;"><a class="plus hint--top" aria-label="Añadir nuevo" asp-action="Agregar">.....</a></th>*@
+   
         </tr>
         @foreach (Unidadadministrativa unidad in Model)
         {
@@ -48,11 +53,16 @@
 </main>
 <div class="container-all" id="pop">
     <section class="popup">
-        <label id="unidad"></label>
-        <div>
-            <button onclick="EliminarUnidad()" class="confirm" id="btnAceptar" type="submit">Aceptar</button>
-            <a id="btnCancelar" class="cancel" href="#">Cancelar</a>
-        </div>
+        <form>
+            <label id="unidad"></label>
+            <div>
+                <a href="#" class="confirm" id="btnCancelar" value="Cancelar"></a>
+                <button onclick="EliminarUnidad()" class="cancel" id="btnAceptar" type="submit">Añadir</button>
+
+                @*<button onclick="EliminarUnidad()" class="confirm" id="btnAceptar" type="submit">Aceptar</button>
+                <a id="btnCancelar" class="cancel" href="#">Cancelar</a>*@
+            </div>
+        </form>
     </section>
 </div>
 <script src="~/funciones.js"></script>
