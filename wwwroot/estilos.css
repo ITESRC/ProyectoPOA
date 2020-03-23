@@ -327,6 +327,10 @@ footer {
     background-color: rgba(0,0,0,0.6);
 }
 
+table .selected:nth-child(even), table .selected:nth-child(odd) {
+    background-color: rgba(69, 122, 186, 0.31)
+}
+
     /*.container-all:target {
         background-color: rgba(0,0,0,0.6);
         visibility: visible;
