@@ -26,7 +26,7 @@
 
         if (!closestCell.classList.contains("Head")) {
             closestCell.classList.add('selected');
-            options.style = "display:block";
+            options.style.visibility = "visible";
             txtId.value = `${IdUnidad}`;
             btnAceptar.style.display = "block";
             if (activeCell) {
@@ -37,7 +37,7 @@
                     IdUnidad = 0;
                     unidadModal.innerText = `Seleccione una unidad.`;
                     btnAceptar.style.display = "none";
-                    options.style = "display:none";
+                    options.style.visibility = "hidden";
                 }
             }
         }

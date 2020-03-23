@@ -144,7 +144,7 @@ main .fab {
 }
 
 #options{
-    display:none;
+    visibility:hidden
 }
 
 .divSelectUnidades{
