@@ -16,34 +16,6 @@
         <option>Industrial</option>
     </select>
 
-
-    <div class="divaccordion">
-        <button class="accordion">Capitulo 1</button>
-        <div class="panel">
-            <ol>
-                <li>Partida</li>
-                <li>Partida</li>
-                <li>Partida</li>
-            </ol>
-        </div>
-        <button class="accordion">Capitulo 2</button>
-        <div class="panel">
-            <ol>
-                <li>Partida</li>
-                <li>Partida</li>
-                <li>Partida</li>
-            </ol>
-        </div>
-        <button class="accordion">Capitulo 3</button>
-        <div class="panel">
-            <ol>
-                <li>Partida</li>
-                <li>Partida</li>
-                <li>Partida</li>
-            </ol>
-        </div>
-    </div>
-
     <div class="divSeleccionados">
         <h3>Seleccionados</h3>
         <dl>
@@ -64,21 +36,19 @@
     <section class="popupestrategias">
         <h3>Añadir partidas</h3>
 
-        <dl>
-            <dt>Capitulo 1</dt>
-            <dd><input type="checkbox" />Partida</dd>
-            <dd><input type="checkbox" />Partida</dd>
+        <p>Presiona ctrl + click izquierdo para seleccionar las partidas deseadas</p>
 
-            <dt>Capitulo 2</dt>
-            <dd><input type="checkbox" />Partida</dd>
-            <dd><input type="checkbox" />Partida</dd>
 
-            <dt>Capitulo 3</dt>
-            <dd><input type="checkbox" />Partida</dd>
-            <dd><input type="checkbox" />Partida</dd>
-
-        </dl>
-
+        <select id="estrategias" size="20" multiple>
+            <optgroup label="Capitulo 1">
+                <option value="partida1">partida1</option>
+                <option value="partida2">partida2</option>
+            </optgroup>
+            <optgroup label="Capitulo 2">
+                <option value="partida5">partida5</option>
+                <option value="partida9">partida9</option>
+            </optgroup>
+        </select>
 
         <div>
             <button class="confirm">Cancelar</button>
@@ -91,21 +61,19 @@
 <div class="container-all" id="popeliminar">
     <section class="popupestrategias">
         <h3>Eliminar partidas</h3>
+        <p>Presiona ctrl + click izquierdo para deseleccionar las partidas deseadas</p>
 
-        <dl>
-            <dt>Capitulo 1</dt>
-            <dd><input type="checkbox" />Partida</dd>
-            <dd><input type="checkbox" />Partida</dd>
 
-            <dt>Capitulo 2</dt>
-            <dd><input type="checkbox" />Partida</dd>
-            <dd><input type="checkbox" />Partida</dd>
-
-            <dt>Capitulo 3</dt>
-            <dd><input type="checkbox" />Partida</dd>
-            <dd><input type="checkbox" />Partida</dd>
-
-        </dl>
+        <select id="estrategias" size="20" multiple>
+            <optgroup label="Capitulo 1">
+                <option value="partida1">partida1</option>
+                <option value="partida2">partida2</option>
+            </optgroup>
+            <optgroup label="Capitulo 2">
+                <option value="partida5">partida5</option>
+                <option value="partida9">partida9</option>
+            </optgroup>
+        </select>
 
 
         <div>

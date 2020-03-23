@@ -15,32 +15,7 @@
         <option>Sistemas computacionales</option>
         <option>Industrial</option>
     </select>
-    <div class="divaccordion">
-        <button class="accordion">Objetivo 1</button>
-        <div class="panel">
-            <ol>
-                <li>Estrategia</li>
-                <li>Estrategia</li>
-                <li>Estrategia</li>
-            </ol>
-        </div>
-        <button class="accordion">Objetivo 2</button>
-        <div class="panel">
-            <ol>
-                <li>Estrategia</li>
-                <li>Estrategia</li>
-                <li>Estrategia</li>
-            </ol>
-        </div>
-        <button class="accordion">Objetivo 3</button>
-        <div class="panel">
-            <ol>
-                <li>Estrategia</li>
-                <li>Estrategia</li>
-                <li>Estrategia</li>
-            </ol>
-        </div>
-    </div>
+ 
 
     <div class="divSeleccionados">
         <h3>Estrategias seleccionadas</h3>
@@ -62,21 +37,19 @@
     <section class="popupestrategias">
         <h3>Añadir estrategias</h3>
 
-        <dl>
-            <dt>Objetivo 1</dt>
-            <dd><input type="checkbox" />Estrategia</dd>
-            <dd><input type="checkbox" />Estrategia</dd>
+        <p>Presiona ctrl + click izquierdo para seleccionar las estrategias deseadas</p>
 
-            <dt>Objetivo 2</dt>
-            <dd><input type="checkbox" />Estrategia</dd>
-            <dd><input type="checkbox" />Estrategia</dd>
 
-            <dt>Objetivo 3</dt>
-            <dd><input type="checkbox" />Estrategia</dd>
-            <dd><input type="checkbox" />Estrategia</dd>
-
-        </dl>
-
+        <select id="estrategias" size="20" multiple>
+            <optgroup label="Objetivo 1">
+                <option value="es1">es1</option>
+                <option value="es2">es2</option>
+            </optgroup>
+            <optgroup label="Objetivo 2">
+                <option value="es5">es5</option>
+                <option value="es9">es9</option>
+            </optgroup>
+        </select>
 
         <div>
             <button class="confirm">Cancelar</button>
@@ -90,21 +63,19 @@
     <section class="popupestrategias">
         <h3>Eliminar estrategias</h3>
 
-        <dl>
-            <dt>Objetivo 1</dt>
-            <dd><input type="checkbox" />Estrategia</dd>
-            <dd><input type="checkbox" />Estrategia</dd>
+        <p>Presiona ctrl + click izquierdo para deseleccionar las estrategias deseadas</p>
 
-            <dt>Objetivo 2</dt>
-            <dd><input type="checkbox" />Estrategia</dd>
-            <dd><input type="checkbox" />Estrategia</dd>
 
-            <dt>Objetivo 3</dt>
-            <dd><input type="checkbox" />Estrategia</dd>
-            <dd><input type="checkbox" />Estrategia</dd>
-
-        </dl>
-
+        <select id="estrategias" size="20" multiple>
+            <optgroup label="Objetivo 1">
+                <option value="es1">es1</option>
+                <option value="es2">es2</option>
+            </optgroup>
+            <optgroup label="Objetivo 2">
+                <option value="es5">es5</option>
+                <option value="es9">es9</option>
+            </optgroup>
+        </select>
 
         <div>
             <button class="confirm">Cancelar</button>
