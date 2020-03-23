@@ -102,6 +102,10 @@ main .fab-button{
     background-color:#5787c1;
 }
 
+#options{
+    display:none;
+}
+
 .divSelectUnidades{
     width:100%;
     margin-bottom:50px;

@@ -1,48 +1,59 @@
 ﻿{
-let btnEditar = document.getElementById('btnEditar');
-let btnEliminar = document.getElementById('btnEliminar');
+    let popUp = document.getElementById('pop');
+    let message = document.getElementById('message');
+    let options = document.getElementById('options');
+    let txtId = document.getElementById('IdUnidad');
+    let btnAceptar = document.getElementById('btnAceptar');
 
-document.querySelector('table').addEventListener('click', function (e) {
+    let unidadModal = document.getElementById('unidad');
 
-    var closestCell = e.target.closest('tr');
-    activeCell = e.currentTarget.querySelector('tr.selected');
+    var NombreUnidad = "";
+    var IdUnidad = 0;
 
-    if (!closestCell.classList.contains("Head")) {
-        closestCell.classList.add('selected');
-        btnEliminar.style = "display:block";
-        btnEditar.style = "display:block";
-    if (activeCell) {
-        activeCell.classList.remove('selected');
-        t = activeCell = e.currentTarget.querySelector('tr.selected');
-        if (!t) {
-            btnEliminar.style = "display:none";
-            btnEditar.style = "display:none";
+    function MostrarPopUp(unidad) {
+        popUp.style.visibility = "visible";
+        message.style.visibility = "visible";
+    }
+    function EsconderPopUp() {
+        popUp.style.visibility = "hidden";
+        message.style.visibility = "hidden";
+    }
+
+    document.querySelector('table').addEventListener('click', function (e) {
+
+        var closestCell = e.target.closest('tr');
+        activeCell = e.currentTarget.querySelector('tr.selected');
+
+        if (!closestCell.classList.contains("Head")) {
+            closestCell.classList.add('selected');
+            options.style = "display:block";
+            txtId.value = `${IdUnidad}`;
+            btnAceptar.style.display = "block";
+            if (activeCell) {
+                activeCell.classList.remove('selected');
+                t = activeCell = e.currentTarget.querySelector('tr.selected');
+                if (!t) {
+                    NombreUnidad = "";
+                    IdUnidad = 0;
+                    unidadModal.innerText = `Seleccione una unidad.`;
+                    btnAceptar.style.display = "none";
+                    options.style = "display:none";
+                }
+            }
+        }
+    })
+
+    function verModal(unidad) {
+        NombreUnidad = unidad.Nombre;
+        IdUnidad = unidad.Id;
+        unidadModal.innerText = `¿Estás seguro de eliminar a la unidad ${NombreUnidad}?`
+    }
+
+    function EditarUnidad() {
+        if (IdUnidad != 0) {
+            window.location.href = `UnidadesAdministrativas/Editar/${IdUnidad}`
         }
     }
-    }
-
-})
-
-let unidadModal = document.getElementById('unidad')
-let btnAceptar = document.getElementById('btnAceptar')
-
-var NombreUnidad = "";
-var IdUnidad = 0;
-
-function verModal(unidad) {
-    NombreUnidad = unidad.Nombre;
-    IdUnidad = unidad.Id;
-    unidadModal.innerText = `¿Estás seguro de eliminar a la unidad ${NombreUnidad}?`
-}
-
-function EliminarUnidad() {
-    window.location.href = `UnidadesAdministrativas/Eliminar/${IdUnidad}`
-}
-
-function EditarUnidad() {
-    window.location.href = `UnidadesAdministrativas/Editar/${IdUnidad}`
-}
-}
 var estatus = false;
 function Enviar() {
     if (!estatus) {
@@ -52,4 +63,5 @@ function Enviar() {
 
         return false;
     }
+}
 }

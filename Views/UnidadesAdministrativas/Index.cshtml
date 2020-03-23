@@ -13,12 +13,9 @@
 
 <main>
     <div class="fabs">
-        <div class="options">
-            @*cambiar a botones*@
+        <div id="options">
             <button onclick="EditarUnidad()" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar" >edit</button>
             <button onclick="MostrarPopUp()" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar" >delete</button>
-            @*<a onclick="EditarUnidad()" href="#" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-            <a href="#pop" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">delete</a>*@
         </div>
 
         <a href="~/UnidadesAdministrativas/Agregar" class="material-icons fab-button openpopup hint--left" aria-label="Añadir nuevo">add</a>
@@ -45,8 +42,6 @@
                 {
                     <td></td>
                 }
-                @*<td class="openpopup" style="width:20px;"><a onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})" href="#pop">......</a></td>
-                    <td style="width:20px;"><a class="edit" asp-action="Editar" asp-route-id="@unidad.Id">......</a></td>*@
             </tr>
         }
     </table>
@@ -54,29 +49,15 @@
 </main>
 <div class="container-all" id="pop" > @*id="pop"*@
     <section class="popup" id="message">
-        <form>
+        <form method="post" asp-action="Eliminar">
             <label id="unidad"></label>
             <div>
                 <button onclick="EsconderPopUp()" type="button" class="confirm" id="btnCancelar">Cancelar</button>
-                <button class="cancel" id="btnAceptar" type="submit">Añadir</button>
-
-                @*<button onclick="EliminarUnidad()" class="confirm" id="btnAceptar" type="submit">Aceptar</button>
-                <a id="btnCancelar" class="cancel" href="#">Cancelar</a>*@
+                <button class="cancel" id="btnAceptar" type="submit">Aceptar</button>
+                <input id="IdUnidad" name="id" type="hidden" value=""/>
             </div>
         </form>
     </section>
 </div>
-<script src="~/funciones.js"></script>
 
-<script>
-    let popUp = document.getElementById('pop');
-    let message = document.getElementById('message');
-    function MostrarPopUp() {
-        popUp.style.visibility = "visible";
-        message.style.visibility = "visible";
-    }
-    function EsconderPopUp(){
-        popUp.style.visibility = "hidden";
-        message.style.visibility = "hidden";
-    }
-</script>
+<script src="~/funciones.js"></script>
