@@ -17,8 +17,8 @@ namespace ProyectoPOA.Controllers
         {
             capitulosRepository = new CapitulosRepository();
             IEnumerable<Capitulo> listCap = capitulosRepository.GetCapitulos();
-            ViewBag.ListaCap = listCap;
-            return View();
+            //ViewBag.ListaCap = listCap;
+            return View(listCap);
         }
 
         public IActionResult Agregar()
