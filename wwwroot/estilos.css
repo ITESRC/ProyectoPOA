@@ -608,7 +608,7 @@ main .fabsMain {
 }
 
 
-.divmain .ValidationSummary {
+.divmain .validation-summary-errors {
     color: red;
     padding: 10px 0;
     text-transform: uppercase;
