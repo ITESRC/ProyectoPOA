@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Agregar";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    <link href="~/estilos.css" rel="stylesheet" />
 }
 <header>
     <div class="lbl ">
@@ -12,7 +11,7 @@
     </div>
 </header>
 <main>
-    <form method="post" asp-action="Editar" onsubmit="return Enviar();">
+    <form method="post" asp-action="Editar" onsubmit="Save()">
         <div class="divmain">
             <h2>Añadir unidad administrativa</h2>
             <label>Clave:</label>
@@ -34,10 +33,9 @@
             </div>
         </div>
         <div class="fabsMain">
-            <button  class="material-icons fab-button  hint--left" aria-label="Guardar">save</button>
+            <button type="submit" id="btnGuardar" class="material-icons fab-button  hint--left" aria-label="Guardar">save</button>
             <a href="~/UnidadesAdministrativas" class="material-icons fab-button hint--left" aria-label="Cancelar">clear</a>
         </div>
     </form>
-
-   
 </main>
+<script src="~/scripts/disabledbutton.js"></script>
