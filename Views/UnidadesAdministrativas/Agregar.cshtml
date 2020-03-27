@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Agregar";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    <link href="~/estilos.css" rel="stylesheet" />
 }
 <header>
     <div class="lbl ">
@@ -13,7 +12,7 @@
 </header>
 
 <main>
-    <form method="post" asp-action="Agregar" onsubmit="return Enviar();">
+    <form method="post" asp-action="Agregar" onsubmit="Save()">
         <div class="divmain">
             <label>Clave:</label>
             <input required asp-for="Clave" type="number" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
@@ -33,10 +32,9 @@
             </div>
         </div>
         <div class="fabsMain">
-            <button  class="material-icons fab-button  hint--left" aria-label="Guardar">save</button>
+            <button type="submit" id="btnGuardar" class="material-icons fab-button  hint--left" aria-label="Guardar">save</button>
             <a href="~/UnidadesAdministrativas" class="material-icons fab-button hint--left" aria-label="Cancelar">clear</a>
         </div>
     </form>
-
 </main>
-
+<script src="~/scripts/disabledbutton.js"></script>

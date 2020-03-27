@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="wwwroot\hint.min.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>

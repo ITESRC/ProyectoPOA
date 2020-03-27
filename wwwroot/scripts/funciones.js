@@ -10,7 +10,7 @@
     var NombreUnidad = "";
     var IdUnidad = 0;
 
-    function MostrarPopUp(unidad) {
+    function MostrarPopUp() {
         popUp.style.visibility = "visible";
         message.style.visibility = "visible";
     }
@@ -54,14 +54,4 @@
             window.location.href = `UnidadesAdministrativas/Editar/${IdUnidad}`
         }
     }
-var estatus = false;
-function Enviar() {
-    if (!estatus) {
-        estatus = true;
-        return true;
-    } else {
-
-        return false;
-    }
-}
 }
