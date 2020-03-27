@@ -609,26 +609,28 @@ main .fabsMain {
 
 
 .divmain .validation-summary-errors {
-    color: red;
-    padding: 10px 0;
-    text-transform: uppercase;
-    padding-bottom: 35px;
-}
-
-.divmain input, .divmain label, .divmain select {
-    display: block;
-    width: 90%;
-    box-sizing: border-box;
-    border: none;
   
-    font-size: medium;
-    line-height: 25px;
-    margin-bottom: 10px;
-    height: 25px;
-    margin: auto;
+    color: red;
 
-    color: #7D8997;
+    width:auto;
+    padding-bottom: 10px;
 }
+    .divmain .validation-summary-errors ul li{
+        list-style:none;
+    }
+
+    .divmain input, .divmain label, .divmain select {
+        display: block;
+        width: 90%;
+        box-sizing: border-box;
+        border: none;
+        font-size: medium;
+        line-height: 25px;
+        margin-bottom: 10px;
+        height: 25px;
+        margin: auto;
+        color: #7D8997;
+    }
 
 .divmain input, .divmain select {
     border-bottom: 1.5px solid #7D8997;
