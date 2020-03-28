@@ -115,6 +115,14 @@ main .fab {
     transition: background 0.25s;
 
 }
+.fabSubfab {
+    list-style: none;
+    position: fixed;
+    right: 5px;
+    bottom: 43px;
+    width: 50px;
+}
+
 .fabSubfab li ul li {
     height: 30px;
     width: 130px;

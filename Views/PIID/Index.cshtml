@@ -8,14 +8,35 @@
     //List<Estrategia> estrategias = ViewBag.Estrategias;
 
 }
-<main>
-    <div class="fabs">
-        <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-        <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
-        <a class="material-icons fab-button  hint--left" aria-label="Añadir nuevo" id="add">add</a>
-    </div>
-    <div class="tablaObj">
-        @*<ul>
+    <main>
+        @*<div class="fabs">
+            <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+            <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+            <a class="material-icons fab-button  hint--left" aria-label="Añadir nuevo" id="add">add</a>
+        </div>*@
+
+        <nav>
+            <div class="fabs">
+                <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+                <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+            </div>
+            <ul class="fabSubfab">
+                <li>
+                    <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
+                    <ul>
+                        <li>
+                            <a href="#popaddO">Añadir objetivo</a>
+                        </li>
+                        <li>
+                            <a href="#popaddE">Añadir estrategia</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="tablaObj">
+            @*<ul>
                 @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
                 {
                     //num= obje.Id;
@@ -31,31 +52,31 @@
                 }
             </ul>*@
 
-        <ol>
-            <li>
-                <table>
-                    <tr id="fila">
-                        <th>Objetivo</th>
-                    </tr>
-                    @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
-                    {
-                        //num= obje.Id;
+            <ol>
+                <li>
+                    <table>
                         <tr id="fila">
-                            <td>@obje.Nombre</td>
+                            <th>Objetivo</th>
                         </tr>
-
-                        @foreach (Estrategia item in obje.ListaEstregias)
+                        @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
                         {
+                            //num= obje.Id;
+                            <tr id="fila">
+                                <td>@obje.Nombre</td>
+                            </tr>
 
-                            <tr id="fila">@item.Nombre</tr>
+                            @foreach (Estrategia item in obje.ListaEstregias)
+                            {
+
+                                <tr id="fila">@item.Nombre</tr>
+                            }
+
                         }
-
-                    }
-                </table>
-            </li>
-        </ol>
-    </div>
-</main>
+                    </table>
+                </li>
+            </ol>
+        </div>
+    </main>
 
 <div class="container-all" id="popdelete">
     <form method="get" asp-action="Desactivar" asp-controller="PIID">
