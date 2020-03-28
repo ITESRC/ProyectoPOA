@@ -1,6 +1,4 @@
-﻿{
-    let btnGuardar = document.getElementById("btnGuardar");
-    function Save() {
-        btnGuardar.disabled = true;
-    }
-}
+﻿$("form").submit(function () {
+    console.log("Se ha submitiado");
+    $(this).find(":submit").attr('disabled', 'disabled');
+});
