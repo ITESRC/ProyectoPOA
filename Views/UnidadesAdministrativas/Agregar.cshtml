@@ -12,7 +12,7 @@
 </header>
 
 <main>
-    <form method="post" asp-action="Agregar" onsubmit="Save()">
+    <form method="post" asp-action="Agregar">
         <div class="divmain">
             <label>Clave:</label>
             <input required asp-for="Clave" type="number" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />

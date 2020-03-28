@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Objetivo>
+@{
+    ViewData["Title"] = "AdministrarPIID";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<ObjetivosEstrategiasViewModel> objetivos = ViewBag.Lista;
+    //ObjetivosEstrategiasViewModel OEVm = ViewBag.VM;
+    //var num = ViewBag.IdObjetivo;
+    //List<Estrategia> estrategias = ViewBag.Estrategias;
+
+}
+<main>
+    <div class="fabs">
+        <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+        <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+        <a class="material-icons fab-button  hint--left" aria-label="Añadir nuevo" id="add">add</a>
+    </div>
+    <div class="tablaObj">
+        @*<ul>
+                @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
+                {
+                    //num= obje.Id;
+                    <li>
+                        <h2>@obje.Nombre</h2>
+                        <ul style="margin-top:50px">
+                            @foreach (Estrategia item in obje.ListaEstregias)
+                            {
+                                <li>@item.Nombre</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>*@
+
+        <ol>
+            <li>
+                <table>
+                    <tr id="fila">
+                        <th>Objetivo</th>
+                    </tr>
+                    @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
+                    {
+                        //num= obje.Id;
+                        <tr id="fila">
+                            <td>@obje.Nombre</td>
+                        </tr>
+
+                        @foreach (Estrategia item in obje.ListaEstregias)
+                        {
+
+                            <tr id="fila">@item.Nombre</tr>
+                        }
+
+                    }
+                </table>
+            </li>
+        </ol>
+    </div>
+</main>
+
+<div class="container-all" id="popdelete">
+    <form method="get" asp-action="Desactivar" asp-controller="PIID">
+        <section class="popup">
+            <label>¿Eliminar?</label>
+
+            <div>
+                <button class="cancel">Cancelar</button>
+                <button class="confirm" type="submit">Añadir</button>
+            </div>
+        </section>
+    </form>
+</div>
+<div class="container-all" id="popadd">
+    <form method="post" asp-action="Agregar" asp-controller="PIID">
+        <section>
+            <label>Agregar</label>
+            <label>Objetivo:</label>
+            <select>
+                <option selected="selected" value="">-- Objetivos --</option>
+                @foreach (Objetivo obj in Model)
+                {
+                    <option value="@obj.Id">@obj.Nombre</option>
+                }
+
+            </select>
+            <div>
+                <button class="cancel">Cancelar</button>
+                <button class="confirm" type="submit">Añadir</button>
+            </div>
+        </section>
+    </form>
+</div>
+
+<div class="container-all" id="popadd">
+    <form method="post" asp-action="Agregar" asp-controller="PIID">
+        <section>
+            <label>Agregar</label>
+            <h1>Estrategia:</h1>
+            <input class="agregarObj" type="text" />
+            <div>
+                <button class="cancel">Cancelar</button>
+                <button class="confirm" type="submit">Añadir</button>
+            </div>
+        </section>
+    </form>
+</div>
+<div class="container-all" id="popedit">
+    <form method="post" asp-action="Editar" asp-controller="PIID">
+        <section class="popup">
+            <label>Editar</label>
+            <h1>Estrategia:</h1>
+            <input class="agregarObj" type="text" />
+
+            <div>
+                <button class="cancel">Cancelar</button>
+                <button class="confirm" type="submit">Añadir</button>
+            </div>
+        </section>
+    </form>
+</div>
