@@ -66,8 +66,7 @@ main {
     width: 90%;
     max-width: 1500px;
     margin: 50px auto;
-    /*box-shadow: 0 0 10px rgba(0,0,0,.1);*/
-    margin-top: 70px;
+     margin-top: 70px;
     margin-left:100px;
 }
     main .fabs {
@@ -116,7 +115,45 @@ main .fab {
     transition: background 0.25s;
 
 }
-.subfabAdd {
+.fabSubfab li ul li {
+    height: 30px;
+    width: 130px;
+    margin: 0;
+    padding: 0;
+}
+
+    .fabSubfab li ul li:hover {
+        background-color: rgba(188, 201, 215, 0.52);
+    }
+
+.fabSubfab li ul {
+    list-style: none;
+    position: fixed;
+    bottom: 100px;
+    border-radius: 10px 10px 0px 10px;
+    right: 35px;
+    z-index: 1;
+    visibility: hidden;
+    padding: 10px;
+    box-shadow: rgba(0,0,0,0.45) 3px 3px 3px;
+    background-color: #41556C;
+    transition: all;
+    transition-delay: 0.3s;
+}
+
+    .fabSubfab li ul li > a {
+        text-decoration: none;
+        margin: auto;
+        color: #f7f7f7;
+        font-size: 18px;
+        line-height: 30px;
+    }
+
+
+.fabSubfab li:hover > ul, .fabSubfab > li > li:hover ul {
+    visibility: visible;
+}
+/*.subfabAdd {
     position: fixed;
     bottom: 100px;
     right: 10px;
@@ -141,7 +178,7 @@ main .fab {
 
 .fab-button:active{
     background-color:#5787c1;
-}
+}*/
 
 #options{
     visibility:hidden

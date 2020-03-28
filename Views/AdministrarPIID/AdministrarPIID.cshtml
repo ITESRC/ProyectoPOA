@@ -6,47 +6,54 @@
 
 
 
-<main>
-    <div class="fabs">
-        <div>
-            <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-            <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+    <main>
+        <nav>
+            <div class="fabs">
+                <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+                <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+            </div>
+            <ul class="fabSubfab">
+                <li>
+                    <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
+                    <ul>
+                        <li>
+                            <a href="#popaddO">Añadir objetivo</a>
+                        </li>
+                        <li>
+                            <a href="#popaddE">Añadir estrategia</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="divtablaObj">
+            <ol>
+                <li>
+                    <table class="tablaObj">
+                        <tr id="thObj">
+                            <th>Objetivo 1</th>
+                        </tr>
+                        <tr id="filaEst">
+                            <td>Estrategia 1</td>
+
+                        </tr>
+                        <tr id="filaEst">
+                            <td>Estrategia 2</td>
+                        </tr>
+                        <tr id="filaEst">
+                            <td>Estrategia 3</td>
+                        </tr>
+                    </table>
+                </li>
+
+
+            </ol>
         </div>
-        <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
-    </div>
-
-    <div class="subfabAdd">
-        <a href="#popaddO">Añadir objetivo</a>
-        <a href="#popaddE">Añadir estrategia</a>
-    </div>
-
-    <div class="divtablaObj">
-        <ol>
-            <li>
-                <table class="tablaObj">
-                    <tr id="thObj">
-                        <th>Objetivo 1</th>
-                    </tr>
-                    <tr id="filaEst">
-                        <td>Estrategia 1</td>
-
-                    </tr>
-                    <tr id="filaEst">
-                        <td>Estrategia 2</td>
-                    </tr>
-                    <tr id="filaEst">
-                        <td>Estrategia 3</td>
-                    </tr>
-                </table>
-            </li>
-
-
-        </ol>
-    </div>
 
 
 
-</main>
+    </main>
 
 <div class="container-all" id="popdelete">
     <section class="popup">
