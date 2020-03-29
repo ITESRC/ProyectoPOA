@@ -1,31 +1,31 @@
-﻿@model IEnumerable<Capitulo>
+﻿@model CapitulosPartidasViewModel
 
 @{
     ViewData["Title"] = "AdministrarPIIDPartidasCapitulos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <main>
-        <nav>
-            <div class="fabs">
-                <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-                <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
-            </div>
-            <ul class="fabSubfab">
-                <li>
-                    <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
-                    <ul>
-                        <li>
-                            <a href="#popaddO">Añadir capitulo</a>
-                        </li>
-                        <li>
-                            <a href="#popaddE">Añadir partida</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        @*<div class="fabs">
+<main>
+    <nav>
+        <div class="fabs" id="options">
+            <a href="javascript:showM('popEdit');" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+            <a href="javascript:showM('popdelete');" id="btnEliminar" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+        </div>
+        <ul class="fabSubfab">
+            <li>
+                <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
+                <ul>
+                    <li>
+                        <a href="javascript:showM('popAdd');">Añadir capitulo</a>
+                    </li>
+                    <li>
+                        <a href="#popaddE">Añadir partida</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    @*<div class="fabs">
             <div>
                 <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
                 <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
@@ -38,79 +38,124 @@
             <a href="#popaddE">Añadir partida</a>
         </div>*@
 
-        <div class="divtablaObj">
+    <div class="divtablaObj">
 
-            @foreach (Capitulo cap in Model)
-            {
-                <ol>
-                    <li>
-                        <table class="tablaObj">
-                            <tr id="thObj">
-                                <th>@cap.Nombre</th>
+        <ol>
+            <li>
+                <table class="tablaObj">
+                    @foreach (Capitulo cap in Model.ListaCapitulos)
+                    {
+                        <tr id="thObj">
+                            <th hidden id="@cap.Id"></th>
+                            <th id="nmCap">@cap.Nombre</th>
+                        </tr>
+                    }
+                    @*@foreach (Partida par in cap.Partida)
+                        {
+                            <tr id="filaEst">
+                                <td>@par.Concepto</td>
                             </tr>
-                            @foreach (Partida par in cap.Partida)
-                            {
-                                <tr id="filaEst">
-                                    <td>@par.Concepto</td>
-                                </tr>
-                            }
-                        </table>
-                    </li>
-                </ol>
-            }
+                        }*@
+                </table>
+            </li>
+        </ol>
 
-        </div>
+
+    </div>
 
 
 
-    </main>
+</main>
 
-<div class="container-all" id="popdelete">
-    <section class="popup">
-        <label>¿Eliminar?</label>
-        <div class="btnpop">
-
-            <button class="confirm">Cancelar</button>
-            <button class="cancel">Añadir</button>
-        </div>
+<div class="container-all" id="popdelete" style="display:none;">
+    <section class="popup" style="visibility:visible;">
+        <label id="elNom">¿Eliminar?</label>
+        <form class="formAjax" action="~/AdministrarCapitulosPartidas/Eliminar" method="post">
+            <input id="deleteId" type="hidden" name="Id" />
+            <p class="error"></p>
+            <div class="btnpop">
+                <button type="submit" class="confirm">Aceptar</button>
+                <button onclick="location.href='~/AdministrarCapitulosPartidas'" type="button" class="cancel">Cancelar</button>
+            </div>
+        </form>
     </section>
 </div>
 
+<div id="popAdd" class="container-all" style="display:none;">
+    <section class="popup" id="popupAddC" style="visibility:visible;">
+        <form class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/Agregar">
+            <label>Agregar</label>
+            <h1>Capitulo:</h1>
+            <input required class="agregarObj" type="text" asp-for="@Model.Capitulo.Nombre" />
+            <h1>Clave:</h1>
+            <input required maxlength="5" class="agregarObj" max="32767" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" asp-for="@Model.Capitulo.Clave" />
+            <p class="error"></p>
+            <div>
+                <button class="confirm" type="submit">Agregar</button>
+                <button onclick="location.href='~/AdministrarCapitulosPartidas'" type="button" class="cancel">Cancelar</button>
+            </div>
+        </form>
+    </section>
+</div>
 
-<section class="popup">
-    <label>Agregar</label>
-    <h1>Capitulo:</h1>
-    <input class="agregarObj" type="text" />
-    <div>
-
-        <button class="confirm">Cancelar</button>
-        <button class="cancel">Añadir</button>
-    </div>
-</section>
-
-
-
+<div class="container-all" id="popEdit" style="display:none;">
+    <section class="popup" id="popupEditC" style="visibility:visible;">
+        <form class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/Editar">
+            <label>Editar</label>
+            <h1>Capitulo:</h1>
+            <input id="edId" type="hidden" asp-for="@Model.Capitulo.Id" />
+            <input id="edElim" type="hidden" asp-for="@Model.Capitulo.Eliminado" />
+            <input required id="edNombre" class="agregarObj" type="text" asp-for="@Model.Capitulo.Nombre" />
+            <h1>Clave:</h1>
+            <input type="text" readonly id="edClave" class="agregarObj" asp-for="@Model.Capitulo.Clave" />
+            <p class="error"></p>
+            <div>
+                <button class="confirm" type="submit">Guardar</button>
+                <button onclick="location.href='~/AdministrarCapitulosPartidas'" type="button" class="cancel">Cancelar</button>
+            </div>
+        </form>
+    </section>
+</div>
 
 <section class="popup">
     <label>Agregar</label>
     <h1>Partida:</h1>
     <input class="agregarObj" type="text" />
     <div>
-
         <button class="confirm">Cancelar</button>
         <button class="cancel">Añadir</button>
     </div>
 </section>
 
 
+<script>
+    $(function () {
+        $('table').on('click', 'tr', function (event) {
+            $(this).addClass('selected').siblings().removeClass('selected');
+            $('#options').css('visibility', 'visible');
+            editar($('.selected th').attr('id'));
+            eliminar($('.selected th').attr('id'));
+        });
+    });
+</script>
 
-<section class="popup">
-    <label>Editar</label>
-    <h1>Partida:</h1>
-    <input class="agregarObj" type="text" />
+<script>
+    	function editar(id) {
+			$.post('@Url.Action("GetCapitulo", "AdministrarCapitulosPartidas")', { "id": id }, function (data, status) {
+				if (data != false) {
+                    var x = $("#popupEditC form");
+					x.find("#edId").val(data.id);
+                    x.find("#edNombre").val(data.nombre);
+                    x.find("#edClave").val(data.clave);
+                    x.find("#edElim").val(data.eliminado);
+				}
+			});
+    }
 
-    <div>
-        <button class="confirm">Cancelar</button>
-        <button class="cancel">Añadir</button>
-    </div>
-</section>
+    function eliminar(id) {
+        $("#deleteId").val(id);
+        var x = $('.selected #nmCap').html();
+        $("#elNom").html("¿Estás seguro de eliminar al capitulo " + x+"?");
+    }
+
+</script>

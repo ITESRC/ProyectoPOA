@@ -16,9 +16,9 @@ namespace ProyectoPOA.Repositories
             return Context.Capitulo.Include(x => x.Partida).Where(x => x.Eliminado == false).OrderBy(x => x.Id);
         }
 
-        public void Eliminar(Int32 Id)
+        public Boolean Eliminar(Int32 Id)
         {
-            Capitulo capitulo = GetById(Id);
+            Capitulo capitulo = GetCapituloXId(Id);
 
             if (capitulo != null)
             {
@@ -30,6 +30,7 @@ namespace ProyectoPOA.Repositories
                 {
                     capitulo.Eliminado = true;
                     Save();
+                    return true;
                 }
             }
             else
@@ -40,13 +41,13 @@ namespace ProyectoPOA.Repositories
         }
 
 
-        public List<String> Validar(Capitulo cap)
+        public Boolean Validar(Capitulo cap, out List<String> errores)
         {
-            List<String> errores = new List<String>();
+            errores = new List<String>();
             Regex clave = new Regex("^[0-9]{5}$");
             Regex nombre = new Regex(@"^([A-ZÜÁÉÍÓÚ][a-züáéíóú]+\s?)+$");
 
-            if (!clave.IsMatch(cap.Clave.ToString("00000")))
+            if (!clave.IsMatch(cap.Clave.ToString()))
             {
                 errores.Add("La clave de el captiulo es incorrecta.La clave debe de tener 5 digitos");
             }
@@ -58,7 +59,7 @@ namespace ProyectoPOA.Repositories
             {
                 if (!nombre.IsMatch(cap.Nombre) || cap.Nombre.Length > 45)
                 {
-                    errores.Add("El nombre de el capitulo no es válido (Máximo de 45 caracteres).");
+                    errores.Add("El nombre de el capitulo no es válido (Máximo de 45 caracteres , no utilice caracteres especiales, respete mayúsculas y minúsculas).");
                 }
                 else
                 {
@@ -69,16 +70,12 @@ namespace ProyectoPOA.Repositories
                     }
                 }
             }
-
-            if (errores.Count > 0) return errores;
-            else return null;
-
+            return errores.Count == 0;
         }
-
 
         public Capitulo GetCapituloXId(Int32 Id)
         {
-            return Context.Capitulo.FirstOrDefault(x => x.Eliminado == false && x.Id == Id);
+            return Context.Capitulo.Include(x=>x.Partida).FirstOrDefault(x => x.Eliminado == false && x.Id == Id);
         }
 
     }

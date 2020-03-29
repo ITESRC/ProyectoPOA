@@ -10,6 +10,47 @@
     var NombreUnidad = "";
     var IdUnidad = 0;
 
+    $(document).ready(function () {
+        if (sessionStorage.curpos) {
+            $("main").scrollTop(sessionStorage.curpos);
+            sessionStorage.removeItem("curpos");
+        }
+
+        $(".cancel").click(function () {
+            sessionStorage.curpos = $("main").scrollTop();
+            window.location.reload();
+        });
+
+        $(".formAjax").submit(function (e) {
+            e.preventDefault();
+
+            var input =
+                $(this).find("button[type=submit]")
+                    .attr("disabled", true);
+
+            var actionUrl = $(this).attr("action");
+            $(".error").text("");
+
+            sessionStorage.curpos = $("main").scrollTop();
+
+            $.post(actionUrl, $(this).serialize(), function (res) {
+                if (res == true) {
+                    window.location.reload();
+                } else {
+                    $(".error").html(res);
+                    input.attr("disabled", false);
+                }
+            });
+        });
+    });
+
+
+    function showM(Id) {
+        var p = document.getElementById(Id);
+        p.style.visibility = 'visible';
+        p.style.display = 'block';
+    }
+
     function MostrarPopUp() {
         popUp.style.visibility = "visible";
         message.style.visibility = "visible";

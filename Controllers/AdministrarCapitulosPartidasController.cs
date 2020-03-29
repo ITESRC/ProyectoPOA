@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoPOA.Models;
+using ProyectoPOA.Models.ViewModels;
 using ProyectoPOA.Repositories;
 
 namespace ProyectoPOA.Controllers
@@ -16,105 +17,111 @@ namespace ProyectoPOA.Controllers
         public IActionResult Index()
         {
             capitulosRepository = new CapitulosRepository();
-            IEnumerable<Capitulo> listCap = capitulosRepository.GetCapitulos();
-            //ViewBag.ListaCap = listCap;
-            return View(listCap);
-        }
-
-        public IActionResult Agregar()
-        {
-            return View();
+            CapitulosPartidasViewModel cPView = new CapitulosPartidasViewModel();
+            cPView.ListaCapitulos = capitulosRepository.GetCapitulos();
+            return View(cPView);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Agregar(Capitulo c)
+        public JsonResult Agregar(CapitulosPartidasViewModel c)
         {
-            var error = ModelState.Values.Select(x => x.Errors);
-            if (ModelState.IsValid)
-            {
-                capitulosRepository = new CapitulosRepository();
-                List<String> errores = capitulosRepository.Validar(c);
-                if (errores != null)
-                {
-                    for (Int32 i = 0; i < errores.Count; i++)
-                    {
-                        ModelState.AddModelError(i.ToString(), errores[i]);
-                    }
-                    return RedirectToAction("AdministrarPIIDPartidasCapitulos");
-                }
-                else
-                {
-                    c.Nombre = c.Nombre.Trim().ToUpper();
-                    capitulosRepository.Insert(c);
-                    return new RedirectToActionResult("AdministrarPIIDPartidasCapitulos", "Capitulos", null);
-                }
-            }
-            else
-            {
-                return RedirectToAction("AdministrarPIIDPartidasCapitulos");
-            }
-        }
-
-
-        public IActionResult Editar(Int32 Id)
-        {
-            if (Id > 2147483647 && Id < 0)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                capitulosRepository = new CapitulosRepository();
-                Capitulo capitulo = capitulosRepository.GetById(Id);
-                if (capitulo != null && capitulo.Eliminado == false)
-                {
-                    return View(capitulo);
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Editar(Capitulo c)
-        {
-            if (ModelState.IsValid && c.Eliminado == false)
-            {
-                capitulosRepository = new CapitulosRepository();
-                List<String> errores = capitulosRepository.Validar(c);
-                if (errores != null)
-                {
-                    for (Int32 i = 0; i < errores.Count; i++)
-                    {
-                        ModelState.AddModelError(i.ToString(), errores[i]);
-                    }
-                    return View(errores);
-                }
-                else
-                {
-                    Capitulo capitulo = capitulosRepository.GetById(c.Id);
-                    capitulo.Nombre = c.Nombre;
-                    capitulosRepository.Update(capitulo);
-                    return RedirectToAction("Index");
-                }
-            }
-            else
-            {
-                return View(c);
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Eliminar(Int32 Id)
-        {
+            JsonResult json = null;
             capitulosRepository = new CapitulosRepository();
-            capitulosRepository.Eliminar(Id);
-            return RedirectToAction("Index");
+            try
+            {
+                if (capitulosRepository.Validar(c.Capitulo, out List<String> errores))
+                {
+                    capitulosRepository.Insert(c.Capitulo);
+                    json = Json(true);
+                }
+                else
+                {
+                    String mensajes = String.Join("<br/>", errores);
+                    json = Json(mensajes);
+                }
+            }
+            catch (Exception ex)
+            {
+                json = Json(ex.Message);
+            }
 
+            return json;
+        }
+
+        [HttpPost]
+        public JsonResult GetCapitulo(Int32 Id)
+        {
+            JsonResult jsonResult = null;
+            CapitulosRepository capitulosRepository = new CapitulosRepository();
+            Capitulo capit = capitulosRepository.GetById(Id);
+            if (capit == null)
+            {
+                jsonResult = Json(false);
+            }
+            else
+            {
+                jsonResult = Json(new
+                {
+                    capit.Id,
+                    capit.Nombre,
+                    capit.Clave,
+                    capit.Eliminado,
+                    capit.Partida
+                }
+                    );
+            }
+            return jsonResult;
+        }
+
+
+
+        [HttpPost]
+        public JsonResult Editar(CapitulosPartidasViewModel c)
+        {
+            JsonResult json = null;
+            capitulosRepository = new CapitulosRepository();
+            try
+            {
+                if (capitulosRepository.Validar(c.Capitulo, out List<String> errores))
+                {
+                    capitulosRepository.Update(c.Capitulo);
+                    json = Json(true);
+                }
+                else
+                {
+                    String mensajes = String.Join("<br/>", errores);
+                    json = Json(mensajes);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                json = Json(ex.Message);
+            }
+
+            return json;
+        }
+
+
+        [HttpPost]
+        public JsonResult Eliminar(Int32 Id)
+        {
+            JsonResult jsonResult = null;
+
+            capitulosRepository = new CapitulosRepository();
+            try
+            {
+                if (capitulosRepository.Eliminar(Id) == true)
+                {
+                    jsonResult = Json(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                jsonResult = Json(ex.Message);
+            }
+
+            return jsonResult;
         }
 
     }
