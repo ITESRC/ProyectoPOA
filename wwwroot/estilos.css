@@ -532,6 +532,9 @@ table .selected:nth-child(even), table .selected:nth-child(odd) {
         color: white;
         border: 0;
     }
+.popup .botonesPop {
+    margin-top: 50px;
+}
 
 .menu-area {
     list-style: none;
@@ -683,6 +686,7 @@ main .fabsMain {
    
 }
 
+
 @media only screen and (max-width:700px) {
 
     table {
@@ -744,4 +748,6 @@ main .fabsMain {
         max-height: 120px;
         height: 800px;
     }
+
+        
 }
