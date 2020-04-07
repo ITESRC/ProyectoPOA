@@ -20,17 +20,17 @@ namespace ProyectoPOA.Repositories
         {
             Capitulo capitulo = GetCapituloXId(Id);
 
-            if (capitulo != null)
+            if (capitulo != null || capitulo.Eliminado == false)
             {
-                if (capitulo.Partida.Count > 0)
-                {
-                    throw new ArgumentException("El capitulo no se puede eliminar ya que tiene partdias asociadas");
-                }
-                else
+                if (capitulo.Partida.All(x => x.Eliminado == true))
                 {
                     capitulo.Eliminado = true;
                     Save();
                     return true;
+                }
+                else
+                {
+                    throw new ArgumentException("El capitulo no se puede eliminar ya que tiene partdias asociadas");
                 }
             }
             else
@@ -44,12 +44,12 @@ namespace ProyectoPOA.Repositories
         public Boolean Validar(Capitulo cap, out List<String> errores)
         {
             errores = new List<String>();
-            Regex clave = new Regex("^[0-9]{5}$");
+            Regex clave = new Regex("^[0-9]{4}$");
             Regex nombre = new Regex(@"^([A-ZÜÁÉÍÓÚ][a-züáéíóú]+\s?)+$");
 
             if (!clave.IsMatch(cap.Clave.ToString()))
             {
-                errores.Add("La clave de el captiulo es incorrecta.La clave debe de tener 5 digitos");
+                errores.Add("La clave de el captiulo es incorrecta.La clave debe de tener 4 digitos");
             }
             if (String.IsNullOrWhiteSpace(cap.Nombre))
             {

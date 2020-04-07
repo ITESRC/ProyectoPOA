@@ -19,7 +19,7 @@
                         <a href="javascript:showM('popAdd');">Añadir capitulo</a>
                     </li>
                     <li>
-                        <a href="#popaddE">Añadir partida</a>
+                        <a href="javascript:showM('popAddPartida');">Añadir partida</a>
                     </li>
                 </ul>
             </li>
@@ -39,27 +39,27 @@
         </div>*@
 
     <div class="divtablaObj">
-
-        <ol>
-            <li>
-                <table class="tablaObj">
-                    @foreach (Capitulo cap in Model.ListaCapitulos)
-                    {
+        @foreach (Capitulo cap in Model.ListaCapitulos)
+        {
+            <ol>
+                <li>
+                    <table class="tablaObj">
                         <tr id="thObj">
                             <th hidden id="@cap.Id"></th>
                             <th id="nmCap">@cap.Nombre</th>
                         </tr>
-                    }
-                    @*@foreach (Partida par in cap.Partida)
+
+                        @foreach (Partida par in cap.Partida.Where(x => x.Eliminado == false))
                         {
                             <tr id="filaEst">
-                                <td>@par.Concepto</td>
+                                <td hidden id="@par.Id"></td>
+                                <td id="nmPart">@par.Concepto</td>
                             </tr>
-                        }*@
-                </table>
-            </li>
-        </ol>
-
+                        }
+                    </table>
+                </li>
+            </ol>
+        }
 
     </div>
 
@@ -67,15 +67,15 @@
 
 </main>
 
-<div class="container-all" id="popdelete" style="display:none;">
+<div class="container-all" id="popdelete" style="display:none">
     <section class="popup" style="visibility:visible;">
         <label id="elNom">¿Eliminar?</label>
-        <form class="formAjax" action="~/AdministrarCapitulosPartidas/Eliminar" method="post">
+        <form class="formAjax" method="post">
             <input id="deleteId" type="hidden" name="Id" />
             <p class="error"></p>
             <div class="btnpop">
                 <button type="submit" class="confirm">Aceptar</button>
-                <button onclick="location.href='~/AdministrarCapitulosPartidas'" type="button" class="cancel">Cancelar</button>
+                <button type="button" class="cancel">Cancelar</button>
             </div>
         </form>
     </section>
@@ -83,24 +83,25 @@
 
 <div id="popAdd" class="container-all" style="display:none;">
     <section class="popup" id="popupAddC" style="visibility:visible;">
-        <form class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/Agregar">
+        <form class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/AgregarCapitulo">
             <label>Agregar</label>
             <h1>Capitulo:</h1>
             <input required class="agregarObj" type="text" asp-for="@Model.Capitulo.Nombre" />
             <h1>Clave:</h1>
-            <input required maxlength="5" class="agregarObj" max="32767" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" asp-for="@Model.Capitulo.Clave" />
+            <input required maxlength="4" class="agregarObj" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" asp-for="@Model.Capitulo.Clave" />
             <p class="error"></p>
             <div>
                 <button class="confirm" type="submit">Agregar</button>
-                <button onclick="location.href='~/AdministrarCapitulosPartidas'" type="button" class="cancel">Cancelar</button>
+                <button type="button" class="cancel">Cancelar</button>
             </div>
         </form>
     </section>
 </div>
 
-<div class="container-all" id="popEdit" style="display:none;">
+<div class="container-all" id="popEdit" style="display:none">
     <section class="popup" id="popupEditC" style="visibility:visible;">
-        <form class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/Editar">
+
+        <form id="formCap" class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/EditarCapitulo">
             <label>Editar</label>
             <h1>Capitulo:</h1>
             <input id="edId" type="hidden" asp-for="@Model.Capitulo.Id" />
@@ -111,51 +112,117 @@
             <p class="error"></p>
             <div>
                 <button class="confirm" type="submit">Guardar</button>
-                <button onclick="location.href='~/AdministrarCapitulosPartidas'" type="button" class="cancel">Cancelar</button>
+                <button type="button" class="cancel">Cancelar</button>
+            </div>
+        </form>
+
+        <form id="formPart" class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/EditarPartida">
+            <label>Editar</label>
+            <h1>Partida:</h1>
+            <input id="edIdP" type="hidden" asp-for="@Model.Partida.Id" />
+            <input id="edElimP" type="hidden" asp-for="@Model.Partida.Eliminado" />
+            <input required id="edNombreP" class="agregarObj" type="text" asp-for="@Model.Partida.Concepto" />
+            <h1>Clave:</h1>
+            <input type="text" readonly id="edClaveP" class="agregarObj" asp-for="@Model.Partida.Clave" />
+            <select class="agregarObj" id="edIdCapitulo" asp-for="@Model.Partida.Capitulo" asp-items="@(new SelectList(Model.ListaCapitulos,"Id","Nombre"))">
+                <option selected="selected" value="">-- Seleccionar capitulo --</option>
+            </select>
+            <p class="error"></p>
+            <div>
+                <button class="confirm" type="submit">Guardar</button>
+                <button type="button" class="cancel">Cancelar</button>
+            </div>
+        </form>
+
+    </section>
+</div>
+
+<div class="container-all" id="popAddPartida" style="display:none">
+    <section class="popup" style="visibility:visible;">
+        <label>Agregar</label>
+        <h1>Partida:</h1>
+        <form class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/AgregarPartida">
+            <h1>Concepto:</h1>
+            <input class="agregarObj" type="text" asp-for="@Model.Partida.Concepto" />
+            <h1>Clave: </h1>
+            <input required maxlength="5" class="agregarObj" max="32767" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" asp-for="@Model.Partida.Clave" />
+            <h1>Capitulo:</h1>
+            <select class="agregarObj" asp-for="@Model.Partida.Capitulo" asp-items="@(new SelectList(Model.ListaCapitulos,"Id","Nombre"))">
+                <option selected="selected" value="">-- Seleccionar capitulo --</option>
+            </select>
+            <p class="error"></p>
+            <div>
+                <button class="confirm" type="submit">Agregar</button>
+                <button type="button" class="cancel">Cancelar</button>
             </div>
         </form>
     </section>
 </div>
 
-<section class="popup">
-    <label>Agregar</label>
-    <h1>Partida:</h1>
-    <input class="agregarObj" type="text" />
-    <div>
-        <button class="confirm">Cancelar</button>
-        <button class="cancel">Añadir</button>
-    </div>
-</section>
-
 
 <script>
     $(function () {
         $('table').on('click', 'tr', function (event) {
+            $('table tr').removeClass('selected');
             $(this).addClass('selected').siblings().removeClass('selected');
             $('#options').css('visibility', 'visible');
-            editar($('.selected th').attr('id'));
-            eliminar($('.selected th').attr('id'));
+            if ($(this).attr('id') == "thObj") {
+                editar($('.selected th').attr('id'), 'Capitulo');
+                eliminar($('.selected th').attr('id'), 'Capitulo');
+            } else {
+                editar($('.selected td').attr('id'), 'Partida');
+                eliminar($('.selected td').attr('id'), 'Partida');
+            }
         });
     });
 </script>
 
 <script>
-    	function editar(id) {
-			$.post('@Url.Action("GetCapitulo", "AdministrarCapitulosPartidas")', { "id": id }, function (data, status) {
-				if (data != false) {
-                    var x = $("#popupEditC form");
-					x.find("#edId").val(data.id);
-                    x.find("#edNombre").val(data.nombre);
-                    x.find("#edClave").val(data.clave);
-                    x.find("#edElim").val(data.eliminado);
-				}
-			});
+        function editar(id,tipo) {
+            if (tipo =='Capitulo') {
+                $.post('@Url.Action("GetCapitulo", "AdministrarCapitulosPartidas")', { "id": id }, function (data, status) {
+                    if (data != false) {
+                        var x = $("#popupEditC #formCap");
+                        x.find("#edId").val(data.id);
+                        x.find("#edNombre").val(data.nombre);
+                        x.find("#edClave").val(data.clave);
+                        x.find("#edElim").val(data.eliminado);
+                        x.show();
+                        $("#popupEditC #formPart").hide();
+                    }
+
+                });
+
+            } else {
+                      $.post('@Url.Action("GetPartida", "AdministrarCapitulosPartidas")', { "id": id }, function (data, status) {
+                    if (data != false) {
+                        var x = $("#popupEditC #formPart");
+                        x.find("#edIdP").val(data.id);
+                        x.find("#edNombreP").val(data.concepto);
+                        x.find("#edClaveP").val(data.clave);
+                        x.find("#edElimP").val(data.eliminado);
+                        x.find('#edIdCapitulo option[value="' + data.capitulo + '"]').attr('selected', true)
+                        x.show();
+                        $("#popupEditC #formCap").hide();
+                          }
+                      });
+            }
     }
 
-    function eliminar(id) {
+    function eliminar(id, tipo) {
         $("#deleteId").val(id);
-        var x = $('.selected #nmCap').html();
-        $("#elNom").html("¿Estás seguro de eliminar al capitulo " + x+"?");
+        var form = $("#popdelete form");
+        if (tipo == 'Capitulo') {
+            form.attr('action', '/AdministrarCapitulosPartidas/EliminarCapitulo');
+            var x = $('.selected #nmCap').html();
+            $("#elNom").html("¿Estás seguro de eliminar al capitulo " + x + "?");
+        } else {
+            form.attr('action', '/AdministrarCapitulosPartidas/EliminarPartida');
+            var x = $('.selected #nmPart').html();
+            $("#elNom").html("¿Estás seguro de eliminar a la partida " + x + "?");
+        }
     }
+
+
 
 </script>

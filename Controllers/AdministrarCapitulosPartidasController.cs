@@ -13,6 +13,7 @@ namespace ProyectoPOA.Controllers
     {
 
         CapitulosRepository capitulosRepository;
+        PartidasRepository partidasRepository;
 
         public IActionResult Index()
         {
@@ -23,7 +24,7 @@ namespace ProyectoPOA.Controllers
         }
 
         [HttpPost]
-        public JsonResult Agregar(CapitulosPartidasViewModel c)
+        public JsonResult AgregarCapitulo(CapitulosPartidasViewModel c)
         {
             JsonResult json = null;
             capitulosRepository = new CapitulosRepository();
@@ -49,10 +50,36 @@ namespace ProyectoPOA.Controllers
         }
 
         [HttpPost]
+        public JsonResult AgregarPartida(CapitulosPartidasViewModel p)
+        {
+            JsonResult json = null;
+            partidasRepository = new PartidasRepository();
+            try
+            {
+                if (partidasRepository.Validar(p.Partida, out List<String> errores))
+                {
+                    partidasRepository.Insert(p.Partida);
+                    json = Json(true);
+                }
+                else
+                {
+                    String mensajes = String.Join("<br/>", errores);
+                    json = Json(mensajes);
+                }
+            }
+            catch (Exception ex)
+            {
+                json = Json(ex.Message);
+            }
+
+            return json;
+        }
+
+        [HttpPost]
         public JsonResult GetCapitulo(Int32 Id)
         {
             JsonResult jsonResult = null;
-            CapitulosRepository capitulosRepository = new CapitulosRepository();
+            capitulosRepository = new CapitulosRepository();
             Capitulo capit = capitulosRepository.GetById(Id);
             if (capit == null)
             {
@@ -73,10 +100,32 @@ namespace ProyectoPOA.Controllers
             return jsonResult;
         }
 
-
+        [HttpPost]
+        public JsonResult GetPartida(Int32 Id)
+        {
+            JsonResult jsonResult = null;
+            partidasRepository = new PartidasRepository();
+            Partida part = partidasRepository.GetById(Id);
+            if (part == null)
+            {
+                jsonResult = Json(false);
+            }
+            else
+            {
+                jsonResult = Json(new
+                {
+                    part.Id,
+                    part.Concepto,
+                    part.Clave,
+                    part.Eliminado,
+                    part.Capitulo,
+                });
+            }
+            return jsonResult;
+        }
 
         [HttpPost]
-        public JsonResult Editar(CapitulosPartidasViewModel c)
+        public JsonResult EditarCapitulo(CapitulosPartidasViewModel c)
         {
             JsonResult json = null;
             capitulosRepository = new CapitulosRepository();
@@ -102,9 +151,36 @@ namespace ProyectoPOA.Controllers
             return json;
         }
 
+        [HttpPost]
+        public JsonResult EditarPartida(CapitulosPartidasViewModel p)
+        {
+            JsonResult json = null;
+            partidasRepository = new PartidasRepository();
+            try
+            {
+                if (partidasRepository.Validar(p.Partida, out List<String> errores))
+                {
+                    partidasRepository.Update(p.Partida);
+                    json = Json(true);
+                }
+                else
+                {
+                    String mensajes = String.Join("<br/>", errores);
+                    json = Json(mensajes);
+                }
+            }
+            catch (Exception ex)
+            {
+                json = Json(ex.Message);
+            }
+
+            return json;
+        }
+
+
 
         [HttpPost]
-        public JsonResult Eliminar(Int32 Id)
+        public JsonResult EliminarCapitulo(Int32 Id)
         {
             JsonResult jsonResult = null;
 
@@ -112,6 +188,27 @@ namespace ProyectoPOA.Controllers
             try
             {
                 if (capitulosRepository.Eliminar(Id) == true)
+                {
+                    jsonResult = Json(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                jsonResult = Json(ex.Message);
+            }
+
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult EliminarPartida(Int32 Id)
+        {
+            JsonResult jsonResult = null;
+
+            partidasRepository = new PartidasRepository();
+            try
+            {
+                if (partidasRepository.Eliminar(Id) == true)
                 {
                     jsonResult = Json(true);
                 }
