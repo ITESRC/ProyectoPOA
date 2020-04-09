@@ -1,140 +1,138 @@
-﻿@model IEnumerable<Objetivo>
+﻿@model Estrategia
 @{
     ViewData["Title"] = "AdministrarPIID";
     Layout = "~/Views/Shared/_Layout.cshtml";
     IEnumerable<ObjetivosEstrategiasViewModel> objetivos = ViewBag.Lista;
+    IEnumerable<Objetivo> NoVigente = ViewBag.NoVigentes;
     //ObjetivosEstrategiasViewModel OEVm = ViewBag.VM;
     //var num = ViewBag.IdObjetivo;
     //List<Estrategia> estrategias = ViewBag.Estrategias;
 
 }
-    <main>
-        @*<div class="fabs">
-            <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-            <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
-            <a class="material-icons fab-button  hint--left" aria-label="Añadir nuevo" id="add">add</a>
-        </div>*@
-
-        <nav>
-            <div class="fabs">
-                <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-                <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
-            </div>
-            <ul class="fabSubfab">
-                <li>
-                    <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
-                    <ul>
-                        <li>
-                            <a href="#popaddO">Añadir objetivo</a>
-                        </li>
-                        <li>
-                            <a href="#popaddE">Añadir estrategia</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="tablaObj">
-            @*<ul>
-                @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
-                {
-                    //num= obje.Id;
-                    <li>
-                        <h2>@obje.Nombre</h2>
-                        <ul style="margin-top:50px">
-                            @foreach (Estrategia item in obje.ListaEstregias)
-                            {
-                                <li>@item.Nombre</li>
-                            }
-                        </ul>
-                    </li>
-                }
-            </ul>*@
-
-            <ol>
-                <li>
-                    <table>
-                        <tr id="fila">
-                            <th>Objetivo</th>
-                        </tr>
-                        @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
-                        {
-                            //num= obje.Id;
-                            <tr id="fila">
-                                <td>@obje.Nombre</td>
-                            </tr>
-
-                            @foreach (Estrategia item in obje.ListaEstregias)
-                            {
-
-                                <tr id="fila">@item.Nombre</tr>
-                            }
-
-                        }
-                    </table>
-                </li>
-            </ol>
+<main>
+    <nav>
+        <div class="fabs">
+            <a href="javascript:showM('popedit');" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+            <a href="javascript:showM('popdelete');" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
         </div>
-    </main>
+        <ul class="fabSubfab">
+            <li>
+                <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
+                <ul>
+                    <li>
+                        <a href="javascript:showM('popadd');">Añadir objetivo</a>
+                    </li>
+                    <li>
+                        <a href="javascript:showM('popaddE');">Añadir estrategia</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
-<div class="container-all" id="popdelete">
-    <form method="get" asp-action="Desactivar" asp-controller="PIID">
-        <section class="popup">
-            <label>¿Eliminar?</label>
+    <div class="tablaObj">
+        <ol>
+            <li>
+                <table>
+                    @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
+                    {
+                        <tr id="fila">
 
-            <div>
-                <button class="cancel">Cancelar</button>
-                <button class="confirm" type="submit">Añadir</button>
+                            <th id="@obje.Id" class="Dato">@obje.Nombre</th>
+                        </tr>
+                        @foreach (Estrategia item in obje.ListaEstregias)
+                        {
+                            <tr id="fila">
+                                <td id="@item.Id">@item.Nombre</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </li>
+        </ol>
+    </div>
+</main>
+@Html.Raw(ViewBag.Message)
+<div class="container-all" id="popdelete" style="display:none;">
+    <section class="popup" style="visibility:visible;">
+        <label id="ElimPass">¿Eliminar?</label>
+        <form class="formAjax" action="~/PIID/Desactivar" method="post">
+            <input id="deleteId" name="delO" value="delO" hidden />
+            <p class="error"></p>
+            <div class="btnpop">
+                <input type="submit" class="confirm" value="Aceptar" />
+                <button type="button" class="cancel" onclick="location.javascript;HideM('popdelete');">Cancelar</button>
             </div>
-        </section>
-    </form>
+        </form>
+    </section>
 </div>
-<div class="container-all" id="popadd">
-    <form method="post" asp-action="Agregar" asp-controller="PIID">
-        <section>
+<div class="container-all" id="popadd" style="display:none;">
+    <section class="popup" style="visibility:visible;">
+        <form method="post" action="~/PIID/Nuevo" class="formAjax">
             <label>Agregar</label>
             <label>Objetivo:</label>
-            <select>
-                <option selected="selected" value="">-- Objetivos --</option>
-                @foreach (Objetivo obj in Model)
+            <select asp-for="Id">
+                <option selected="selected">-- Objetivos --</option>
+                @foreach (Objetivo item in NoVigente)
                 {
-                    <option value="@obj.Id">@obj.Nombre</option>
+                    <option value="@item.Id">@item.Nombre</option>
                 }
-
             </select>
+            <p class="error"></p>
             <div>
-                <button class="cancel">Cancelar</button>
+                <button class="cancel" onclick="location.javascript;HideM('popadd');">Cancelar</button>
                 <button class="confirm" type="submit">Añadir</button>
             </div>
-        </section>
-    </form>
+        </form>
+    </section>
 </div>
+<div>
+    <script>
 
-<div class="container-all" id="popadd">
-    <form method="post" asp-action="Agregar" asp-controller="PIID">
-        <section>
+
+    function eliminar(id) {
+        $("#deleteId").val(id);
+        var x = $('.selected .Dato').html();
+        $("#ElimPass").html("Se desabilitará el objetivo " + x);
+    }
+    function editar(id) {
+        $.post('@Url.Action("GetObjetivo", "PIID")', { "idObjetivo": id }, function (data, status) {
+				if (data != false) {
+                    var y = $("#ModalEdit form");
+                    y.find("#MostrarEst").val(data.Nombre);
+                    
+				}
+			});
+    }
+
+    </script>
+</div>
+<div class="container-all" id="popaddE" style="display:none;">
+    <section class="popup" style="visibility:visible;">
+        <form method="post" action="~/PIID/Agregar" class="formAjax">
             <label>Agregar</label>
             <h1>Estrategia:</h1>
             <input class="agregarObj" type="text" />
+            <p class="error"></p>
             <div>
-                <button class="cancel">Cancelar</button>
+                <button class="cancel" onclick="location.javascript;HideM('popaddE');">Cancelar</button>
                 <button class="confirm" type="submit">Añadir</button>
             </div>
-        </section>
-    </form>
+        </form>
+    </section>
 </div>
-<div class="container-all" id="popedit">
-    <form method="post" asp-action="Editar" asp-controller="PIID">
-        <section class="popup">
+<div class="container-all" id="popedit" style="display:none;">
+    <section class="popup" style="visibility:visible;" id="ModalEdit">
+        <form method="post" action="~/PIID/Editar" class="formAjax">
             <label>Editar</label>
             <h1>Estrategia:</h1>
-            <input class="agregarObj" type="text" />
-
+            <input asp-for="Nombre" class="agregarObj" id="MostrarEst" type="text" />
+            <p class="error"></p>
             <div>
-                <button class="cancel">Cancelar</button>
+                <button class="cancel" onclick="location.javascript;HideM('popedit');">Cancelar</button>
                 <button class="confirm" type="submit">Añadir</button>
             </div>
-        </section>
-    </form>
+        </form>
+    </section>
 </div>
+<script src="~/scripts/funciones.js"></script>

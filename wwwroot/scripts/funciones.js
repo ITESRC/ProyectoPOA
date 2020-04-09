@@ -55,6 +55,11 @@
         popUp.style.visibility = "visible";
         message.style.visibility = "visible";
     }
+    function HideM(Id) {
+        var p = document.getElementById(Id);
+        p.style.visibility = 'hidden';
+        p.style.display = 'none';
+    }
     function EsconderPopUp() {
         popUp.style.visibility = "hidden";
         message.style.visibility = "hidden";
@@ -94,5 +99,15 @@
         if (IdUnidad != 0) {
             window.location.href = `UnidadesAdministrativas/Editar/${IdUnidad}`
         }
+    }
+    {
+        $(function () {
+            $('table').on('click', 'tr', function (event) {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                $('.fabs').css('visibility', 'visible');
+                eliminar($('.selected th').attr('id'));
+                editar($('.selected th').attr('id'));
+            });
+        });
     }
 }

@@ -12,74 +12,137 @@ namespace ProyectoPOA.Controllers
 {
     public class PIIDController : Controller
     {
-        ObjetivoRepository repo;
-        Objetivo obj = new Objetivo();
+        ObjetivoRepository Orepo;
+        EstrategiasRepository Erepo;
         public static dynamic mensaje;
         public IActionResult Index()
         {
-            repo = new ObjetivoRepository();
-            var nov = repo.GetAll();
-            ViewBag.Lista = repo.GetEstrategias();
+            ViewBag.Message = mensaje;
+            mensaje = null;
+            Orepo = new ObjetivoRepository();
+            //var nov = Orepo.GetEstrategias();
+            ViewBag.NoVigentes = Orepo.ObjetivosInactivos();
+            ViewBag.Lista = Orepo.GetEstrategias();
 
-            return View(nov);
+            return View();
         }
-        public IActionResult Nuevo(Objetivo no)
+        //El objetivo se habilita preguntando si desea Reahabilitar las estrategias que tenia
+        [HttpPost]
+        public JsonResult Nuevo(Objetivo ob)
         {
-
-            if (ModelState.IsValid)
+            JsonResult json = null;
+            Orepo = new ObjetivoRepository();
+            try
             {
-                repo = new ObjetivoRepository();
+                List<string> errores = Orepo.Validar(ob.Id);
+                if (errores.Count>0)
+                {
+                    for (int i = 0; i < errores.Count; i++)
+                    {
+                        ModelState.AddModelError(i.ToString(), errores[i]);
+                    }
+                    json = Json(false);
+                }
+                else
+                {
 
+                    var cons = Orepo.Context.Objetivo.FirstOrDefault(x => x.Id == ob.Id);
+                    cons.Eliminado = false;
+                    Orepo.Update(cons);
+                    ViewBag.Message = Notification.Show("Objetivo Creado", "Aviso", position: Position.TopRight, type: ToastType.Success);
+                    mensaje = ViewBag.Message;
 
-
-                var cons = repo.Context.Objetivo.FirstOrDefault(x => x.Id == no.Id);
-                cons.Eliminado = false;
-                repo.Update(cons);
-                ViewBag.Message = Notification.Show("Objetivo Creado", "Aviso", position: Position.TopRight, type: ToastType.Success);
-                mensaje = ViewBag.Message;
-                return new RedirectToActionResult("Index", "Objetivos", null);
-
+                    json = Json(true);
+                }
             }
-            else
+            catch (Exception)
             {
                 ViewBag.Message = Notification.Show("No se pudo crear el objetivo", "Aviso", position: Position.TopRight, type: ToastType.Error);
                 mensaje = ViewBag.Message;
-                return View("Index", no);
+                json = Json(mensaje);
             }
-
+            return json;
         }
-        public IActionResult Editar(Objetivo eo)
+        [HttpPost]
+        public JsonResult GetObjetivo(int idObjetivo)
         {
-            if (ModelState.IsValid)
+            JsonResult json = null;
+            Erepo = new EstrategiasRepository();
+            var Estrategias = Erepo.GetEstrategiasByObjetivo(idObjetivo);
+            try
             {
+                if (Estrategias != null)
+                {
+                    json = Json(new { Estrategias });
+                }
+                else
+                {
+                    json = Json(false);
+                }
 
-                repo = new ObjetivoRepository();
-                var cons = repo.Context.Objetivo.FirstOrDefault(x => x.Id == eo.Id);
-                cons.Id = eo.Id;
-                cons.Nombre = eo.Nombre;
-                cons.Eliminado = eo.Eliminado;
-                cons.Estrategia = eo.Estrategia;
-                repo.Update(cons);
-                ViewBag.Message = Notification.Show("Objetivo editado exitosamente", "Aviso", position: Position.TopRight, type: ToastType.Success);
-                mensaje = ViewBag.Message;
-                return new RedirectToActionResult("Index", "Objetivos", null);
             }
-            else
+            catch (Exception ex)
             {
-                ViewBag.Message = Notification.Show("No se pudo editar el objetivo", "Aviso", position: Position.TopRight, type: ToastType.Error);
-                mensaje = ViewBag.Message;
-                return View(eo);
+                json = Json(ex);
             }
-
+            return json;
         }
-        public IActionResult Desactivar(Objetivo delO)
+        //Editar las estrategias agregadas y agregar
+        [HttpPost]
+        public JsonResult Editar(int[] eo)
         {
-            repo = new ObjetivoRepository();
-            var result = repo.Context.Objetivo.FirstOrDefault(x => x.Id == delO.Id);
-            repo.Delete(result);
-            ViewBag.Message = Notification.Show("Objetivo Dado de Baja", "Aviso", position: Position.TopRight, type: ToastType.Error);
-            mensaje = ViewBag.Message;
-            return RedirectToAction("Index");
+            Orepo = new ObjetivoRepository();
+            Erepo = new EstrategiasRepository();
+            JsonResult json = null;
+            try
+            {
+                if (eo != null)
+                {
+                    var res = Erepo.DesHabEstrategias(eo);
+                    if (res)
+                    {
+                        ViewBag.Message = Notification.Show("Estrategias Actualizadas", "Aviso", position: Position.TopRight, type: ToastType.Success);
+                        mensaje = ViewBag.Message;
+                        json = Json(true);
+                    }
+                    else
+                    {
+                        var error = "Alguna de las estrategias no existe";
+                        json = Json(error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = Notification.Show(ex.Message, "Aviso", position: Position.TopRight, type: ToastType.Error);
+                mensaje = ViewBag.Message;
+                json = Json(mensaje);
+            }
+            return json;
+        }
+        //da de baja el objetivo
+        [HttpPost]
+        public JsonResult Desactivar(int delO)
+        {
+            JsonResult json = null;
+            Orepo = new ObjetivoRepository();
+            try
+            {
+                var result = Orepo.Context.Objetivo.FirstOrDefault(x => x.Id == delO);
+                result.Eliminado = true;
+                Orepo.Update(result);
+                ViewBag.Message = Notification.Show("Objetivo Dado de Baja", "Aviso", position: Position.TopRight, type: ToastType.Success);
+                mensaje = ViewBag.Message;
+                json = Json(true);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = Notification.Show(ex.Message, "Aviso", position: Position.TopRight, type: ToastType.Error);
+                mensaje = ViewBag.Message;
+                json = Json(mensaje);
+            }
+
+            return json;
         }
     }
 }
