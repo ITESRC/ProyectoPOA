@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoPOA.Helpers;
+using ProyectoPOA.Helpers.OptionEnum;
 using ProyectoPOA.Models;
 using ProyectoPOA.Models.ViewModels;
 using ProyectoPOA.Repositories;
@@ -14,9 +16,12 @@ namespace ProyectoPOA.Controllers
 
         CapitulosRepository capitulosRepository;
         PartidasRepository partidasRepository;
+        public static dynamic mensaje;
 
         public IActionResult Index()
         {
+            ViewBag.Message = mensaje;
+            mensaje = null;
             capitulosRepository = new CapitulosRepository();
             CapitulosPartidasViewModel cPView = new CapitulosPartidasViewModel();
             cPView.ListaCapitulos = capitulosRepository.GetCapitulos();
@@ -32,6 +37,7 @@ namespace ProyectoPOA.Controllers
             {
                 if (capitulosRepository.Validar(c.Capitulo, out List<String> errores))
                 {
+                    c.Capitulo.Nombre = c.Capitulo.Nombre.ToUpper();
                     capitulosRepository.Insert(c.Capitulo);
                     json = Json(true);
                 }
@@ -58,6 +64,7 @@ namespace ProyectoPOA.Controllers
             {
                 if (partidasRepository.Validar(p.Partida, out List<String> errores))
                 {
+                    p.Partida.Concepto = p.Partida.Concepto.ToUpper();
                     partidasRepository.Insert(p.Partida);
                     json = Json(true);
                 }
@@ -133,6 +140,7 @@ namespace ProyectoPOA.Controllers
             {
                 if (capitulosRepository.Validar(c.Capitulo, out List<String> errores))
                 {
+                    c.Capitulo.Nombre = c.Capitulo.Nombre.ToUpper();
                     capitulosRepository.Update(c.Capitulo);
                     json = Json(true);
                 }
@@ -160,6 +168,7 @@ namespace ProyectoPOA.Controllers
             {
                 if (partidasRepository.Validar(p.Partida, out List<String> errores))
                 {
+                    p.Partida.Concepto = p.Partida.Concepto.ToUpper();
                     partidasRepository.Update(p.Partida);
                     json = Json(true);
                 }
@@ -190,6 +199,8 @@ namespace ProyectoPOA.Controllers
                 if (capitulosRepository.Eliminar(Id) == true)
                 {
                     jsonResult = Json(true);
+                    ViewBag.Message = Notification.Show("Se ha eliminado el capitulo correctamente", "Aviso", position: Position.TopRight, type: ToastType.Success);
+                    mensaje = ViewBag.Message;
                 }
             }
             catch (Exception ex)
@@ -211,6 +222,8 @@ namespace ProyectoPOA.Controllers
                 if (partidasRepository.Eliminar(Id) == true)
                 {
                     jsonResult = Json(true);
+                    ViewBag.Message = Notification.Show("Se ha eliminado la partida correctamente", "Aviso", position: Position.TopRight, type: ToastType.Success);
+                    mensaje = ViewBag.Message;
                 }
             }
             catch (Exception ex)

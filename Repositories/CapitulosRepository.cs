@@ -70,6 +70,11 @@ namespace ProyectoPOA.Repositories
                     }
                 }
             }
+            Capitulo capit = Context.Capitulo.FirstOrDefault(x => x.Nombre.Trim().ToUpper() == cap.Nombre.Trim().ToUpper() && x.Eliminado == false && x.Id != cap.Id);
+            if (capit != null)
+            {
+                errores.Add("El nombre de el capitulo ya existe.");
+            }
             return errores.Count == 0;
         }
 

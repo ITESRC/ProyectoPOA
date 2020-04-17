@@ -44,7 +44,7 @@ namespace ProyectoPOA.Repositories
             {
                 if (!nombre.IsMatch(p.Concepto) || p.Concepto.Length > 45)
                 {
-                    errores.Add("El nombre de el capitulo no es válido (Máximo de 45 caracteres , no utilice caracteres especiales, respete mayúsculas y minúsculas).");
+                    errores.Add("El nombre de la partida no es válido (Máximo de 45 caracteres , no utilice caracteres especiales, respete mayúsculas y minúsculas).");
                 }
                 else
                 {

@@ -5,27 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<main>
-    <nav>
-        <div class="fabs" id="options">
-            <a href="javascript:showM('popEdit');" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-            <a href="javascript:showM('popdelete');" id="btnEliminar" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
-        </div>
-        <ul class="fabSubfab">
-            <li>
-                <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
-                <ul>
-                    <li>
-                        <a href="javascript:showM('popAdd');">Añadir capitulo</a>
-                    </li>
-                    <li>
-                        <a href="javascript:showM('popAddPartida');">Añadir partida</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-    @*<div class="fabs">
+    <main>
+        <nav>
+            <div class="fabs" id="options">
+                <a href="javascript:showM('popEdit');" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
+                <a href="javascript:showM('popdelete');" id="btnEliminar" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+            </div>
+            <ul class="fabSubfab">
+                <li>
+                    <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
+                    <ul>
+                        <li>
+                            <a href="javascript:showM('popAdd');">Añadir capitulo</a>
+                        </li>
+                        <li>
+                            <a href="javascript:showM('popAddPartida');">Añadir partida</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        @*<div class="fabs">
             <div>
                 <a href="#popedit" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
                 <a href="#popdelete" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
@@ -38,34 +38,34 @@
             <a href="#popaddE">Añadir partida</a>
         </div>*@
 
-    <div class="divtablaObj">
-        @foreach (Capitulo cap in Model.ListaCapitulos)
-        {
-            <ol>
-                <li>
-                    <table class="tablaObj">
-                        <tr id="thObj">
-                            <th hidden id="@cap.Id"></th>
-                            <th id="nmCap">@cap.Nombre</th>
-                        </tr>
-
-                        @foreach (Partida par in cap.Partida.Where(x => x.Eliminado == false))
-                        {
-                            <tr id="filaEst">
-                                <td hidden id="@par.Id"></td>
-                                <td id="nmPart">@par.Concepto</td>
+        <div class="divtablaObj">
+            @foreach (Capitulo cap in Model.ListaCapitulos)
+            {
+                <ol>
+                    <li>
+                        <table class="tablaObj">
+                            <tr id="thObj">
+                                <th hidden id="@cap.Id"></th>
+                                <th id="nmCap">@cap.Nombre</th>
                             </tr>
-                        }
-                    </table>
-                </li>
-            </ol>
-        }
 
-    </div>
+                            @foreach (Partida par in cap.Partida.Where(x => x.Eliminado == false))
+                            {
+                                <tr id="filaEst">
+                                    <td hidden id="@par.Id"></td>
+                                    <td id="nmPart">@par.Concepto</td>
+                                </tr>
+                            }
+                        </table>
+                    </li>
+                </ol>
+            }
+
+        </div>
 
 
-
-</main>
+        @Html.Raw(ViewBag.Message)
+    </main>
 
 <div class="container-all" id="popdelete" style="display:none">
     <section class="popup" style="visibility:visible;">
