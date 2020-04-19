@@ -11,7 +11,7 @@
 }
 <main>
     <nav>
-        <div class="fabs">
+        <div class="fabs" id="options">
             <a href="javascript:showM('popedit');" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
             <a href="javascript:showM('popdelete');" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
         </div>
@@ -30,20 +30,21 @@
         </ul>
     </nav>
 
-    <div class="tablaObj">
+    <div class="divtablaObj">
         <ol>
             <li>
-                <table>
+                <table class="tablaObj">
                     @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
                     {
-                        <tr id="fila">
+                        <tr id="thObj">
 
                             <th id="@obje.Id" class="Dato">@obje.Nombre</th>
                         </tr>
                         @foreach (Estrategia item in obje.ListaEstregias)
                         {
-                            <tr id="fila">
-                                <td id="@item.Id">@item.Nombre</td>
+                            <tr id="filaEst">
+                                
+                                <td id="@item.Id" class="estN">@item.Nombre</td>
                             </tr>
                         }
                     }
@@ -56,11 +57,11 @@
 <div class="container-all" id="popdelete" style="display:none;">
     <section class="popup" style="visibility:visible;">
         <label id="ElimPass">¿Eliminar?</label>
-        <form class="formAjax" action="~/PIID/Desactivar" method="post">
-            <input id="deleteId" name="delO" value="delO" hidden />
-            <p class="error"></p>
+        <form class="formAjax"  method="post">
+            <input id="deleteId" name="delO"  hidden />
+            
             <div class="btnpop">
-                <input type="submit" class="confirm" value="Aceptar" />
+                <input type="submit" class="confirm" onclick="location.javascript;HideM('popdelete');" value="Aceptar" />
                 <button type="button" class="cancel" onclick="location.javascript;HideM('popdelete');">Cancelar</button>
             </div>
         </form>
@@ -88,19 +89,14 @@
 </div>
 <div>
     <script>
-
-
-    function eliminar(id) {
-        $("#deleteId").val(id);
-        var x = $('.selected .Dato').html();
-        $("#ElimPass").html("Se desabilitará el objetivo " + x);
-    }
+       
+    
     function editar(id) {
         $.post('@Url.Action("GetObjetivo", "PIID")', { "idObjetivo": id }, function (data, status) {
 				if (data != false) {
                     var y = $("#ModalEdit form");
                     y.find("#MostrarEst").val(data.Nombre);
-                    
+
 				}
 			});
     }

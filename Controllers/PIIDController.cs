@@ -49,10 +49,11 @@ namespace ProyectoPOA.Controllers
                     var cons = Orepo.Context.Objetivo.FirstOrDefault(x => x.Id == ob.Id);
                     cons.Eliminado = false;
                     Orepo.Update(cons);
+                    json = Json(true);
                     ViewBag.Message = Notification.Show("Objetivo Creado", "Aviso", position: Position.TopRight, type: ToastType.Success);
                     mensaje = ViewBag.Message;
 
-                    json = Json(true);
+                    
                 }
             }
             catch (Exception)
@@ -114,9 +115,10 @@ namespace ProyectoPOA.Controllers
             }
             catch (Exception ex)
             {
+                json = Json(false);
                 ViewBag.Message = Notification.Show(ex.Message, "Aviso", position: Position.TopRight, type: ToastType.Error);
                 mensaje = ViewBag.Message;
-                json = Json(mensaje);
+                
             }
             return json;
         }
@@ -131,9 +133,10 @@ namespace ProyectoPOA.Controllers
                 var result = Orepo.Context.Objetivo.FirstOrDefault(x => x.Id == delO);
                 result.Eliminado = true;
                 Orepo.Update(result);
+                json = Json(true);
                 ViewBag.Message = Notification.Show("Objetivo Dado de Baja", "Aviso", position: Position.TopRight, type: ToastType.Success);
                 mensaje = ViewBag.Message;
-                json = Json(true);
+                
             }
             catch (Exception ex)
             {

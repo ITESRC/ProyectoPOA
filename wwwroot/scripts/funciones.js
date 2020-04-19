@@ -100,14 +100,46 @@
             window.location.href = `UnidadesAdministrativas/Editar/${IdUnidad}`
         }
     }
+    //{
+    //    $(function () {
+    //        $('table').on('click', 'tr', function (event) {
+    //            $(this).addClass('selected').siblings().removeClass('selected');
+    //            $('.fabs').css('visibility', 'visible');
+    //            eliminar($('.selected th').attr('id'));
+    //            editar($('.selected th').attr('id'));
+    //        });
+    //    });
+    //}
     {
         $(function () {
             $('table').on('click', 'tr', function (event) {
+                $('table tr').removeClass('selected');
                 $(this).addClass('selected').siblings().removeClass('selected');
-                $('.fabs').css('visibility', 'visible');
-                eliminar($('.selected th').attr('id'));
-                editar($('.selected th').attr('id'));
+                $('#options').css('visibility', 'visible');
+                if ($(this).attr('id') == "thObj") {
+                    editar($('.selected th').attr('id'),0);
+                    eliminar($('.selected th').attr('id'),0);
+                    
+                }
+                else {
+                    editar($('.selected td').attr('id'), 1);
+                    eliminar($('.selected td').attr('id'), 1);
+                }
             });
         });
+        function eliminar(id,valor) {
+            $("#deleteId").val(id);
+            var form = $("#popdelete form");
+            if (valor == 0) {
+                form.attr('action', '/PIID/Desactivar');
+                var x = $('.selected .Dato').html();
+                $("#ElimPass").html("Se desabilitará el objetivo " + x);
+            }
+            else {
+                //form.attr('action', '/PIID/Desactivar');
+                var x = $('.selected .estN').html();
+                $("#ElimPass").html("Se desabilitará la estrategia " + x);
+            }
+        }
     }
 }
