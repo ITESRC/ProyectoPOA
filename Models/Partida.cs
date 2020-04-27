@@ -10,9 +10,8 @@ namespace ProyectoPOA.Models
             Uapartidas = new HashSet<Uapartidas>();
         }
 
-        public int Id { get; set; }
-        public int Capitulo { get; set; }
         public short Clave { get; set; }
+        public int Capitulo { get; set; }
         public string Concepto { get; set; }
         public bool? Eliminado { get; set; }
 
