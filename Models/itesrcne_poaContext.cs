@@ -37,15 +37,13 @@ namespace ProyectoPOA.Models
         {
             modelBuilder.Entity<Articulo>(entity =>
             {
-                entity.HasKey(e => e.IdArticulo);
-
                 entity.ToTable("articulo");
 
                 entity.HasIndex(e => e.Idpartida)
                     .HasName("fkPartidaArticulo_idx");
 
-                entity.Property(e => e.IdArticulo)
-                    .HasColumnName("idArticulo")
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.CostoUnitario)

@@ -5,7 +5,7 @@ namespace ProyectoPOA.Models
 {
     public partial class Articulo
     {
-        public int IdArticulo { get; set; }
+        public int Id { get; set; }
         public string Descripcion { get; set; }
         public string UnidadDeMedida { get; set; }
         public decimal CostoUnitario { get; set; }
