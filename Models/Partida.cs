@@ -7,6 +7,7 @@ namespace ProyectoPOA.Models
     {
         public Partida()
         {
+            Articulo = new HashSet<Articulo>();
             Uapartidas = new HashSet<Uapartidas>();
         }
 
@@ -16,6 +17,7 @@ namespace ProyectoPOA.Models
         public bool? Eliminado { get; set; }
 
         public Capitulo CapituloNavigation { get; set; }
+        public ICollection<Articulo> Articulo { get; set; }
         public ICollection<Uapartidas> Uapartidas { get; set; }
     }
 }

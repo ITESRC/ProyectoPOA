@@ -9,6 +9,8 @@ namespace ProyectoPOA.Models
         public string Descripcion { get; set; }
         public string UnidadDeMedida { get; set; }
         public decimal CostoUnitario { get; set; }
-        public string NumeroDePartida { get; set; }
+        public short Idpartida { get; set; }
+
+        public Partida IdpartidaNavigation { get; set; }
     }
 }

@@ -41,6 +41,9 @@ namespace ProyectoPOA.Models
 
                 entity.ToTable("articulo");
 
+                entity.HasIndex(e => e.Idpartida)
+                    .HasName("fkPartidaArticulo_idx");
+
                 entity.Property(e => e.IdArticulo)
                     .HasColumnName("idArticulo")
                     .HasColumnType("int(11)");
@@ -54,14 +57,20 @@ namespace ProyectoPOA.Models
                     .HasColumnName("descripcion")
                     .HasColumnType("varchar(45)");
 
-                entity.Property(e => e.NumeroDePartida)
-                    .HasColumnName("numero de partida")
-                    .HasColumnType("varchar(45)");
+                entity.Property(e => e.Idpartida)
+                    .HasColumnName("idpartida")
+                    .HasColumnType("smallint(4)");
 
                 entity.Property(e => e.UnidadDeMedida)
                     .IsRequired()
                     .HasColumnName("unidad de medida")
                     .HasColumnType("varchar(45)");
+
+                entity.HasOne(d => d.IdpartidaNavigation)
+                    .WithMany(p => p.Articulo)
+                    .HasForeignKey(d => d.Idpartida)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fkPartidaArticulo");
             });
 
             modelBuilder.Entity<Capitulo>(entity =>
