@@ -57,6 +57,11 @@ namespace ProyectoPOA.Models
                     .HasColumnName("descripcion")
                     .HasColumnType("varchar(45)");
 
+                entity.Property(e => e.Eliminado)
+                    .IsRequired()
+                    .HasColumnType("bit(1)")
+                    .HasDefaultValueSql("'b\\'0\\''");
+
                 entity.Property(e => e.Idpartida)
                     .HasColumnName("idpartida")
                     .HasColumnType("smallint(4)");
