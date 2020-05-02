@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProyectoPOA.Models;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace ProyectoPOA.Repositories
 {
@@ -38,7 +39,9 @@ namespace ProyectoPOA.Repositories
         }
 
         public List<string> Validar(Unidadadministrativa unidad)
-        {
+        {   ////Ajustar Mayusculas
+            unidad.Nombre= CapitalTitle(unidad.Nombre);
+            unidad.Encargado = CapitalTitle(unidad.Encargado);
             List<string> errores = new List<string>();
             Regex clave = new Regex("^[0-9]{4}$");
             Regex nombre = new Regex(@"^([A-ZÜÁÉÍÓÚ][a-züáéíóú]+\s?)+$");
@@ -109,7 +112,12 @@ namespace ProyectoPOA.Repositories
 
         }
 
+        string CapitalTitle(string text)
+        {
+            string palabra = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(text);
+            return palabra;
 
+        }
         public Unidadadministrativa EditarUnidadById(int id)
         {
             return Context.Unidadadministrativa.Where(x => x.Id == id && x.Eliminado == false).FirstOrDefault();

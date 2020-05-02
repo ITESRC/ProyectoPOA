@@ -4,6 +4,8 @@
     ViewData["Title"] = "Agregar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
+<script src="~/vanilla (1).js"> </script>
 <header>
     <div class="lbl ">
         <label>Unidades administrativas</label>
@@ -12,10 +14,10 @@
 </header>
 
 <main>
-    <form method="post" asp-action="Agregar">
+    <form method="post" asp-action="Agregar" class="formAjax">
         <div class="divmain">
             <label>Clave:</label>
-            <input required asp-for="Clave" type="number" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+            <input required asp-for="Clave" onkeydown="pc ( event )" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="filt" />
             <label>Nombre:</label>
             <input required asp-for="Nombre" type="text" />
             <label>Encargado:</label>
@@ -38,3 +40,4 @@
     </form>
 </main>
 <script src="~/scripts/disabledbutton.js"></script>
+<script src="~/scripts/funciones.js"></script>
