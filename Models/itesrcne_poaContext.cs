@@ -15,6 +15,7 @@ namespace ProyectoPOA.Models
         {
         }
 
+        public virtual DbSet<Articulo> Articulo { get; set; }
         public virtual DbSet<Capitulo> Capitulo { get; set; }
         public virtual DbSet<Estrategia> Estrategia { get; set; }
         public virtual DbSet<Objetivo> Objetivo { get; set; }
@@ -27,13 +28,54 @@ namespace ProyectoPOA.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySql("server=204.93.216.11;port=3306;database=itesrcne_poa;uid=itesrcne_poa;password=proyectopoa20");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Articulo>(entity =>
+            {
+                entity.ToTable("articulo");
+
+                entity.HasIndex(e => e.Idpartida)
+                    .HasName("fkPartidaArticulo_idx");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.CostoUnitario)
+                    .HasColumnName("costo unitario")
+                    .HasColumnType("decimal(10,0)");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasColumnName("descripcion")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Eliminado)
+                    .IsRequired()
+                    .HasColumnType("bit(1)")
+                    .HasDefaultValueSql("'b\\'0\\''");
+
+                entity.Property(e => e.Idpartida)
+                    .HasColumnName("idpartida")
+                    .HasColumnType("smallint(4)");
+
+                entity.Property(e => e.UnidadDeMedida)
+                    .IsRequired()
+                    .HasColumnName("unidad de medida")
+                    .HasColumnType("varchar(45)");
+
+                entity.HasOne(d => d.IdpartidaNavigation)
+                    .WithMany(p => p.Articulo)
+                    .HasForeignKey(d => d.Idpartida)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fkPartidaArticulo");
+            });
+
             modelBuilder.Entity<Capitulo>(entity =>
             {
                 entity.ToTable("capitulo");
@@ -97,16 +139,16 @@ namespace ProyectoPOA.Models
 
             modelBuilder.Entity<Partida>(entity =>
             {
+                entity.HasKey(e => e.Clave);
+
                 entity.ToTable("partida");
 
                 entity.HasIndex(e => e.Capitulo)
                     .HasName("fkpartidacapitulo_idx");
 
-                entity.Property(e => e.Id).HasColumnType("int(11)");
+                entity.Property(e => e.Clave).HasColumnType("smallint(4)");
 
                 entity.Property(e => e.Capitulo).HasColumnType("int(11)");
-
-                entity.Property(e => e.Clave).HasColumnType("smallint(4)");
 
                 entity.Property(e => e.Concepto)
                     .IsRequired()
@@ -160,7 +202,7 @@ namespace ProyectoPOA.Models
                 entity.ToTable("uapartidas");
 
                 entity.HasIndex(e => e.IdPartida)
-                    .HasName("fkPartida_idx");
+                    .HasName("fkupPartidas_idx");
 
                 entity.HasIndex(e => e.IdUa)
                     .HasName("fkUA_idx");
@@ -169,7 +211,7 @@ namespace ProyectoPOA.Models
                     .HasColumnName("id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.IdPartida).HasColumnType("int(11)");
+                entity.Property(e => e.IdPartida).HasColumnType("smallint(6)");
 
                 entity.Property(e => e.IdUa)
                     .HasColumnName("IdUA")
@@ -179,7 +221,7 @@ namespace ProyectoPOA.Models
                     .WithMany(p => p.Uapartidas)
                     .HasForeignKey(d => d.IdPartida)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fkupPartida");
+                    .HasConstraintName("fkupPartidas");
 
                 entity.HasOne(d => d.IdUaNavigation)
                     .WithMany(p => p.Uapartidas)

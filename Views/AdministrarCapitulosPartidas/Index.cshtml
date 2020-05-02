@@ -52,7 +52,7 @@
                             @foreach (Partida par in cap.Partida.Where(x => x.Eliminado == false))
                             {
                                 <tr id="filaEst">
-                                    <td hidden id="@par.Id"></td>
+                                    @*<td hidden id="@par.Id"></td>*@
                                     <td id="nmPart">@par.Concepto</td>
                                 </tr>
                             }
@@ -119,7 +119,7 @@
         <form id="formPart" class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/EditarPartida">
             <label>Editar</label>
             <h1>Partida:</h1>
-            <input id="edIdP" type="hidden" asp-for="@Model.Partida.Id" />
+            @*<input id="edIdP" type="hidden" asp-for="@Model.Partida.Id" />*@
             <input id="edElimP" type="hidden" asp-for="@Model.Partida.Eliminado" />
             <input required id="edNombreP" class="agregarObj" type="text" asp-for="@Model.Partida.Concepto" />
             <h1>Clave:</h1>

@@ -121,7 +121,7 @@ namespace ProyectoPOA.Controllers
             {
                 jsonResult = Json(new
                 {
-                    part.Id,
+                    //part.Id,
                     part.Concepto,
                     part.Clave,
                     part.Eliminado,
@@ -219,12 +219,12 @@ namespace ProyectoPOA.Controllers
             partidasRepository = new PartidasRepository();
             try
             {
-                if (partidasRepository.Eliminar(Id) == true)
-                {
-                    jsonResult = Json(true);
-                    ViewBag.Message = Notification.Show("Se ha eliminado la partida correctamente", "Aviso", position: Position.TopRight, type: ToastType.Success);
-                    mensaje = ViewBag.Message;
-                }
+                //if (partidasRepository.Eliminar(Id) == true)
+                //{
+                //    jsonResult = Json(true);
+                //    ViewBag.Message = Notification.Show("Se ha eliminado la partida correctamente", "Aviso", position: Position.TopRight, type: ToastType.Success);
+                //    mensaje = ViewBag.Message;
+                //}
             }
             catch (Exception ex)
             {

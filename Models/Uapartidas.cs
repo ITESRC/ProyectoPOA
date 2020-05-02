@@ -7,7 +7,7 @@ namespace ProyectoPOA.Models
     {
         public int Id { get; set; }
         public int IdUa { get; set; }
-        public int IdPartida { get; set; }
+        public short IdPartida { get; set; }
 
         public Partida IdPartidaNavigation { get; set; }
         public Unidadadministrativa IdUaNavigation { get; set; }

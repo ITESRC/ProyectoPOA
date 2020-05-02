@@ -487,7 +487,8 @@ table .selected:nth-child(even), table .selected:nth-child(odd) {
     color: #f7f7f7;
     box-shadow: #7D8997 0px 3px 5px;
     padding: 0;
-    display: block;
+    display: inline-table;
+    width:100%;
 }
 
     .popup div {
