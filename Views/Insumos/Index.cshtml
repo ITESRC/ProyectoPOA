@@ -1,0 +1,249 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<nav class="menu">
+    <div>
+    </div>
+    <ul>
+        <li>
+            <a href="#"><i class="fa fa-cog"></i> Administrar<i class="icono fa fa-chevron-down"></i></a>
+            <ul>
+                <li> <a href="#">Unidades administrativas</a></li>
+                <li> <a href="#">Empleados</a></li>
+                <li> <a href="#">Partidas</a></li>
+                <li><a href="#">Capítulos</a></li>
+                <li> <a href="#">Insumos</a></li>
+                <li><a href="#">Unidades de medida</a></li>
+                <li><a href="#">Indicadores</a></li>
+                <li><a href="#">Capturar PIID</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-unlock-alt"></i> Permitir<i class="icono fa fa-chevron-down"></i></a>
+            <ul>
+                <li><a href="#">Objetivos</a></li>
+                <li><a href="#">Partidas</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-check-circle"></i> Activar<i class="icono fa fa-chevron-down"></i></a>
+            <ul>
+                <li> <a href="#">Periodo de captura de requisiciones</a></li>
+                <li> <a href="#">Periodo de captura POA/PTA</a></li>
+                <li><a href="#">Periodo de seguimiento POA/PTA</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="fa fa-folder-open"></i> Consultar<i class="icono fa fa-chevron-down"></i>
+            </a>
+            <ul>
+                <li><a href="#">PTA/POA programado</a></li>
+                <li><a href="#">PTA/POA real</a></li>
+                <li> <a href="#">Quien no ha capturado POA/PTA</a></li>
+                <li><a href="#">Requisiciones</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-eye"></i> Ver<i class="icono fa fa-chevron-down"></i></a>
+            <ul>
+                <li> <a href="#">Gastado/programado de la partida</a></li>
+                <li><a href="#">Insumos</a></li>
+                <li> <a href="#">Monto asignado por unidad administrativa</a></li>
+            </ul>
+        </li>
+
+        <li><a href="#"><i class="fa fa-dollar-sign"></i> Montos a autorizar</a></li>
+        <li><a href="#"><i class="fa fa-clipboard-list"></i> Insumos por mes</a></li>
+        <li><a href="#"><i class="fa fa-book-open"></i> Catálogo de insumos</a></li>
+    </ul>
+
+</nav>
+<header>
+    <a href="#" class="left"><i class="fa fa-bars"></i></a>
+    <h1><b>ITESRC</b> Administración de recursos</h1>
+    <div class="dropdown">
+        <a href="#" class="right">
+            <i class="fa fa-user"></i>
+        </a>
+        <ul>
+            <li><a href="#"><i class="fa fa-key"></i>Cambiar Contraseña</a></li>
+            <li><a href="#"><i class="fa fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+        </ul>
+    </div>
+</header>
+<main>
+    <div class="fabs">
+        <div>
+            <button onclick="EditarUnidad()" id="btnEditar" class="fab-button"><i class="fa fa-edit"></i></button>
+            <button class="fab-button"><i class="fa fa-trash"></i></button>
+
+        </div>
+
+        <a href="#" class="fab-button"><i class="fa fa-plus"></i></a>
+
+
+    </div>
+
+    <section>
+
+        <h2>
+            Insumos
+            <input type="search" placeholder="Filtro..." />
+        </h2>
+        <table>
+            <thead>
+
+
+                <tr>
+                    <th class="center">Nombre</th>
+                    <th class="center">Descripción</th>
+                    <th class="center">Unidad de medida</th>
+                    <th class="center">Costo unitario</th>
+                    <th class="center">No. Partida</th>
+
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td class="center">Insumo</td>
+                    <td class="center">Insumo pequeño</td>
+                    <td class="center">Paquete</td>
+                    <td class="center">20</td>
+                    <td class="center">3412</td>
+
+                </tr>
+                <tr>
+                    <td class="center">Insumo</td>
+                    <td class="center">Insumo pequeño</td>
+                    <td class="center">Paquete</td>
+                    <td class="center">20</td>
+                    <td class="center">3412</td>
+
+                </tr>
+                <tr>
+                    <td class="center">Insumo</td>
+                    <td class="center">Insumo pequeño</td>
+                    <td class="center">Paquete</td>
+                    <td class="center">20</td>
+                    <td class="center">3412</td>
+
+                </tr>
+                <tr>
+                    <td class="center">Insumo</td>
+                    <td class="center">Insumo pequeño</td>
+                    <td class="center">Paquete</td>
+                    <td class="center">20</td>
+                    <td class="center">3412</td>
+
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+    </section>
+
+
+
+
+
+</main>
+
+<div class="container-all">
+
+    <section class="popup">
+        <label>¿Eliminar?</label>
+        <div class="btnpop">
+
+            <button class="confirm">Cancelar</button>
+            <button class="cancel">Añadir</button>
+        </div>
+    </section>
+
+
+    <section class="popupestrategias">
+        <h3>Agregar insumo</h3>
+
+        <label>Nombre:</label>
+        <input type="text" />
+
+        <label for="unidadesmedida">Unidad de medida:</label>
+        <select id="unidadesmedida">
+            <option>Pieza</option>
+            <option>Pesos</option>
+            <option>Paquete</option>
+            <option>Caja</option>
+            <option>Rollo</option>
+        </select>
+
+        <label for="Nopartida">Número de partida:</label>
+        <select id="Nopartida">
+            <option>1234</option>
+        </select>
+
+        <label>Costo:</label>
+        <input type="number" />
+
+        <label for="desc">Descripción:</label>
+
+        <textarea id="desc"></textarea>
+
+        <div>
+
+            <button class="confirm">Cancelar</button>
+            <button class="cancel">Añadir</button>
+
+        </div>
+    </section>
+
+    <section class="popupestrategias">
+        <h3>Editar insumo</h3>
+
+        <label>Nombre:</label>
+        <input type="text" />
+
+        <label for="unidadesmedida">Unidad de medida:</label>
+        <select id="unidadesmedida">
+            <option>Pieza</option>
+            <option>Pesos</option>
+            <option>Paquete</option>
+            <option>Caja</option>
+            <option>Rollo</option>
+        </select>
+
+        <label for="Nopartida">Número de partida:</label>
+        <select id="Nopartida">
+            <option>1234</option>
+        </select>
+
+        <label>Costo:</label>
+        <input type="number" />
+
+        <label for="desc">Descripción:</label>
+
+        <textarea id="desc"></textarea>
+
+        <div>
+
+            <button class="confirm">Cancelar</button>
+            <button class="cancel">Añadir</button>
+
+        </div>
+    </section>
+
+</div>
+
