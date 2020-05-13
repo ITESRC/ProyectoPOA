@@ -1,0 +1,89 @@
+﻿@inject UnidadesAdministrativasService servicio
+@{
+    ViewData["Title"] = "PermitirEstrategias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <main>
+        <div class="fabsMain">
+            <a href="#popadd" class="material-icons fab-button  hint--left" aria-label="Agregar">add</a>
+            <a href="#popeliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">remove</a>
+        </div>
+
+        <h3>Unidad administrativa:</h3>
+        @*<select>
+            <option>Sistemas computacionales</option>
+            <option>Industrial</option>
+        </select>*@
+        <select asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
+            <option selected="selected" value="">-- Seleccionar unidad --</option>
+        </select>
+
+
+        <div class="divSeleccionados">
+            <h3>Estrategias seleccionadas</h3>
+            <dl>
+                <dt>Objetivo 1</dt>
+                <dd>Estrategia</dd>
+                <dd>Estrategia</dd>
+                <dt>Objetivo 2</dt>
+                <dd>Estrategia</dd>
+                <dd>Estrategia</dd>
+            </dl>
+        </div>
+
+
+    </main>
+
+
+<div class="container-all" id="popadd">
+    <section class="popupestrategias">
+        <h3>Añadir estrategias</h3>
+
+        <p>Presiona ctrl + click izquierdo para seleccionar las estrategias deseadas</p>
+
+
+        <select id="estrategias" size="20" multiple>
+            <optgroup label="Objetivo 1">
+                <option value="es1">es1</option>
+                <option value="es2">es2</option>
+            </optgroup>
+            <optgroup label="Objetivo 2">
+                <option value="es5">es5</option>
+                <option value="es9">es9</option>
+            </optgroup>
+        </select>
+
+        <div>
+            <button class="confirm">Cancelar</button>
+            <button class="cancel">Añadir</button>
+
+        </div>
+    </section>
+</div>
+
+<div class="container-all" id="popeliminar">
+    <section class="popupestrategias">
+        <h3>Eliminar estrategias</h3>
+
+        <p>Presiona ctrl + click izquierdo para deseleccionar las estrategias deseadas</p>
+
+
+        <select id="estrategias" size="20" multiple>
+            <optgroup label="Objetivo 1">
+                <option value="es1">es1</option>
+                <option value="es2">es2</option>
+            </optgroup>
+            <optgroup label="Objetivo 2">
+                <option value="es5">es5</option>
+                <option value="es9">es9</option>
+            </optgroup>
+        </select>
+
+        <div>
+            <button class="confirm">Cancelar</button>
+            <button class="cancel">Añadir</button>
+
+        </div>
+    </section>
+</div>
