@@ -557,6 +557,7 @@ table .selected:nth-child(even), table .selected:nth-child(odd) {
         background-image: url(images/gear.png);
     }
 
+
     .menu-area > li > .icon1 {
         background-image: url(images/password.png)
     }
@@ -685,6 +686,9 @@ main .fabsMain {
     border-bottom: 1.5px solid #7D8997;
 
    
+}
+#estrategias ul,#estrategias ul li{
+    list-style:none;
 }
 
 
