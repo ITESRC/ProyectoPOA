@@ -1,22 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoPOA.Repositories;
 
 namespace ProyectoPOA.Controllers
 {
     public class PermitirEstrategiasController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        PermitirEstrategiaRepository context;
 
         [HttpGet]
-        public IActionResult Index(int id)
+        public IActionResult Index([FromQuery]int id)
         {
-            return View();
+            if (id > 0)
+            {
+                context = new PermitirEstrategiaRepository();
+                var model = context.GetEstrategiasPermitidasDeUnidad(id);
+                return View(model);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

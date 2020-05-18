@@ -1,4 +1,5 @@
 ﻿@inject UnidadesAdministrativasService servicio
+@model UnidadEstrategiasPermitidasViewModel
 @{
     ViewData["Title"] = "PermitirEstrategias";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,19 +20,22 @@
             <option selected="selected" value="">-- Seleccionar unidad --</option>
         </select>
 
-
-        <div class="divSeleccionados">
-            <h3>Estrategias seleccionadas</h3>
-            <dl>
-                <dt>Objetivo 1</dt>
-                <dd>Estrategia</dd>
-                <dd>Estrategia</dd>
-                <dt>Objetivo 2</dt>
-                <dd>Estrategia</dd>
-                <dd>Estrategia</dd>
-            </dl>
-        </div>
-
+        @if (Model != null)
+        {
+            <div class="divSeleccionados">
+                <h3>Estrategias seleccionadas</h3>
+                <dl>
+                    @foreach (var objetivo in Model.ObjetivosPermitidos)
+                    {
+                        <dt>@objetivo.NombreObjetivo</dt>
+                        @foreach (var estrategia in objetivo.EstrategiasPermitidas)
+                        {
+                            <dd>@estrategia.NombreEstrategia</dd>
+                        }
+                    }
+                </dl>
+            </div>
+        }
 
     </main>
 
