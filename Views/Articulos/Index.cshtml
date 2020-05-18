@@ -1,0 +1,204 @@
+﻿@model ArticulosViewModel
+@inject PartidasService service
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="fabs">
+        <div id="options">
+            <button onclick="showM('popEdit')" id="btnEditar" class="fab-button"><i class="fa fa-edit"></i></button>
+            <button onclick="showM('popDelete')" class="fab-button"><i class="fa fa-trash"></i></button>
+
+        </div>
+
+        <a href="javascript:showM('popAdd');" class="fab-button"><i class="fa fa-plus"></i></a>
+
+
+    </div>
+
+    <section>
+
+        <form asp-controller="Articulos" asp-action="Index" method="get">
+            <h2>
+                Insumos
+                <input type="search" placeholder="Filtro..." name="desc" />
+                <button type="submit">Buscar</button>
+            </h2>
+        </form>
+        <table class="tablaObj">
+            <thead>
+                <tr>
+                    <th class="center">Descripción</th>
+                    <th class="center">Unidad de medida</th>
+                    <th class="center">Costo unitario</th>
+                    <th class="center">No. Partida</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.ListaArticulos)
+                {
+                    <tr id="thObj">
+                        <td id="@item.Id" hidden>Articulo</td>
+                        <td class="center" id="IdDesc">@item.Descripcion</td>
+                        <td class="center">@item.UnidadDeMedida</td>
+                        <td class="center">@item.CostoUnitario</td>
+                        <td class="center">@item.Idpartida</td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+
+
+    </section>
+
+
+
+
+
+</main>
+
+<div class="container-all" id="pop">
+
+    <section class="popup" id="popDelete">
+        <form class="formAjax" method="post" action="~/Articulos/Eliminar">
+            <label id="elNom">¿Eliminar?</label>
+            <input id="deleteId" type="hidden" name="Id" />
+            <div class="btnpop">
+
+                <button class="cancel">Cancelar</button>
+                <button class="confirm">Aceptar</button>
+            </div>
+        </form>
+
+    </section>
+
+
+    <section class="popupestrategias" id="popAdd">
+        <form class="formAjax" method="post" action="~/Articulos/Agregar">
+            <h3>Agregar insumo</h3>
+
+            <label>Descripción:</label>
+            <input required type="text" asp-for="@Model.Articulo.Descripcion" />
+
+            <label for="unidadesmedida">Unidad de medida:</label>
+            <input required id="unidadesmedida" type="text" asp-for="@Model.Articulo.UnidadDeMedida" />
+
+            <label for="Nopartida">Número de partida:</label>
+            <select required id="Nopartida" asp-for="@Model.Articulo.Idpartida" asp-items="@(new SelectList(service.GetPartidas(),"Clave","Nombre"))">
+                <option selected="selected" value="">-- Seleccionar partida --</option>
+            </select>
+
+            <label>Costo:</label>
+            <input step="0.01" type="number" asp-for="@Model.Articulo.CostoUnitario" />
+
+            <p class="error"></p>
+
+            <div>
+                <button class="confirm" type="submit">Añadir</button>
+                <button class="cancel">Cancelar</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="popupestrategias" id="popEdit">
+        <form id="formEdit" class="formAjax" method="post" action="~/Articulos/Editar">
+            <h3>Editar insumo</h3>
+
+            <input id="edId" type="hidden" asp-for="@Model.Articulo.Id" />
+            <input id="edEliminado" type="hidden" asp-for="@Model.Articulo.Eliminado" />
+            <label>Descripción:</label>
+            <input id="edDesc" required type="text" asp-for="@Model.Articulo.Descripcion" />
+
+            <label for="unidadesmedida">Unidad de medida:</label>
+            <input id="edUn" type="text" asp-for="@Model.Articulo.UnidadDeMedida" />
+
+            <label for="Nopartida">Número de partida:</label>
+            <select id="edPartida" asp-for="@Model.Articulo.Idpartida" asp-items="@(new SelectList(service.GetPartidas(),"Clave","Nombre"))">
+                <option value="">-- Seleccionar partida --</option>
+            </select>
+
+            <label>Costo:</label>
+            <input id="edCostoU" required type="number" asp-for="@Model.Articulo.CostoUnitario" />
+
+            <div>
+                <button class="confirm" type="submit">Añadir</button>
+                <button class="cancel">Cancelar</button>
+            </div>
+        </form>
+    </section>
+    <script>
+        function editar(id, tipo) {
+            @*$.post('@Url.Action("GetArticuloById", "Articulos")', { "id": id }, function (data, status) {
+                if (data != false) {
+                    var form = $("#formEdit");
+                    form.find("#edId").val(data.id);
+                    form.find("#edDesc").val(data.descripcion);
+                    form.find("#edUnidadesmedida").val(data.unidaddemedida);
+                    form.find('#edId [option="' + data.idpartida + '"]').attr('selected', true)
+                    form.find("#edCostoU").val(data.costounitario);
+                }
+            });*@
+
+
+             $.post('@Url.Action("GetArticuloById", "Articulos")', { "id": id }, function (data, status) {
+                    if (data != false) {
+                        var x = $("#formEdit");
+                        x.find("#edId").val(data.id);
+                        x.find("#edUn").val(data.unidadDeMedida);
+                        x.find("#edDesc").val(data.descripcion);
+                        x.find('#edPartida option[value="' + data.idpartida + '"]').attr('selected', true)
+                        x.find("#edCostoU").val(data.costoUnitario);
+                        x.find("#edEliminado").val(data.eliminado);
+                        console.table(data);
+                    }
+
+             });
+
+
+
+
+        }
+
+        function eliminar(id,tipo) {
+            $("#deleteId").val(id);
+            var x = $('.selected #IdDesc').html();
+            $("form #elNom").html("¿Estás seguro de eliminar al capitulo " + x + "?");
+        }
+
+    </script>
+
+
+</div>
+
+<script>
+    var pop = $("#pop");
+    function showM(Id) {
+        var p = document.getElementById(Id);
+        pop.css("visibility", "visible");
+        p.style.visibility = 'visible';
+        p.style.display = 'block';
+    }
+
+    $(function () {
+        $('table').on('click', 'tr', function (event) {
+            $('table tr').removeClass('selected');
+            $(this).addClass('selected').siblings().removeClass('selected');
+            $('#options').css('visibility', 'visible');
+            var Id = $(this).children(':first').attr('id');
+            var tipo = $(this).children(':first').html();
+            if (Id != null && tipo != null) {
+                editar(Id, tipo);
+                eliminar(Id, tipo);
+            }
+        });
+    });
+
+</script>

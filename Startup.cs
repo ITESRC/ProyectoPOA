@@ -19,6 +19,7 @@ namespace ProyectoPOA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<UnidadesAdministrativasService>();
+            services.AddScoped<PartidasService>();
             services.AddMvc();
         }
 
