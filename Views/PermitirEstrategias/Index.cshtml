@@ -12,13 +12,20 @@
         </div>
 
         <h3>Unidad administrativa:</h3>
-        @*<select>
-            <option>Sistemas computacionales</option>
-            <option>Industrial</option>
-        </select>*@
-        <select asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
-            <option selected="selected" value="">-- Seleccionar unidad --</option>
-        </select>
+
+        @if (ViewBag.IdUnidad > 0)
+        {
+            <select id="cmbUnidades" asp-items="@(new SelectList(servicio.GetSuperiores(ViewBag.IdUnidad),"Id","Nombre"))" onchange="CambiarUnidad()">
+                <option selected="selected" value="@ViewBag.IdUnidad">@ViewBag.NombreUnidad</option>
+            </select>
+        }
+        else
+        {
+            <select id="cmbUnidades" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))" onchange="CambiarUnidad()">
+                <option selected="selected" value="">-- Seleccionar Unidad --</option>
+            </select>
+        }
+
 
         @if (Model != null)
         {
@@ -111,3 +118,4 @@
         </div>
     </section>
 </div>
+<script src="~/scripts/selectOnChange.js"></script>

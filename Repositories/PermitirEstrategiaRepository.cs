@@ -11,10 +11,11 @@ namespace ProyectoPOA.Repositories
     {
         public UnidadEstrategiasPermitidasViewModel GetEstrategiasPermitidasDeUnidad(int idUnidad)
         {
-            UnidadEstrategiasPermitidasViewModel unidadEstrategias = new UnidadEstrategiasPermitidasViewModel();
+            UnidadEstrategiasPermitidasViewModel unidadEstrategias;
             var unidad = Context.Unidadadministrativa.Where(x => x.Id == idUnidad).FirstOrDefault();///validar que la unidad no esté eliminada
             if (unidad != null)
             {
+                unidadEstrategias = new UnidadEstrategiasPermitidasViewModel();
                 unidadEstrategias.IdUnidad = idUnidad;
                 unidadEstrategias.NombreUnidad = unidad.Nombre;
                 unidadEstrategias.ObjetivosPermitidos = new List<ObjetivoPermitidoViewModel>();
@@ -44,8 +45,12 @@ namespace ProyectoPOA.Repositories
                     }
                     unidadEstrategias.ObjetivosPermitidos.Add(o);
                 }
+                return unidadEstrategias;
             }
-            return unidadEstrategias;
+            else
+            {
+                return null;
+            }
         }
     }
 }

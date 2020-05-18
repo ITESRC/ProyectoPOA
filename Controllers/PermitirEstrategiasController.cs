@@ -19,7 +19,16 @@ namespace ProyectoPOA.Controllers
             {
                 context = new PermitirEstrategiaRepository();
                 var model = context.GetEstrategiasPermitidasDeUnidad(id);
-                return View(model);
+                if (model != null)
+                {
+                    ViewBag.IdUnidad = id;
+                    ViewBag.NombreUnidad = model.NombreUnidad;
+                    return View(model);
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
