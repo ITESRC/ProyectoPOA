@@ -23,6 +23,7 @@ namespace ProyectoPOA.Models
         public virtual DbSet<Uaestrategia> Uaestrategia { get; set; }
         public virtual DbSet<Uapartidas> Uapartidas { get; set; }
         public virtual DbSet<Unidadadministrativa> Unidadadministrativa { get; set; }
+        public virtual DbSet<Unidadmedida> Unidadmedida { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,6 +42,9 @@ namespace ProyectoPOA.Models
 
                 entity.HasIndex(e => e.Idpartida)
                     .HasName("fkPartidaArticulo_idx");
+
+                entity.HasIndex(e => e.Idunidadmedida)
+                    .HasName("fkUnidadArticulo_idx");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
@@ -64,16 +68,21 @@ namespace ProyectoPOA.Models
                     .HasColumnName("idpartida")
                     .HasColumnType("smallint(4)");
 
-                entity.Property(e => e.UnidadDeMedida)
-                    .IsRequired()
-                    .HasColumnName("unidad de medida")
-                    .HasColumnType("varchar(45)");
+                entity.Property(e => e.Idunidadmedida)
+                    .HasColumnName("idunidadmedida")
+                    .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.IdpartidaNavigation)
                     .WithMany(p => p.Articulo)
                     .HasForeignKey(d => d.Idpartida)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fkPartidaArticulo");
+
+                entity.HasOne(d => d.IdunidadmedidaNavigation)
+                    .WithMany(p => p.Articulo)
+                    .HasForeignKey(d => d.Idunidadmedida)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fkUnidadArticulo");
             });
 
             modelBuilder.Entity<Capitulo>(entity =>
@@ -260,6 +269,25 @@ namespace ProyectoPOA.Models
                     .WithMany(p => p.InverseIdUnidadSuperiorNavigation)
                     .HasForeignKey(d => d.IdUnidadSuperior)
                     .HasConstraintName("fkIdSuperiorId");
+            });
+
+            modelBuilder.Entity<Unidadmedida>(entity =>
+            {
+                entity.ToTable("unidadmedida");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Eliminado)
+                    .IsRequired()
+                    .HasColumnType("bit(1)")
+                    .HasDefaultValueSql("'b\\'0\\''");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasColumnName("nombre")
+                    .HasColumnType("varchar(45)");
             });
         }
     }
