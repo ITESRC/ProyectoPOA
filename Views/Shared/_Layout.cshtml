@@ -6,25 +6,117 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <link href="~/estilos.css" rel="stylesheet" />
-    <link rel="stylesheet" href="hint.min.css" />
+    <link href="css/estilos.css" rel="stylesheet" />
+    <link href="css/grid.css" rel="stylesheet" />
+
+    <!-- Para usar iconos con FontAwesome  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="jquery-3.5.0.min"></script>
+    <script src="util.js"></script>
+    <title>Unidades de medida</title>
+    <script>
+        $(document).ready(function () {
+            $("#bars").click(function () {
+                $("nav").toggleClass("open");
+            });
+        });
+    </script>
+
+
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <script type="text/javascript" src="~/scripts/funciones.js"></script>
 </head>
 <body>
     <header>
-        <div class="lbl ">
-            <label></label>
-            <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
+        <a href="#" class="left"><i class="fa fa-bars"></i></a>
+        <h1><b>ITESRC</b> Administración de recursos</h1>
+        <div class="dropdown">
+            <a href="#" class="right">
+                <i class="fa fa-user"></i>
+            </a>
+            <ul>
+                <li><a href="#"><i class="fa fa-key"></i>Cambiar Contraseña</a></li>
+                <li><a href="#"><i class="fa fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
         </div>
     </header>
     @RenderBody()
-    <footer>
+
+
+    <nav class="menu">
+        <div></div>
+        <ul>
+            <li>
+                <a href="#1"><i class="fa fa-cog"></i> Administrar<i class="icono fa fa-angle-right"></i></a>
+
+                <ul id="1">
+
+                    <li> <a href="~/UnidadesAdministrativas">Unidades administrativas</a></li>
+                    <li> <a href="#">Empleados</a></li>
+                    <li> <a href="~/AdministrarCapitulosPartidas">Capitulos/Partidas</a></li>
+                    <li><a href="#">Capítulos</a></li>
+                    <li> <a href="~/Articulos">Insumos</a></li>
+                    <li><a href="#">Unidades de medida</a></li>
+                    <li><a href="#">Indicadores</a></li>
+                    <li><a href="~/PIID">Capturar PIID</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#2"><i class="fa fa-unlock-alt"></i> Permitir<i class="icono fa fa-angle-right"></i></a>
+
+                <ul id="2">
+                    <li><a href="~/PermitirEstrategias">Estrategias/Objetivos</a></li>
+                    <li><a href="#">Partidas</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#3"><i class="fa fa-check-circle"></i> Activar<i class="icono fa fa-angle-right"></i></a>
+                <ul id="3">
+                    <li> <a href="#">Periodo de captura de requisiciones</a></li>
+                    <li> <a href="#">Periodo de captura POA/PTA</a></li>
+                    <li><a href="#">Periodo de seguimiento POA/PTA</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#4">
+                    <i class="fa fa-folder-open"></i> Consultar<i class="icono fa fa-angle-right"></i>
+                </a>
+                <ul id="4">
+                    <li><a href="#">PTA/POA programado</a></li>
+                    <li><a href="#">PTA/POA real</a></li>
+                    <li> <a href="#">Quien no ha capturado POA/PTA</a></li>
+                    <li><a href="#">Requisiciones</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#5"><i class="fa fa-eye"></i> Ver<i class="icono fa fa-angle-right"></i></a>
+
+                <ul id="5">
+
+                    <li> <a href="#">Gastado/programado de la partida</a></li>
+                    <li><a href="#">Insumos</a></li>
+                    <li> <a href="#">Monto asignado por unidad administrativa</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#"><i class="fa fa-dollar-sign"></i> Montos a autorizar</a></li>
+            <li><a href="#"><i class="fa fa-clipboard-list"></i> Insumos por mes</a></li>
+            <li><a href="#"><i class="fa fa-book-open"></i> Catálogo de insumos</a></li>
+        </ul>
+
+    </nav>
+
+
+    @*<footer>
         <div class="wrapper">
             <nav>
                 <ul class="menu-area">
@@ -80,6 +172,6 @@
                 </ul>
             </nav>
         </div>
-    </footer>
+    </footer>*@
 </body>
 </html>
