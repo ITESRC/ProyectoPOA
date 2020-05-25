@@ -20,6 +20,7 @@ namespace ProyectoPOA
         {
             services.AddScoped<UnidadesAdministrativasService>();
             services.AddScoped<PartidasService>();
+            services.AddScoped<UnidadMedidaService>();
             services.AddMvc();
         }
 

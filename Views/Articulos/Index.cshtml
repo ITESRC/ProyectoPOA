@@ -1,5 +1,6 @@
 ﻿@model ArticulosViewModel
 @inject PartidasService service
+@inject UnidadMedidaService serviceUnidad
 
 @{
     ViewData["Title"] = "Index";
@@ -44,7 +45,7 @@
                     <tr id="thObj">
                         <td id="@item.Id" hidden>Articulo</td>
                         <td class="center" id="IdDesc">@item.Descripcion</td>
-                        <td class="center">@item.UnidadDeMedida</td>
+                        <td class="center">@item.IdunidadmedidaNavigation.Nombre</td>
                         <td class="center">@item.CostoUnitario</td>
                         <td class="center">@item.Idpartida</td>
 
@@ -89,7 +90,9 @@
             <input required type="text" asp-for="@Model.Articulo.Descripcion" />
 
             <label for="unidadesmedida">Unidad de medida:</label>
-            <input required id="unidadesmedida" type="text" asp-for="@Model.Articulo.UnidadDeMedida" />
+            <select required id="unidadesmedida" type="text" asp-for="@Model.Articulo.Idunidadmedida" asp-items="@(new SelectList(serviceUnidad.GetUnidadMedidaViews(),"Id","Nombre"))">
+                <option selected="selected" value="">-- Seleccionar partida --</option>
+            </select>
 
             <label for="Nopartida">Número de partida:</label>
             <select required id="Nopartida" asp-for="@Model.Articulo.Idpartida" asp-items="@(new SelectList(service.GetPartidas(),"Clave","Nombre"))">
@@ -118,7 +121,9 @@
             <input id="edDesc" required type="text" asp-for="@Model.Articulo.Descripcion" />
 
             <label for="unidadesmedida">Unidad de medida:</label>
-            <input id="edUn" type="text" asp-for="@Model.Articulo.UnidadDeMedida" />
+            <select required id="edUn" type="text" asp-for="@Model.Articulo.Idunidadmedida" asp-items="@(new SelectList(serviceUnidad.GetUnidadMedidaViews(),"Id","Nombre"))">
+                <option selected="selected" value="">-- Seleccionar partida --</option>
+            </select>
 
             <label for="Nopartida">Número de partida:</label>
             <select id="edPartida" asp-for="@Model.Articulo.Idpartida" asp-items="@(new SelectList(service.GetPartidas(),"Clave","Nombre"))">
@@ -136,17 +141,6 @@
     </section>
     <script>
         function editar(id, tipo) {
-            @*$.post('@Url.Action("GetArticuloById", "Articulos")', { "id": id }, function (data, status) {
-                if (data != false) {
-                    var form = $("#formEdit");
-                    form.find("#edId").val(data.id);
-                    form.find("#edDesc").val(data.descripcion);
-                    form.find("#edUnidadesmedida").val(data.unidaddemedida);
-                    form.find('#edId [option="' + data.idpartida + '"]').attr('selected', true)
-                    form.find("#edCostoU").val(data.costounitario);
-                }
-            });*@
-
 
              $.post('@Url.Action("GetArticuloById", "Articulos")', { "id": id }, function (data, status) {
                     if (data != false) {

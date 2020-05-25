@@ -10,23 +10,23 @@ namespace ProyectoPOA.Repositories
     public class PartidasRepository:Repository<Partida>
     {
 
-        //public Boolean Eliminar(Int32 Id)
-        //{
-        //    //Partida p = GetPartidaXId(Id);
-        //    //if (p != null || p.Eliminado == false)
-        //    //{
-        //    //    p.Eliminado = true;
-        //        Save();
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        throw new ArgumentException("La partida no existe");
-        //    }
+        public Boolean Eliminar(Int16 Clave)
+        {
+            Partida p = GetPartidaXId(Clave);
+            if (p != null || p.Eliminado == false)
+            {
+                p.Eliminado = true;
+                Save();
+                return true;
+            }
+            else
+            {
+                throw new ArgumentException("La partida no existe");
+            } 
 
-        //}
+        }
 
-        public Boolean Validar(Partida p, out List<String> errores)
+public Boolean Validar(Partida p, out List<String> errores)
         {
             errores = new List<String>();
             Regex clave = new Regex("^[0-9]{5}$");
@@ -48,11 +48,11 @@ namespace ProyectoPOA.Repositories
                 }
                 else
                 {
-                    //Partida part = Context.Partida.FirstOrDefault(x => x.Concepto.Trim().ToUpper() == p.Concepto.Trim().ToUpper() && x.Eliminado == false && x.Id != p.Id);
-                    //if (part != null)
-                    //{
-                    //    errores.Add($"El concepto {part.Concepto} ya existe.");
-                    //}
+                    Partida part = Context.Partida.FirstOrDefault(x => x.Concepto.Trim().ToUpper() == p.Concepto.Trim().ToUpper() && x.Eliminado == false && x.Clave != p.Clave);
+                    if (part != null)
+                    {
+                        errores.Add($"El concepto {part.Concepto} ya existe.");
+                    }
                 }
             }
             if (!Context.Capitulo.Any(x => x.Id == p.Capitulo))
@@ -63,10 +63,10 @@ namespace ProyectoPOA.Repositories
         }
 
 
-        //public Partida GetPartidaXId(Int32 Id)
-        //{
-        //    return Context.Partida.FirstOrDefault(x => x.Eliminado == false && x.Id == Id);
-        //}
+        public Partida GetPartidaXId(Int16 Clave)
+        {
+            return Context.Partida.FirstOrDefault(x => x.Eliminado == false && x.Clave == Clave);
+        }
 
     }
 }

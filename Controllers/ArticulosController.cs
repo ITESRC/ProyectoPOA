@@ -86,7 +86,7 @@ namespace ProyectoPOA.Controllers
                     articulo.CostoUnitario,
                     articulo.Descripcion,
                     articulo.Idpartida,
-                    articulo.UnidadDeMedida,
+                    articulo.Idunidadmedida,
                     articulo.Eliminado
                 }
                 );

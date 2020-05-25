@@ -1,4 +1,5 @@
-﻿using ProyectoPOA.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ProyectoPOA.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace ProyectoPOA.Repositories
 
         public IEnumerable<Articulo> GetArticulos()
         {
-            return Context.Articulo.Where(x => x.Eliminado == false).OrderBy(x => x.Descripcion);
+            return Context.Articulo.Include(x=>x.Idunidadmedida).Where(x => x.Eliminado == false).OrderBy(x => x.Descripcion);
         }
 
         public IEnumerable<Articulo> GetArticulosByDescripcion(String desc)
@@ -55,37 +56,32 @@ namespace ProyectoPOA.Repositories
 
             if (String.IsNullOrWhiteSpace(a.Descripcion))
             {
-                errores.Add("El nombre de la partida no puede estar vacío.");
+                errores.Add("El nombre el articulo no puede estar vacío.");
             }
             else
             {
                 if (!nombre.IsMatch(a.Descripcion) || a.Descripcion.Length > 45)
                 {
-                    errores.Add("El nombre de la partida no es válido (Máximo de 45 caracteres , no utilice caracteres especiales, respete mayúsculas y minúsculas).");
+                    errores.Add("El nombre de el articulo no es válido (Máximo de 45 caracteres , no utilice caracteres especiales, respete mayúsculas y minúsculas).");
                 }
                 else
                 {
-                    //Partida part = Context.Partida.FirstOrDefault(x => x.Concepto.Trim().ToUpper() == p.Concepto.Trim().ToUpper() && x.Eliminado == false && x.Id != p.Id);
+                    //Articulo part = Context.Articulo.FirstOrDefault(x => x.Descripcion.Trim().ToUpper() == a.Descripcion.Trim().ToUpper() && x.Eliminado == false && x.Id != a.Id); ;
                     //if (part != null)
                     //{
-                    //    errores.Add($"El concepto {part.Concepto} ya existe.");
+                    //    errores.Add($"El articulo {part.Descripcion} ya existe.");
                     //}
                 }
             }
-            if (String.IsNullOrWhiteSpace(a.UnidadDeMedida))
+
+            if (!Context.Unidadmedida.Any(x=>x.Id==a.Idunidadmedida))
             {
-                errores.Add("La unidad de medida no debe de estar vacia.");
+                errores.Add("La unidad de medida seleccionada no existe.");
             }
-            else
-            {
-                if (!nombre.IsMatch(a.UnidadDeMedida) || a.UnidadDeMedida.Length > 45)
-                {
-                    errores.Add("La unidad de medida no es válido (Máximo de 45 caracteres , no utilice caracteres especiales, respete mayúsculas y minúsculas).");
-                }
-            }
+
             if (!Context.Partida.Any(x => x.Clave == a.Idpartida))
             {
-                errores.Add("El capitulo seleccionado no existe.");
+                errores.Add("La partida seleccionada no existe.");
             }
             return errores.Count == 0;
         }
