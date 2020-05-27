@@ -6,36 +6,34 @@
 }
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
 <script src="~/vanilla (1).js"> </script>
-<header>
-    <div class="lbl ">
-        <label>Unidades administrativas</label>
-        <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
-    </div>
-</header>
+
 
 <main>
     <form method="post" asp-action="Agregar" class="formAjax">
-        <div class="divmain">
-            <label>Clave:</label>
-            <input required asp-for="Clave" onkeydown="pc ( event )" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="filt" />
-            <label>Nombre:</label>
-            <input required asp-for="Nombre" type="text" />
-            <label>Encargado:</label>
-            <input required asp-for="Encargado" type="text" />
-            <label>Superior:</label>
-            <select asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
-                <option selected="selected" value="">-- Seleccionar superior --</option>
-            </select>
-            @Html.AntiForgeryToken()
-            <div class="botones">
-                <p id="errores">
-                    @Html.ValidationSummary()
-                </p>
+        <section>
+            <h2>Añadir unidad administrativa</h2>
+            <div class="divmain">
+                <label>Clave:</label>
+                <input required asp-for="Clave" onkeydown="pc ( event )" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="filt" />
+                <label>Nombre:</label>
+                <input required asp-for="Nombre" type="text" />
+                <label>Encargado:</label>
+                <input required asp-for="Encargado" type="text" />
+                <label>Superior:</label>
+                <select asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))">
+                    <option selected="selected" value="">-- Seleccionar superior --</option>
+                </select>
+                @Html.AntiForgeryToken()
+                <div class="botones">
+                    <p id="errores">
+                        @Html.ValidationSummary()
+                    </p>
+                </div>
             </div>
-        </div>
+        </section>
         <div class="fabsMain">
-            <button type="submit" id="btnGuardar" class="material-icons fab-button  hint--left" aria-label="Guardar">save</button>
-            <a href="~/UnidadesAdministrativas" class="material-icons fab-button hint--left" aria-label="Cancelar">clear</a>
+            <button type="submit" id="btnGuardar" class="fab-button"><i class="fa fa-save"></i></button>
+            <a href="~/UnidadesAdministrativas" class="fab-button"><i class="fa fa-times"></i></a>
         </div>
     </form>
 </main>

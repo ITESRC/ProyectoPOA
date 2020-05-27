@@ -4,47 +4,52 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<header>
-    <div class="lbl ">
-        <label>Unidades administrativas</label>
-        <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
-    </div>
-</header>
+
 
 <main>
     <div class="fabs">
         <div id="options">
-            <button onclick="EditarUnidad()" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar" >edit</button>
-            <button onclick="MostrarPopUp(pop)" id="btnEliminar" class="material-icons fab-button hint--left" aria-label="Eliminar" >delete</button>
+            <button onclick="EditarUnidad()" id="btnEditar" class="fab-button" ><i class="fa fa-edit"></i></button>
+            <button onclick="MostrarPopUp(pop)" id="btnEliminar" class="fab-button" ><i class="fa fa-trash"></i></button>
         </div>
 
-        <a href="~/UnidadesAdministrativas/Agregar" class="material-icons fab-button openpopup hint--left" aria-label="Añadir nuevo">add</a>
+        <a href="~/UnidadesAdministrativas/Agregar" class="fab-button openpopup"><i class="fa fa-plus"></i></a>
     </div>
-    <table id="table">
-        <tr class="Head">
-            <th>Clave</th>
-            <th>Nombre</th>
-            <th>Encargado</th>
-            <th>Superior</th>
-   
-        </tr>
-        @foreach (Unidadadministrativa unidad in Model)
-        {
-            <tr id="fila" onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})">
-                <td>@unidad.Clave.ToString("0000")</td>
-                <td>@unidad.Nombre</td>
-                <td>@unidad.Encargado</td>
-                @if (unidad.IdUnidadSuperiorNavigation != null)
-                {
-                    <td>@unidad.IdUnidadSuperiorNavigation.Nombre</td>
-                }
-                else
-                {
-                    <td></td>
-                }
-            </tr>
-        }
-    </table>
+    <section>
+        <h2>Unidades administrativas</h2>
+
+        <div class="respTable">
+            <table id="table">
+                <thead>
+                    <tr class="Head">
+                        <th class="center">Clave</th>
+                        <th class="center">Nombre</th>
+                        <th class="center">Encargado</th>
+                        <th class="center">Superior</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Unidadadministrativa unidad in Model)
+                    {
+                        <tr id="fila" onclick="verModal({Id:'@unidad.Id', Nombre:'@unidad.Nombre'})">
+                            <td class="center">@unidad.Clave.ToString("0000")</td>
+                            <td class="center">@unidad.Nombre</td>
+                            <td class="center">@unidad.Encargado</td>
+                            @if (unidad.IdUnidadSuperiorNavigation != null)
+                            {
+                                <td class="center">@unidad.IdUnidadSuperiorNavigation.Nombre</td>
+                            }
+                            else
+                            {
+                                <td class="center"></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
     @Html.Raw(ViewBag.Message)
 </main>
 <div class="container-all" id="pop" > 
