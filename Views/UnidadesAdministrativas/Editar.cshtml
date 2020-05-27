@@ -12,29 +12,32 @@
 </header>
 <main>
     <form method="post" asp-action="Editar">
-        <div class="divmain">
-            <h2>Añadir unidad administrativa</h2>
-            <label>Clave:</label>
-            <input required asp-for="Clave" type="number" onkeydown="pc ( event )" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="filt"/>
-            <label>Nombre:</label>
-            <input required asp-for="Nombre" type="text" />
-            <label>Encargado:</label>
-            <input required asp-for="Encargado" type="text" />
-            <label>Superior:</label>
-            <select asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(Model.Id),"Id","Nombre"))">
-                <option selected="selected" value="">-- Seleccionar superior --</option>
-            </select>
-            @Html.AntiForgeryToken()
-            <input type="hidden" asp-for="Eliminado" />
-            <div class="botones">
-                <p class="ex" id="errores">
-                    @Html.ValidationSummary()
-                </p>
+        <section>
+            <h2>Editar unidad administrativa</h2>
+            <div class="divmain">
+               
+                <label>Clave:</label>
+                <input required asp-for="Clave" type="number" onkeydown="pc ( event )" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="filt" />
+                <label>Nombre:</label>
+                <input required asp-for="Nombre" type="text" />
+                <label>Encargado:</label>
+                <input required asp-for="Encargado" type="text" />
+                <label>Superior:</label>
+                <select asp-for="IdUnidadSuperior" asp-items="@(new SelectList(servicio.GetSuperiores(Model.Id),"Id","Nombre"))">
+                    <option selected="selected" value="">-- Seleccionar superior --</option>
+                </select>
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Eliminado" />
+                <div class="botones">
+                    <p class="ex" id="errores">
+                        @Html.ValidationSummary()
+                    </p>
+                </div>
             </div>
-        </div>
+        </section>
         <div class="fabsMain">
-            <button type="submit" id="btnGuardar" class="material-icons fab-button  hint--left" aria-label="Guardar">save</button>
-            <a href="~/UnidadesAdministrativas" class="material-icons fab-button hint--left" aria-label="Cancelar">clear</a>
+            <button type="submit" id="btnGuardar" class="fab-button"><i class="fa fa-save"></i></button>
+            <a href="~/UnidadesAdministrativas" class="fab-button"><i class="fa fa-times"></i></a>
         </div>
     </form>
 </main>

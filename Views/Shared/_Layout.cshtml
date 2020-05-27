@@ -8,11 +8,12 @@
     <meta charset="utf-8" />
     <link href="css/estilos.css" rel="stylesheet" />
     <link href="css/grid.css" rel="stylesheet" />
+    <script src="jquery-3.5.0.min"></script>
+    <script src="util.js"></script>
 
     <!-- Para usar iconos con FontAwesome  -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script src="jquery-3.5.0.min"></script>
-    <script src="util.js"></script>
+
     <title>Unidades de medida</title>
     <script>
         $(document).ready(function () {
@@ -45,7 +46,6 @@
             </ul>
         </div>
     </header>
-    @RenderBody()
 
 
     <nav class="menu">
@@ -115,63 +115,8 @@
 
     </nav>
 
+    @RenderBody()
 
-    @*<footer>
-        <div class="wrapper">
-            <nav>
-                <ul class="menu-area">
-                    <li>
-                        <a href="#menu1" class="icon hint--right" aria-label="Administrar"></a>
-                        <ul>
-                            <li> <a href="~/UnidadesAdministrativas">Unidades administrativas</a></li>
-                            <li> <a href="#">Empleados</a></li>
-                            <li> <a href="#">Partidas</a></li>
-                            <li><a href="~/AdministrarCapitulosPartidas">Capítulos/ Partidas</a></li>
-                            <li> <a href="~/Articulos">Articulos</a></li>
-                            <li><a href="#">Unidades de medida</a></li>
-                            <li><a href="#">Indicadores</a></li>
-                            <li><a href="~/PIID">Capturar PIID</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#menu2" class="icon1 hint--right" aria-label="Restringir"></a>
-                        <ul>
 
-                            <li><a href="~/PermitirEstrategias">Objetivos</a></li>
-                            <li><a href="#">Partidas</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#menu3" class="icon2 hint--right" aria-label="Activar"></a>
-                        <ul>
-                            <li> <a href="#">Periodo de captura de requisiciones</a></li>
-                            <li> <a href="#">Periodo de captura POA/PTA</a></li>
-                            <li><a href="#">Periodo de seguimiento POA/PTA</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#menu4" class="icon3 hint--right" aria-label="Consultar"></a>
-                        <ul>
-                            <li><a href="#">PTA/POA programado</a></li>
-                            <li><a href="#">PTA/POA real</a></li>
-                            <li> <a href="#">Quien no ha capturado POA/PTA</a></li>
-                            <li><a href="#">Requisiciones</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#menu5" class="icon4 hint--right" aria-label="Ver"></a>
-                        <ul>
-                            <li> <a href="#">Gastado/programado de la partida</a></li>
-                            <li><a href="#">Insumos</a></li>
-                            <li> <a href="#">Monto asignado por unidad administrativa</a></li>
-                        </ul>
-                    </li>
-                    <li> <a href="#menu6" class="icon5 hint--right" aria-label="Montos a autorizar"></a></li>
-                    <li>  <a href="#menu7" class="icon6 hint--right" aria-label="Insumos por mes"></a></li>
-                    <li>  <a href="#menu8" class="icon7 hint--right" aria-label="Catálogo de insumos"></a></li>
-                </ul>
-            </nav>
-        </div>
-    </footer>*@
 </body>
 </html>
