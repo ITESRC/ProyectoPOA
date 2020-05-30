@@ -1,5 +1,42 @@
 ﻿{
     $(document).ready(function () {
+        if (sessionStorage.curpos) {
+            $("main").scrollTop(sessionStorage.curpos);
+            sessionStorage.removeItem("curpos");
+        }
+
+        $(".cancel").click(function () {
+            sessionStorage.curpos = $("main").scrollTop();
+            window.location.reload();
+        });
+
+        $(".formAjax").submit(function (e) {
+            e.preventDefault();
+
+            var input =
+                $(this).find("button[type=submit]")
+                    .attr("disabled", true);
+
+            var actionUrl = $(this).attr("action");
+            $(".error").text("");
+
+            sessionStorage.curpos = $("main").scrollTop();
+
+            $.post(actionUrl, $(this).serialize(), function (res) {
+                if (res == true) {
+                    window.location.reload();
+                } else {
+                    $(".error").html(res);
+                    input.attr("disabled", false);
+                }
+            });
+        });
+    });
+
+}
+
+{
+    $(document).ready(function () {
         $("#filt").on('paste', function (e) {
             e.preventDefault();
         })
@@ -124,39 +161,4 @@
     }
 }
 querySelector("#filt").type = "number";
-{
-    $(document).ready(function () {
-        if (sessionStorage.curpos) {
-            $("main").scrollTop(sessionStorage.curpos);
-            sessionStorage.removeItem("curpos");
-        }
 
-        $(".cancel").click(function () {
-            sessionStorage.curpos = $("main").scrollTop();
-            window.location.reload();
-        });
-
-        $(".formAjax").submit(function (e) {
-            e.preventDefault();
-
-            var input =
-                $(this).find("button[type=submit]")
-                    .attr("disabled", true);
-
-            var actionUrl = $(this).attr("action");
-            $(".error").text("");
-
-            sessionStorage.curpos = $("main").scrollTop();
-
-            $.post(actionUrl, $(this).serialize(), function (res) {
-                if (res == true) {
-                    window.location.reload();
-                } else {
-                    $(".error").html(res);
-                    input.attr("disabled", false);
-                }
-            });
-        });
-    });
-
-}

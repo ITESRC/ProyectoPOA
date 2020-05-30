@@ -9,7 +9,7 @@
 
 <main>
     <div class="fabs">
-        <div id="options">
+        <div id="options" style="visibility:hidden">
             <button onclick="showM('popEdit')" id="btnEditar" class="fab-button"><i class="fa fa-edit"></i></button>
             <button onclick="showM('popDelete')" class="fab-button"><i class="fa fa-trash"></i></button>
 
@@ -146,7 +146,7 @@
                     if (data != false) {
                         var x = $("#formEdit");
                         x.find("#edId").val(data.id);
-                        x.find("#edUn").val(data.unidadDeMedida);
+                        x.find("#edUn").val(data.idunidadmedida);
                         x.find("#edDesc").val(data.descripcion);
                         x.find('#edPartida option[value="' + data.idpartida + '"]').attr('selected', true)
                         x.find("#edCostoU").val(data.costoUnitario);
