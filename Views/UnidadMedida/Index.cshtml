@@ -1,0 +1,148 @@
+﻿@model UnidadMedidaViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="fabs">
+        <div id="options" style="visibility:hidden">
+            <button onclick="showM('popEdit')" id="btnEditar" class="fab-button"><i class="fa fa-edit"></i></button>
+            <button onclick="showM('popDelete')" class="fab-button"><i class="fa fa-trash"></i></button>
+
+        </div>
+
+        <a href="javascript:showM('popAdd')" class="fab-button"><i class="fa fa-plus"></i></a>
+
+
+    </div>
+    <section>
+        <h2>Unidades de medida</h2>
+        <div class="respTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="center">Id</th>
+                        <th class="center">Nombre</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (Unidadmedida item in Model.ListaUnidadMedida)
+                    {
+                        <tr>
+
+                            <td class="center" id="@item.Id">@item.Id</td>
+                            <td class="center" id="IdNom">@item.Nombre</td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    </section>
+</main>
+
+
+<div class="container-all">
+
+    <section id="popDelete" class="popup">
+        <form class="formAjax" method="post" action="~/UnidadMedida/Eliminar">
+            <label id="elNom">¿Eliminar?</label>
+            <input id="deleteId" type="hidden" name="Id" />
+            <p class="error"></p>
+            <div class="btnpop">
+                <button class="cancel">Cancelar</button>
+                <button class="confirm" type="submit">Añadir</button>
+            </div>
+        </form>
+    </section>
+
+
+
+    <section id="popAdd" class="popup">
+        <label>Agregar</label>
+        <form class="formAjax" method="post" action="~/UnidadMedida/Agregar">
+            <h1>Unidad de medida:</h1>
+            <input class="agregarObj" type="text" asp-for="@Model.UnidadMedida.Nombre" />
+            <p class="error"></p>
+            <div>
+                <button class="cancel">Cancelar</button>
+                <button class="confirm" type="submit">Añadir</button>
+            </div>
+        </form>
+    </section>
+
+
+    <section id="popEdit" class="popup">
+        <label>Editar</label>
+        <form id="formEdit" class="formAjax" method="post" action="~/UnidadMedida/Editar">
+            <h1>Unidad de medida:</h1>
+            <input id="edId" type="hidden" asp-for="@Model.UnidadMedida.Id" />
+            <input id="edEliminado" type="hidden" asp-for="@Model.UnidadMedida.Eliminado" />
+            <input id="edNombre" class="agregarObj" type="text" asp-for="@Model.UnidadMedida.Nombre" />
+            <p class="error"></p>
+            <div>
+                <button class="cancel">Cancelar</button>
+                <button class="confirm" type="submit">Añadir</button>
+            </div>
+        </form>
+    </section>
+
+</div>
+
+
+<script>
+        function editar(id, tipo) {
+
+             $.post('@Url.Action("GetUnidadById", "UnidadMedida")', { "id": id }, function (data, status) {
+                    if (data != false) {
+                        var x = $("#formEdit");
+                        x.find("#edId").val(data.id);
+                        x.find("#edNombre").val(data.nombre);
+                        x.find("#edEliminado").val(data.eliminado);
+                    }
+
+             });
+
+
+
+
+        }
+
+        function eliminar(id,tipo) {
+            $("#deleteId").val(id);
+            var x = $('.selected #IdNom').html();
+            $("form #elNom").html("¿Estás seguro de eliminar a la unidad de medida " + x + "?");
+        }
+
+</script>
+
+<script>
+    var pop = $("#pop");
+    function showM(Id) {
+        var p = document.getElementById(Id);
+        pop.css("visibility", "visible");
+        p.style.visibility = 'visible';
+        p.style.display = 'block';
+    }
+
+    $(function () {
+        $('table').on('click', 'tr', function (event) {
+            $('table tr').removeClass('selected');
+            $(this).addClass('selected').siblings().removeClass('selected');
+            $('#options').css('visibility', 'visible');
+            var Id = $(this).children(':first').attr('id');
+            var tipo = $(this).children(':first').html();
+            if (Id != null && tipo != null) {
+                editar(Id, tipo);
+                eliminar(Id, tipo);
+            }
+        });
+    });
+
+</script>
+

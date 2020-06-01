@@ -28,7 +28,7 @@ namespace ProyectoPOA.Repositories
 
         public IEnumerable<Articulo> GetArticulos()
         {
-            return Context.Articulo.Include(x=>x.Idunidadmedida).Where(x => x.Eliminado == false).OrderBy(x => x.Descripcion);
+            return Context.Articulo.Include(x=>x.IdunidadmedidaNavigation).Where(x => x.Eliminado == false).OrderBy(x => x.Descripcion);
         }
 
         public IEnumerable<Articulo> GetArticulosByDescripcion(String desc)
@@ -71,6 +71,14 @@ namespace ProyectoPOA.Repositories
                     //{
                     //    errores.Add($"El articulo {part.Descripcion} ya existe.");
                     //}
+                }
+            }
+
+            if (a.Id != 0)
+            {
+                if (Context.Unidadmedida.Any(x => x.Id == a.Id && x.Eliminado == true))
+                {
+                    errores.Add("La unidad de medida no existe o ya ha sido eliminada");
                 }
             }
 

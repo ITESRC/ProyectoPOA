@@ -14,14 +14,6 @@ namespace ProyectoPOA.Controllers
 
         ArticulosRepository articulosRepository;
 
-        public IActionResult Index()
-        {
-            articulosRepository = new ArticulosRepository();
-            ArticulosViewModel articulosViewModel = new ArticulosViewModel();
-            articulosViewModel.ListaArticulos = articulosRepository.GetArticulos();
-            return View(articulosViewModel);
-        }
-
         [HttpGet]
         public IActionResult Index(String desc)
         {

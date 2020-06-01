@@ -55,6 +55,14 @@ namespace ProyectoPOA.Repositories
                 }
             }
 
+            if (um.Id != 0)
+            {
+                if (Context.Unidadmedida.Any(x => x.Id == um.Id && x.Eliminado == true))
+                {
+                    errores.Add("La unidad de medida no existe o ya ha sido eliminada");
+                }
+            }
+
             return errores.Count == 0;
         }
 

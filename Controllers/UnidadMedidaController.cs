@@ -80,7 +80,7 @@ namespace ProyectoPOA.Controllers
             {
                 if (unidadMedidaRepository.Validar(unidadmedida, out List<String> errores))
                 {
-                    unidadMedidaRepository.Insert(unidadmedida);
+                    unidadMedidaRepository.Update(unidadmedida);
                     jsonResult = Json(true);
                 }
                 else

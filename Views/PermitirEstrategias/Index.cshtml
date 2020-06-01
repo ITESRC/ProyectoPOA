@@ -4,102 +4,67 @@
     ViewData["Title"] = "PermitirEstrategias";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-    <main>
-        <div class="fabsMain">
-            @*<a href="#popadd" class="material-icons fab-button  hint--left" aria-label="Agregar"></a>*@
-            <a href="#popeliminar" class="fab-estrategias"><i class="fa fa-edit"></i></a>
-        </div>
-        
-        <section>
-            <h2>Permitir estrategias y objetivos</h2>
-
-            <div class="divSelectUnidades">
-                <label class="h3Unidades">Unidad administrativa:</label>
-                @if (ViewBag.IdUnidad > 0)
-                {
-                    <select class="selectUnidades" id="cmbUnidades" asp-items="@(new SelectList(servicio.GetSuperiores(ViewBag.IdUnidad),"Id","Nombre"))" onchange="CambiarUnidad()">
-                        <option selected="selected" value="@ViewBag.IdUnidad">@ViewBag.NombreUnidad</option>
-                    </select>
-                }
-                else
-                {
-                    <select class="selectUnidades" id="cmbUnidades" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))" onchange="CambiarUnidad()">
-                        <option selected="selected" value="">-- Seleccionar Unidad --</option>
-                    </select>
-                }
-
-            </div>
+<main>
+    <div class="fabsMain">
+        <button id="btnEditar" class="fab-button"><i class="fa fa-edit"></i></button>
+    </div>
+    <h3>Unidad administrativa:</h3>
+    @if (ViewBag.IdUnidad > 0)
+        {
+    <select id="cmbUnidades" asp-items="@(new SelectList(servicio.GetSuperiores(ViewBag.IdUnidad),"Id","Nombre"))" onchange="CambiarUnidad()">
+        <option selected="selected" value="@ViewBag.IdUnidad">@ViewBag.NombreUnidad</option>
+    </select>
+        }
+        else
+        {
+    <select id="cmbUnidades" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))" onchange="CambiarUnidad()">
+        <option selected="selected" value="">-- Seleccionar Unidad --</option>
+    </select>
+        }
+    @if (Model != null)
+        {
+    <div class="divSeleccionados">
+        <h3>Estrategias seleccionadas</h3>
+        <dl>
+            @foreach (var objetivo in Model.ObjetivosPermitidos)
+                    {
+            <dt>@objetivo.NombreObjetivo</dt>
+            @foreach (var estrategia in objetivo.EstrategiasPermitidas)
+                        {
+            <dd>@estrategia.NombreEstrategia</dd>
+                        }
+                    }
+        </dl>
+    </div>
+        }
+</main>
+<div class="container-all" id="popadd">
+    <section class="popupestrategias">
+        <h3>Añadir estrategias</h3>
+        <section id="estrategias">
+            @*<ul>
+                    <li><input type="checkbox" /><label>estrategia</label></li>
+                    <li><input type="checkbox" /><label>estrategia</label></li>
+                    <li><input type="checkbox" /><label>estrategia</label></li>
+                    <li><input type="checkbox" /><label>estrategia</label></li>
+                </ul>*@
             @if (Model != null)
             {
-                    <h1>Estrategias seleccionadas</h1>
-                    <dl>
-                        @foreach (var objetivo in Model.ObjetivosPermitidos)
-                        {
-                            <dt>@objetivo.NombreObjetivo</dt>
-                            @foreach (var estrategia in objetivo.EstrategiasPermitidas)
-                            {
-                                <dd>@estrategia.NombreEstrategia</dd>
-                            }
-                        }
-                    </dl>
-               
+            <dl>
+                @foreach (var objetivo in Model.ObjetivosPermitidos)
+                {
+                <dt>@objetivo.NombreObjetivo</dt>
+                @foreach (var estrategia in objetivo.EstrategiasPermitidas)
+                    {
+                <dd><input type="checkbox" />@estrategia.NombreEstrategia</dd>
+                    }
+                }
+            </dl>
             }
         </section>
-    </main>
-
-
-
-
-<div class="container-all" id="popeliminar">
-    <section class="popupestrategias">
-        <h2>Editar estrategias</h2>
-
-        @*<p>Presiona ctrl + click izquierdo para deseleccionar las estrategias deseadas</p>
-
-
-        <select id="estrategias" size="20" multiple>
-            <optgroup label="Objetivo 1">
-                <option value="es1">es1</option>
-                <option value="es2">es2</option>
-            </optgroup>
-            <optgroup label="Objetivo 2">
-                <option value="es5">es5</option>
-                <option value="es9">es9</option>
-            </optgroup>
-        </select>*@
-        <section id="estrategias">
-            <ul>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-                <li><input type="checkbox" /><label>estrategia</label></li>
-            </ul>
-
-
-        </section>
-
         <div>
             <button class="confirm">Cancelar</button>
             <button class="cancel">Añadir</button>
-
         </div>
     </section>
 </div>
