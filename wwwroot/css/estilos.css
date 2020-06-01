@@ -356,6 +356,9 @@ main {
 		width:93%;
 		border-bottom: 1.5px solid #7D8997;
 	}
+	.popup form{
+		margin:0;
+	}
 
 .popupestrategias {
 	width: 50%;
