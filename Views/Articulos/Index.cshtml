@@ -26,7 +26,7 @@
             <h2>
                 Insumos
                 <input type="search" placeholder="Filtro..." name="desc" />
-                <button type="submit">Buscar</button>
+                @*<button type="submit">Buscar</button>*@
             </h2>
         </form>
         <table class="tablaObj">
@@ -70,7 +70,7 @@
 
     <section class="popup" id="popDelete">
         <form class="formAjax" method="post" action="~/Articulos/Eliminar">
-            <label id="elNom">¿Eliminar?</label>
+            <h2 id="elNom">¿Eliminar?</h2>
             <input id="deleteId" type="hidden" name="Id" />
             <div class="btnpop">
 
@@ -84,59 +84,71 @@
 
     <section class="popupestrategias" id="popAdd">
         <form class="formAjax" method="post" action="~/Articulos/Agregar">
-            <h3>Agregar insumo</h3>
 
-            <label>Descripción:</label>
-            <input required type="text" asp-for="@Model.Articulo.Descripcion" />
+            <h2>Agregar insumo</h2>
+            <section id="insumos">
+                          <label>Descripción:</label>
+                        <input required type="text" asp-for="@Model.Articulo.Descripcion" />
 
-            <label for="unidadesmedida">Unidad de medida:</label>
-            <select required id="unidadesmedida" type="text" asp-for="@Model.Articulo.Idunidadmedida" asp-items="@(new SelectList(serviceUnidad.GetUnidadMedidaViews(),"Id","Nombre"))">
-                <option selected="selected" value="">-- Seleccionar partida --</option>
-            </select>
+                   
+                        <label for="unidadesmedida">Unidad de medida:</label>
+                        <select required id="unidadesmedida" type="text" asp-for="@Model.Articulo.Idunidadmedida" asp-items="@(new SelectList(serviceUnidad.GetUnidadMedidaViews(),"Id","Nombre"))">
+                            <option selected="selected" value="">-- Seleccionar partida --</option>
+                        </select>
 
-            <label for="Nopartida">Número de partida:</label>
-            <select required id="Nopartida" asp-for="@Model.Articulo.Idpartida" asp-items="@(new SelectList(service.GetPartidas(),"Clave","Nombre"))">
-                <option selected="selected" value="">-- Seleccionar partida --</option>
-            </select>
+                   
 
-            <label>Costo:</label>
-            <input step="0.01" type="number" asp-for="@Model.Articulo.CostoUnitario" />
+                        <label for="Nopartida">Número de partida:</label>
+                        <select required id="Nopartida" asp-for="@Model.Articulo.Idpartida" asp-items="@(new SelectList(service.GetPartidas(),"Clave","Nombre"))">
+                            <option selected="selected" value="">-- Seleccionar partida --</option>
+                        </select>
 
-            <p class="error"></p>
 
-            <div>
-                <button class="confirm" type="submit">Añadir</button>
-                <button class="cancel">Cancelar</button>
-            </div>
+                  
+                        <label>Costo:</label>
+                        <input step="0.01" type="number" asp-for="@Model.Articulo.CostoUnitario" />
+
+
+                  
+                        <p class="error"></p>
+               
+              
+                </section>
+                <div>
+                    <button class="confirm" type="submit">Añadir</button>
+                    <button class="cancel">Cancelar</button>
+                </div>
+
         </form>
     </section>
 
     <section class="popupestrategias" id="popEdit">
-        <form id="formEdit" class="formAjax" method="post" action="~/Articulos/Editar">
-            <h3>Editar insumo</h3>
+        <form  id="formEdit" class="formAjax" method="post" action="~/Articulos/Editar">
+            <h2>Editar insumo</h2>
+            <section id="insumos">
 
-            <input id="edId" type="hidden" asp-for="@Model.Articulo.Id" />
-            <input id="edEliminado" type="hidden" asp-for="@Model.Articulo.Eliminado" />
-            <label>Descripción:</label>
-            <input id="edDesc" required type="text" asp-for="@Model.Articulo.Descripcion" />
+                <input id="edId" type="hidden" asp-for="@Model.Articulo.Id" />
+                <input id="edEliminado" type="hidden" asp-for="@Model.Articulo.Eliminado" />
+                <label>Descripción:</label>
+                <input id="edDesc" required type="text" asp-for="@Model.Articulo.Descripcion" />
 
-            <label for="unidadesmedida">Unidad de medida:</label>
-            <select required id="edUn" type="text" asp-for="@Model.Articulo.Idunidadmedida" asp-items="@(new SelectList(serviceUnidad.GetUnidadMedidaViews(),"Id","Nombre"))">
-                <option selected="selected" value="">-- Seleccionar partida --</option>
-            </select>
+                <label for="unidadesmedida">Unidad de medida:</label>
+                <select required id="edUn" type="text" asp-for="@Model.Articulo.Idunidadmedida" asp-items="@(new SelectList(serviceUnidad.GetUnidadMedidaViews(),"Id","Nombre"))">
+                    <option selected="selected" value="">-- Seleccionar partida --</option>
+                </select>
 
-            <label for="Nopartida">Número de partida:</label>
-            <select id="edPartida" asp-for="@Model.Articulo.Idpartida" asp-items="@(new SelectList(service.GetPartidas(),"Clave","Nombre"))">
-                <option value="">-- Seleccionar partida --</option>
-            </select>
+                <label for="Nopartida">Número de partida:</label>
+                <select id="edPartida" asp-for="@Model.Articulo.Idpartida" asp-items="@(new SelectList(service.GetPartidas(),"Clave","Nombre"))">
+                    <option value="">-- Seleccionar partida --</option>
+                </select>
 
-            <label>Costo:</label>
-            <input id="edCostoU" required type="number" asp-for="@Model.Articulo.CostoUnitario" />
-
-            <div>
-                <button class="confirm" type="submit">Añadir</button>
-                <button class="cancel">Cancelar</button>
-            </div>
+                <label>Costo:</label>
+                <input id="edCostoU" required type="number" asp-for="@Model.Articulo.CostoUnitario" />
+                </section>
+                <div>
+                    <button class="confirm" type="submit">Añadir</button>
+                    <button class="cancel">Cancelar</button>
+                </div>
         </form>
     </section>
     <script>

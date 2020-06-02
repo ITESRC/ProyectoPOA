@@ -10,9 +10,9 @@
 
 <main>
     <form method="post" asp-action="Agregar" class="formAjax">
-        <section>
+        <section >
             <h2>Añadir unidad administrativa</h2>
-            <div class="divmain">
+            <section id="AddUA">
                 <label>Clave:</label>
                 <input required asp-for="Clave" onkeydown="pc ( event )" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="filt" />
                 <label>Nombre:</label>
@@ -29,7 +29,7 @@
                         @Html.ValidationSummary()
                     </p>
                 </div>
-            </div>
+            </section>
         </section>
         <div class="fabsMain">
             <button type="submit" id="btnGuardar" class="fab-button"><i class="fa fa-save"></i></button>

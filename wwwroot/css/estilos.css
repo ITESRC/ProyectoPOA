@@ -20,18 +20,40 @@ main .fabsMain {
 	right: 5px;
 	bottom: 50px;
 }
-.divmain input, .divmain label, .divmain select {
+/*.divmain input, .divmain label, .divmain select {
 	display: block;
 	width: 90%;
-	box-sizing: border-box;
+	box-sizing: border-box;*/
 	/*border: none;*/
-	font-size: medium;
+	/*font-size: medium;
 	line-height: 25px;
 	margin-bottom: 10px;
 	height: 25px;
-	margin: auto;
+	margin: auto;*/
 	/*color: #7D8997;*/
+/*}*/
+
+
+
+#AddUA,#EditUA{
+	border:none;
+	height:350px;
+
+	padding:5px;
 }
+
+	#AddUA label, #EditUA label{
+		font-size: medium;
+		border: none;
+		float: left;
+	}
+
+	#AddUA input, #AddUA select, #EditUA input, #EditUA  select{
+		float: left;
+		display: block;
+		width: 100%;
+	}
+
 main .fab-button, main .fab-estrategias {
 	width: 40px;
 	height: 40px;
@@ -260,10 +282,7 @@ header .opc {
 }
 
 main {
-	/*height: calc(100% - 80px);*/
-	/*position: fixed;
-	top: 60px;
-	left: 225px;*/
+
 	overflow: hidden;
 	margin: 60px 0 0 225px;
 	padding: 10px;
@@ -302,50 +321,54 @@ main {
 	.popup .btnpop {
 		margin-top: 50px;
 	}
-	.popup label, .popupestrategias .titulo {
-		text-align: center;
-		font-size: x-large;
-		height: 30px;
-		margin-top: 10px;
-		background-color: #2c3e50;
-		line-height: 30px;
-		color: #f7f7f7;
-		box-shadow: #7D8997 0px 3px 5px;
-		padding: 0;
-		display: block;
-	}
+
 
 	.popup div, .popupestrategias div {
 		margin: auto;
 		width: 100%;
-		/*width: 325px;*/
+	
 		display: block;
 	}
 .popupestrategias div {
 	margin: auto;
 	width: 100%;
-	/*width: 325px;*/
+	
 	display: block;
 	margin-top:70px;
 }
 
-		.popup .confirm, .popup .cancel, .popupestrategias .confirm, .popupestrategias .cancel {
-			height: 30px;
-			width: 150px;
-			/*border-radius: 5px;*/
-			background-color: #2c3e50;
-			float: right;
-			margin-right: 4%;
-			margin-top: 10px;
-			/*margin: 5px;*/
-			color: white;
-			border: 0;
-		}
+.popupestrategias #insumos label{
+	font-size:medium;
+	float:left;
+	border:none;
+
+}
+.popupestrategias #insumos input, .popupestrategias #insumos select{
+	float:left;
+	display:block;
+	margin:5px,0;
+	width:100%;
+}
+
+
+.popup .confirm, .popup .cancel, .popupestrategias .confirm, .popupestrategias .cancel {
+	height: 30px;
+	width: 150px;
+	/*border-radius: 5px;*/
+	background-color: #2c3e50;
+	float: right;
+	margin-right: 4%;
+	margin-top: 10px;
+	/*margin: 5px;*/
+	color: white;
+	border: 0;
+}
 	.popup h1 {
 		font-size: large;
 		color: #7D8997;
 		margin-left: 20px;
 	}
+
 	.popup select, .popup .agregarObj {
 		margin-left: 20px;
 		margin-bottom: 10px;
@@ -356,9 +379,7 @@ main {
 		width:93%;
 		border-bottom: 1.5px solid #7D8997;
 	}
-	.popup form{
-		margin:0;
-	}
+
 
 .popupestrategias {
 	width: 50%;
@@ -386,15 +407,6 @@ main {
 }
 
 
-
-/*.popupestrategias h3 {
-	display: block;
-	box-shadow: #7D8997 0px 3px 10px;
-	padding: 10px;
-	color: #f7f7f7;
-	background-color: #457abb;
-}*/
-
 .popupestrategias #estrategias {
 	width: 500px;
 	border: none;
@@ -404,14 +416,20 @@ main {
 	overflow-y:scroll;
 }
 
-.popupestrategias #estrategias ul{
-	list-style:none;
+.popupestrategias #insumos {
+	width: 70%;
+	border: none;
+	height:300px;
+	margin-top:50px;
+	margin-left:60px;
+	overflow:initial;
+
+	
 }
 
-	/*.popupestrategias #estrategias optgroup {
-		color: #7D8997;
-		margin: 10px;
-	}*/
+	.popupestrategias #estrategias ul {
+		list-style: none;
+	}
 
 
 	main h1 {
@@ -454,6 +472,7 @@ section h2 {
 	section h2 select, section h2 input {
 		position: absolute;
 		right: 5px;
+		bottom:2px;
 		font-size: small;
 		height: 24px;
 	}
@@ -598,7 +617,7 @@ table td a {
 
 
 form {
-	margin: 10px;
+	margin: 0px;
 	overflow: hidden;
 }
 

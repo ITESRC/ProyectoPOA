@@ -4,17 +4,12 @@
     ViewData["Title"] = "Agregar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<header>
-    <div class="lbl ">
-        <label>Unidades administrativas</label>
-        <a href="#" aria-label="Cerrar sesión" class="logout hint--left">............</a>
-    </div>
-</header>
+
 <main>
     <form method="post" asp-action="Editar">
         <section>
             <h2>Editar unidad administrativa</h2>
-            <div class="divmain">
+            <section id="EditUA">
                
                 <label>Clave:</label>
                 <input required asp-for="Clave" type="number" onkeydown="pc ( event )" maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="filt" />
@@ -33,7 +28,7 @@
                         @Html.ValidationSummary()
                     </p>
                 </div>
-            </div>
+            </section>
         </section>
         <div class="fabsMain">
             <button type="submit" id="btnGuardar" class="fab-button"><i class="fa fa-save"></i></button>
