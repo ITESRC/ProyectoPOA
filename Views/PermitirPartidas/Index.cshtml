@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Permitir Partidas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var SupList = ViewBag.SupList;
+}
+
+<main>
+    <div class="fabsMain">
+        <a href="#popadd" class="material-icons fab-button  hint--left" aria-label="Agregar">add</a>
+        <a href="#popeliminar" class="material-icons fab-button hint--left" aria-label="Eliminar">remove</a>
+    </div>
+
+    <h3>Unidad administrativa:</h3>
+
+
+    <select id="cmb" name="id">
+        <option selected="selected">-- Unidad --</option>
+        @foreach (SuperiorViewModel item in SupList)
+        {
+            <option value="@item.Id">@item.Nombre</option>
+        }
+    </select>
+    <div class="divSeleccionados">
+        <h3>Seleccionados</h3>
+        <dl>
+            <dt></dt>
+            <dd></dd>
+        </dl>
+    </div>
+</main>
+<script src="~/scripts/st.js"></script>
+<div class="container-all" id="popadd">
+    <form data-ajax="true">
+        <section class="popupestrategias">
+            <h3>Añadir partidas</h3>
+
+            <p>Presiona ctrl + click izquierdo para seleccionar las partidas deseadas</p>
+
+
+            <select id="estrategias" size="20" multiple>
+
+                @*<optgroup label="Capitulo 2">
+                        <option value="partida5">partida5</option>
+                        <option value="partida9">partida9</option>
+                    </optgroup>*@
+            </select>
+
+            <div>
+                <button class="confirm">Cancelar</button>
+                <button class="cancel">Añadir</button>
+
+            </div>
+        </section>
+    </form>
+</div>
+
+<div class="container-all" id="popeliminar">
+    <form>
+        <section class="popupestrategias">
+            <h3>Eliminar partidas</h3>
+            <p>Presiona ctrl + click izquierdo para deseleccionar las partidas deseadas</p>
+
+
+            <select id="estrategias" size="20" multiple class="esthtml">
+                @*<optgroup label="Capitulo 1">
+                        <option value="partida1">partida1</option>
+                        <option value="partida2">partida2</option>
+                    </optgroup>
+                    <optgroup label="Capitulo 2">
+                        <option value="partida5">partida5</option>
+                        <option value="partida9">partida9</option>
+                    </optgroup>*@
+            </select>
+
+
+            <div>
+                <button class="confirm">Cancelar</button>
+                <button class="cancel">Añadir</button>
+
+            </div>
+        </section>
+    </form>
+</div>
+
+
+
