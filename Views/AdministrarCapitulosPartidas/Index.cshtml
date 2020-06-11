@@ -8,12 +8,12 @@
     <main>
         <nav>
             <div class="fabs" id="options">
-                <a href="javascript:showM('popEdit');" id="btnEditar" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-                <a href="javascript:showM('popdelete');" id="btnEliminar" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
+                <a href="javascript:showM('popEdit');" id="btnEditar" class="fab-button"><i class="fa fa-edit"></i></a>
+                <a href="javascript:showM('popdelete');" id="btnEliminar" class="fab-button openpopup"><i class="fa fa-trash"></i></a>
             </div>
             <ul class="fabSubfab">
                 <li>
-                    <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
+                    <a href="#" class="fab"><i class="fa fa-plus"></i></a>
                     <ul>
                         <li>
                             <a href="javascript:showM('popAdd');">Añadir capitulo</a>
@@ -37,39 +37,42 @@
             <a href="#popaddO">Añadir capítulo</a>
             <a href="#popaddE">Añadir partida</a>
         </div>*@
+    <section>
+        <h2>Administrar partidas y capítulos</h2>
 
-        <div class="divtablaObj">
-            @foreach (Capitulo cap in Model.ListaCapitulos)
-            {
-                <ol>
-                    <li>
-                        <table class="tablaObj">
-                            <tr id="thObj">
-                                <th hidden id="@cap.Id"></th>
-                                <th id="nmCap">@cap.Nombre</th>
-                            </tr>
-
-                            @foreach (Partida par in cap.Partida.Where(x => x.Eliminado == false))
-                            {
-                                <tr id="filaEst">
-                                    <td hidden id="@par.Clave"></td>
-                                    <td id="nmPart">@par.Concepto</td>
+            <div class="respTable">
+                @foreach (Capitulo cap in Model.ListaCapitulos)
+                {
+                    <ol>
+                        <li>
+                            <table class="table">
+                                <tr id="thObj">
+                                    <th hidden id="@cap.Id"></th>
+                                    <th id="nmCap">@cap.Nombre</th>
                                 </tr>
-                            }
-                        </table>
-                    </li>
-                </ol>
-            }
 
-        </div>
+                                @foreach (Partida par in cap.Partida.Where(x => x.Eliminado == false))
+                                {
+                                    <tr id="filaEst">
+                                        <td hidden id="@par.Clave"></td>
+                                        <td id="nmPart">@par.Concepto</td>
+                                    </tr>
+                                }
+                            </table>
+                        </li>
+                    </ol>
+                }
 
+            </div>
+       
+    </section>
 
         @Html.Raw(ViewBag.Message)
     </main>
 
 <div class="container-all" id="popdelete" style="display:none">
     <section class="popup" style="visibility:visible;">
-        <label id="elNom">¿Eliminar?</label>
+        <h2 id="elNom">¿Eliminar?</h2>
         <form class="formAjax" method="post">
             <input id="deleteId" type="hidden" name="Id" />
             <p class="error"></p>
@@ -82,12 +85,12 @@
 </div>
 
 <div id="popAdd" class="container-all" style="display:none;">
-    <section class="popup" id="popupAddC" style="visibility:visible;">
+    <section class="popuppiid" id="popupAddC" style="visibility:visible;">
         <form class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/AgregarCapitulo">
-            <label>Agregar</label>
-            <h1>Capitulo:</h1>
+            <h2>Agregar</h2>
+            <label>Capitulo:</label>
             <input required class="agregarObj" type="text" asp-for="@Model.Capitulo.Nombre" />
-            <h1>Clave:</h1>
+            <label>Clave:</label>
             <input required maxlength="4" class="agregarObj" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" asp-for="@Model.Capitulo.Clave" />
             <p class="error"></p>
             <div>
@@ -99,15 +102,15 @@
 </div>
 
 <div class="container-all" id="popEdit" style="display:none">
-    <section class="popup" id="popupEditC" style="visibility:visible;">
+    <section class="popuppiid" id="popupEditC" style="visibility:visible;">
 
         <form id="formCap" class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/EditarCapitulo">
-            <label>Editar</label>
-            <h1>Capitulo:</h1>
+            <h2>Editar</h2>
+            <label>Capitulo:</label>
             <input id="edId" type="hidden" asp-for="@Model.Capitulo.Id" />
             <input id="edElim" type="hidden" asp-for="@Model.Capitulo.Eliminado" />
             <input required id="edNombre" class="agregarObj" type="text" asp-for="@Model.Capitulo.Nombre" />
-            <h1>Clave:</h1>
+            <label>Clave:</label>
             <input type="text" readonly id="edClave" class="agregarObj" asp-for="@Model.Capitulo.Clave" />
             <p class="error"></p>
             <div>
@@ -117,12 +120,12 @@
         </form>
 
         <form id="formPart" class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/EditarPartida">
-            <label>Editar</label>
-            <h1>Partida:</h1>
+            <h2>Editar</h2>
+            <label>Partida:</label>
             <input id="edIdP" type="hidden" asp-for="@Model.Partida.Clave" />
             <input id="edElimP" type="hidden" asp-for="@Model.Partida.Eliminado" />
             <input required id="edNombreP" class="agregarObj" type="text" asp-for="@Model.Partida.Concepto" />
-            <h1>Clave:</h1>
+            <label>Clave:</label>
             <input type="text" readonly id="edClaveP" class="agregarObj" asp-for="@Model.Partida.Clave" />
             <select class="agregarObj" id="edIdCapitulo" asp-for="@Model.Partida.Capitulo" asp-items="@(new SelectList(Model.ListaCapitulos,"Id","Nombre"))">
                 <option selected="selected" value="">-- Seleccionar capitulo --</option>
@@ -138,15 +141,15 @@
 </div>
 
 <div class="container-all" id="popAddPartida" style="display:none">
-    <section class="popup" style="visibility:visible;">
-        <label>Agregar</label>
-        <h1>Partida:</h1>
+    <section class="popuppiid" style="visibility:visible;">
+        <h2>Agregar partida</h2>
+        
         <form class="formAjax" method="post" action="~/AdministrarCapitulosPartidas/AgregarPartida">
-            <h1>Concepto:</h1>
+            <label>Concepto:</label>
             <input class="agregarObj" type="text" asp-for="@Model.Partida.Concepto" />
-            <h1>Clave: </h1>
+            <label>Clave: </label>
             <input required maxlength="5" class="agregarObj" max="32767" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" asp-for="@Model.Partida.Clave" />
-            <h1>Capitulo:</h1>
+            <label class="selectcap">Capitulo:</label>
             <select class="agregarObj" asp-for="@Model.Partida.Capitulo" asp-items="@(new SelectList(Model.ListaCapitulos,"Id","Nombre"))">
                 <option selected="selected" value="">-- Seleccionar capitulo --</option>
             </select>

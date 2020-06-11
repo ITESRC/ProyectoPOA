@@ -9,50 +9,53 @@
     //List<Estrategia> estrategias = ViewBag.Estrategias;
 
 }
-<main>
-    <nav>
-        <div class="fabs" id="options">
-            <a href="javascript:showM('popedit');" class="material-icons fab-button hint--left" aria-label="Editar">edit</a>
-            <a href="javascript:showM('popdelete');" class="material-icons fab-button  hint--left openpopup" aria-label="Eliminar">delete</a>
-        </div>
-        <ul class="fabSubfab">
-            <li>
-                <a href="#" class="material-icons fab-button  hint--left" aria-label="Añadir nuevo">add</a>
-                <ul>
-                    <li>
-                        <a href="javascript:showM('popadd');">Añadir objetivo</a>
-                    </li>
-                    <li>
-                        <a href="javascript:showM('popaddE');">Añadir estrategia</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+    <main>
+        <nav>
+            <div class="fabs" id="options">
+                <a href="javascript:showM('popedit');" class="fab-button"><i class="fa fa-edit"></i></a>
+                <a href="javascript:showM('popdelete');" class="fab-button openpopup"><i class="fa fa-trash"></i></a>
+            </div>
+            <ul class="fabSubfab">
+                <li>
+                    <a href="#" class="fab"><i class="fa fa-plus"></i></a>
+                    <ul>
+                        <li>
+                            <a href="javascript:showM('popadd');">Añadir objetivo</a>
+                        </li>
+                        <li>
+                            <a href="javascript:showM('popaddE');">Añadir estrategia</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
 
-    <div class="divtablaObj">
-        <ol>
-            <li>
-                <table class="tablaObj">
-                    @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
-                    {
-                        <tr id="thObj">
+        <section>
+            <h2>Administrar objetivos y estrategias</h2>
+            <div class="respTable">
+                <ol>
+                    <li>
+                        <table class="table">
+                            @foreach (ObjetivosEstrategiasViewModel obje in objetivos)
+                            {
+                                <tr id="thObj">
 
-                            <th id="@obje.Id" class="Dato">@obje.Nombre</th>
-                        </tr>
-                        @foreach (Estrategia item in obje.ListaEstregias)
-                        {
-                            <tr id="filaEst">
-                                
-                                <td id="@item.Id" class="estN">@item.Nombre</td>
-                            </tr>
-                        }
-                    }
-                </table>
-            </li>
-        </ol>
-    </div>
-</main>
+                                    <th id="@obje.Id" class="Dato">@obje.Nombre</th>
+                                </tr>
+                                @foreach (Estrategia item in obje.ListaEstregias)
+                                {
+                                    <tr id="filaEst">
+
+                                        <td id="@item.Id" class="estN">@item.Nombre</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </li>
+                </ol>
+            </div>
+            </section>
+    </main>
 @Html.Raw(ViewBag.Message)
 <div class="container-all" id="popdelete" style="display:none;">
     <section class="popup" style="visibility:visible;">
@@ -106,7 +109,7 @@
 <div class="container-all" id="popaddE" style="display:none;">
     <section class="popup" style="visibility:visible;">
         <form method="post" action="~/PIID/Agregar" class="formAjax">
-            <label>Agregar</label>
+            <h2>Agregar</h2>
             <h1>Estrategia:</h1>
             <input class="agregarObj" type="text" />
             <p class="error"></p>
@@ -120,7 +123,7 @@
 <div class="container-all" id="popedit" style="display:none;">
     <section class="popup" style="visibility:visible;" id="ModalEdit">
         <form method="post" action="~/PIID/Editar" class="formAjax">
-            <label>Editar</label>
+            <h2>Editar</h2>
             <h1>Estrategia:</h1>
             <input asp-for="Nombre" class="agregarObj" id="MostrarEst" type="text" />
             <p class="error"></p>
