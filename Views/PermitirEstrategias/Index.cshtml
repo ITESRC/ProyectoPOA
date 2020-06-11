@@ -1,10 +1,9 @@
 ﻿@inject UnidadesAdministrativasService servicio
-@model UnidadEstrategiasPermitidasViewModel
 @{
     ViewData["Title"] = "PermitirEstrategias";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<main>
+@*<main>
     <div class="fabsMain">
         <button id="btnEditar" class="fab-button"><i class="fa fa-edit"></i></button>
     </div>
@@ -17,7 +16,7 @@
         }
         else
         {
-    <select id="cmbUnidades" asp-items="@(new SelectList(servicio.GetSuperiores(),"Id","Nombre"))" onchange="CambiarUnidad()">
+    <select id="cmbUnidades" asp-items="@(new SelectList(servicio.GetUnidades(),"Id","Nombre"))" onchange="CambiarUnidad()">
         <option selected="selected" value="">-- Seleccionar Unidad --</option>
     </select>
         }
@@ -37,17 +36,28 @@
         </dl>
     </div>
         }
-</main>
+</main>*@
+
+    <main>
+        <div class="fabsMain">
+            <button id="btnEditar" class="fab-button"><i class="fa fa-edit"></i></button>
+        </div>
+        <h3>Unidad administrativa:</h3>
+        <select id="cmbUnidades" asp-items="@(new SelectList(servicio.GetUnidades(),"Id","Nombre"))">
+            <option selected="selected" value="">-- Seleccionar Unidad --</option>
+        </select>
+        <div class="divSeleccionados">
+            <h3>Estrategias seleccionadas</h3>
+            <dl id="dlEstrategias">
+                <dt></dt>
+                <dd></dd>
+            </dl>
+        </div>
+    </main>
 <div class="container-all" id="popadd">
     <section class="popupestrategias">
         <h3>Añadir estrategias</h3>
         <section id="estrategias">
-            @*<ul>
-                    <li><input type="checkbox" /><label>estrategia</label></li>
-                    <li><input type="checkbox" /><label>estrategia</label></li>
-                    <li><input type="checkbox" /><label>estrategia</label></li>
-                    <li><input type="checkbox" /><label>estrategia</label></li>
-                </ul>*@
             @if (Model != null)
             {
             <dl>

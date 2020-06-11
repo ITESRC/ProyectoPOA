@@ -32,7 +32,6 @@ namespace ProyectoPOA.Controllers
             data = new PermitirPartidasRepository();
             var res = data.GetPartidasPermitidas(1);
             var list = res.CapitulosPermitidos.Select(x => x.PartidasPermitidas.Where(y => y.IdCapitulo == x.IdCapituloPermitido));
-
             return Json(list);
         }
         [HttpGet]
