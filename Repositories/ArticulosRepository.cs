@@ -33,7 +33,7 @@ namespace ProyectoPOA.Repositories
 
         public IEnumerable<Articulo> GetArticulosByDescripcion(String desc)
         {
-            return Context.Articulo.Where(X => X.Descripcion.ToLower().Contains(desc.ToLower()));
+            return Context.Articulo.Include(x=>x.IdunidadmedidaNavigation).Where(X => X.Descripcion.ToLower().Contains(desc.ToLower())&&X.Eliminado==false);
         }
 
         public Boolean Validar(Articulo a, out List<String> errores)
