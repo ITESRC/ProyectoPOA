@@ -9,6 +9,7 @@ namespace ProyectoPOA.Models.ViewModels
     {
         public int IdEstrategia { get; set; }
         public string NombreEstrategia { get; set; }
+        public bool Permitida { get; set; }
         public int IdObjetivo { get; set; }
     }
 }

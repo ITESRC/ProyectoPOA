@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Options;
+using ProyectoPOA.Models.ViewModels;
 using ProyectoPOA.Repositories;
 
 namespace ProyectoPOA.Controllers
@@ -12,30 +14,6 @@ namespace ProyectoPOA.Controllers
     public class PermitirEstrategiasController : Controller
     {
         PermitirEstrategiaRepository context;
-
-        //[HttpGet]
-        //public IActionResult Index([FromQuery]int id)
-        //{
-        //    if (id > 0)
-        //    {
-        //        context = new PermitirEstrategiaRepository();
-        //        var model = context.GetEstrategiasPermitidasDeUnidad(id);
-        //        if (model != null)
-        //        {
-        //            ViewBag.IdUnidad = id;
-        //            ViewBag.NombreUnidad = model.NombreUnidad;
-        //            return View(model);
-        //        }
-        //        else
-        //        {
-        //            return View();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
 
         public IActionResult Index()
         {
@@ -46,6 +24,21 @@ namespace ProyectoPOA.Controllers
         {
             context = new PermitirEstrategiaRepository();
             var data = context.GetEstrategiasPermitidasDeUnidad(id);
+            return Json(data);
+        }
+
+        public JsonResult MostrarEstrategiasParaPermitir(int id)
+        {
+            context = new PermitirEstrategiaRepository();
+            var data = context.GetEstrategiasParaPermitir(id);
+            return Json(data);
+        }
+
+        [HttpPost]
+        public JsonResult EditarEstrategiasPermitidas(EditarEstrategiasPermitidasViewModel estrategias)
+        {
+            context = new PermitirEstrategiaRepository();
+            var data = context.Editar(estrategias);
             return Json(data);
         }
     }
